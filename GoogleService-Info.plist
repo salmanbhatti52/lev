@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>806016614387-b22ltd25hsli0bcejulj600emc61vfj9.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.806016614387-b22ltd25hsli0bcejulj600emc61vfj9</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>806016614387-ateh1q7buavceio28te75a1kh5fd7g1n.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAtEbLlVFJ8Y_PWT3AqKBp14_34vMM-Y64</string>
+	<key>GCM_SENDER_ID</key>
+	<string>806016614387</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.lev.apps1</string>
+	<key>PROJECT_ID</key>
+	<string>levotp</string>
+	<key>STORAGE_BUCKET</key>
+	<string>levotp.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:806016614387:ios:1dd3efd7313e2f8f735c86</string>
+</dict>
+</plist>

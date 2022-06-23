@@ -1,0 +1,243 @@
+<ion-content>
+  <div id="sign-in-button"></div>
+
+  <img style="width: 20px;
+  margin-left: 30px;" src="assets/imgs/left.svg" (click)="goBack()" class="top-margin-head-40">
+
+  <div style="padding: 0px 20px 20px 20px;" class="margin-top-fixed">
+
+    <ion-row style="margin-top: 40px;">
+      <ion-col style="text-align: center;">
+        <img style="    width: 300px;
+        height: 190px;" src="assets/imgs/logo.svg"> <br>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-top: 50px;">
+      <ion-col>
+        <ion-label style="font-size: 16pt;"> Getting Started</ion-label> <br>
+        <ion-text style="font-size: 12pt;">What's your phone number? </ion-text>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-top: 50px;">
+
+
+      <ion-col size="3" style="text-align: center;">
+        <div [class.redBorder]="countryCodeStatus" style="background-color: #333333;
+            height: 47pt;
+            width: 55pt;
+            border-radius: 10px;
+            padding-top: 4.5px;">
+
+          <!-- <img style="      top: 10px;  width: 30px;
+            height: 30px;
+            position: absolute;
+            left: 15px;" src="assets/imgs/flags/{{flagofcountry}}.png">
+
+          <img style="     width: 15px;
+            height: 15px;
+            position: absolute;
+            top: 15px;
+            left: 50px;" src="assets/imgs/down.svg">
+
+          <br>
+
+          <ion-label style="top: 37px;
+                              position: absolute;
+                              left: 33px;
+                              font-size: 17px;">{{countryCode}}</ion-label> -->
+
+          <ion-input type="tel" maxlength="6" placeholder="+1" [(ngModel)]="countryCode" (ionInput)="countryCodeInput()"></ion-input>
+
+        </div>
+      </ion-col>
+
+      <ion-col size="9" style="text-align: left;">
+
+        <div style="background-color: #333333;
+        height: 47pt;
+        width: 100%;
+        border-radius: 10px;
+        margin-left: 10px;">
+
+          <ion-label [class.redclass]="phoneNumStatus" style="top: 14px;
+        left: 33px;
+        font-size: 9pt;
+        position: absolute;">Phone Number</ion-label>
+
+          <ion-input *ngIf="countryCode == '+1'" type="tel" style="top: 22px;
+                    left: 19px;
+                    position: absolute;
+                    padding-top: 5px;" maxlength="14" placeholder="Enter Phone Number" #phoneInput
+            [formControl]="phoneNumberMSK" [(ngModel)]="phoneNum"></ion-input>
+
+          <ion-input *ngIf="countryCode != '+1'" type="tel" style="top: 22px;
+          left: 19px;
+          position: absolute;
+          padding-top: 5px;" maxlength="14" placeholder="Enter Phone Number" [(ngModel)]="phoneNum"></ion-input>
+
+        </div>
+
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row style="margin-top: 50px;">
+      <ion-col style="text-align: center;">
+        <button (click)="goToOTP()" style="margin-bottom: 12px;" class="btn">Text Me</button>
+
+
+
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row style="margin-top: 50px;">
+      <ion-col style="text-align: center;">
+        <button (click)="send()" style="margin-bottom: 12px;" class="btn">Text Me</button>
+      </ion-col>
+    </ion-row> -->
+
+
+  </div>
+
+
+
+
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+
+
+<div [hidden]="matchpopupHidden" style="    height: 100%;
+width: 100%;
+background-color: #000000;
+position: absolute;">
+
+
+  <img (click)="hidePopup()" style="width: 20px;
+                margin-left: 30px;" src="assets/imgs/left.svg" class="top-margin-head-40">
+
+  <div style="background: black; padding: 0px 20px 20px 20px; margin-top: 50px;">
+
+    <ion-row style="margin-top: 20px;">
+      <ion-col style="text-align: center;">
+        <img style="    width: 300px;
+        height: 190px;" src="assets/imgs/logo.svg"> <br>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-top: 10px;">
+      <ion-col>
+        <ion-label style="font-size: 16pt;">Enter Your Verification Code</ion-label> <br>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-top: 20px;">
+      <ion-col>
+        <ion-text style="font-size: 9pt;">Enter your 6 digit verification OTP</ion-text>
+
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row style="margin-top: 0px;">
+      <ion-col>
+        <ion-label style="font-size: 10pt;">Sent to {{completePhoneNum}}</ion-label>
+        <ion-text style="font-size: 10pt; margin-left: 10px;" (click)="editNum()">Edit</ion-text>
+
+      </ion-col>
+    </ion-row>
+
+
+    <!-- ///////////////////// -->
+
+    <ion-row style="margin-top: 50px;">
+      <ion-col size="2" style="text-align:  -webkit-center;;">
+
+        <ion-input type="tel" class="inp" style="height: 30pt;
+      width: 30pt;" placeholder="0" [(ngModel)]="otp1" maxlength="1" #input1 (ionChange)="inp1Change($event)">
+        </ion-input>
+
+      </ion-col>
+
+      <ion-col size="2" style="text-align:  -webkit-center;;">
+
+        <ion-input type="tel" class="inp" style="height: 30pt;
+      width: 30pt;" placeholder="0" [(ngModel)]="otp2" maxlength="1" #input2 (ionChange)="inp2Change($event)">
+        </ion-input>
+
+      </ion-col>
+
+      <ion-col size="2" style="text-align:  -webkit-center;;">
+
+        <ion-input type="tel" class="inp" style="height: 30pt;
+      width: 30pt;" placeholder="0" [(ngModel)]="otp3" maxlength="1" #input3 (ionChange)="inp3Change($event)">
+        </ion-input>
+
+      </ion-col>
+
+      <ion-col size="2" style="text-align:  -webkit-center;;">
+
+        <ion-input type="tel" class="inp" style="height: 30pt;
+      width: 30pt;" placeholder="0" [(ngModel)]="otp4" maxlength="1" #input4 (ionChange)="inp4Change($event)">
+        </ion-input>
+
+      </ion-col>
+
+
+      <!-- 0000000000000000000000000 -->
+
+
+      <ion-col size="2" style="text-align:  -webkit-center;;">
+
+        <ion-input type="tel" class="inp" style="height: 30pt;
+      width: 30pt;" placeholder="0" [(ngModel)]="otp5" maxlength="1" #input5 (ionChange)="inp5Change($event)">
+        </ion-input>
+
+      </ion-col>
+
+
+
+      <ion-col size="2" style="text-align:  -webkit-center;;">
+
+        <ion-input type="tel" class="inp" style="height: 30pt;
+      width: 30pt;" placeholder="0" [(ngModel)]="otp6" maxlength="1" #input6 (ionChange)="inp6Change($event)">
+        </ion-input>
+
+      </ion-col>
+
+
+
+    </ion-row>
+
+    <ion-row style="margin-top: 20px;">
+      <ion-col>
+        <ion-label style="font-size: 8pt;">Didn't receive code? </ion-label>
+        <ion-text style="font-size: 10pt; margin-left: 10px;" (click)="resendOTP()">Resend</ion-text>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-top: 30px;">
+      <ion-col style="text-align: center;">
+        <button (click)="goToProfile1()" style="margin-bottom: 12px;" class="btn">Confirm</button>
+      </ion-col>
+    </ion-row>
+
+  </div>
+
+
+
+
+</div>

@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "levotp": {
+      "hosting": {
+        "app": [
+          "levotp"
+        ]
+      }
+    }
+  }
+}

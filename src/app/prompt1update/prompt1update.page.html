@@ -1,0 +1,64 @@
+<ion-content>
+  <ion-row style="margin-right: 20px" class="top-margin-head-40">
+    <ion-col style="text-align: right; padding-right: 24px;">
+      <img (click)="goBack()" style="height: 20px; width: 20px" src="assets/imgs/close.svg" />
+    </ion-col>
+  </ion-row>
+
+
+
+  <div style="padding: 0px 24px 10px 26px;" class="margin-top-fixed">
+
+
+    <ion-row (click)="showprompt1()" style="    background: #313131;
+    padding: 10px; border-radius: 10px;">
+      <ion-col size="10">
+        <ion-text style="font-size: 9pt; " [class.redclass]="prompt1ValStatus">{{prompt1Name}}
+        </ion-text>
+      </ion-col>
+
+      <ion-col size="2" style="text-align: right;">
+        <img *ngIf="prompts1show" style="width: 16px;
+        height: 16px;" src="assets/imgs/down.png">
+        <img *ngIf="!prompts1show" style="width: 16px;
+         height: 16px;" src="assets/imgs/up.png">
+      </ion-col>
+
+
+    </ion-row>
+
+    <div [hidden]="prompts1show" style="height: 85px;
+      overflow: auto;">
+
+      <h6 (click)="prompt1(nat,i)" *ngFor="let nat of user_prompts_array ; let i = index">{{nat.name}}
+      </h6>
+
+    </div>
+
+
+
+  </div>
+
+
+
+
+  <div style="padding: 20px 20px 20px 20px">
+
+
+    <ion-row style="margin-top: -10px">
+      <ion-col>
+        <ion-textarea style="
+            height: 170px;
+            border-radius: 10px;
+            background: rgba(112, 112, 112, 0.44);
+          " placeholder="Write here...." [(ngModel)]="prompt1Data" (ionChange)="changeFunction($event)"></ion-textarea>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <ion-row style="width: 100%; position: absolute; bottom: 3px; padding: 20px">
+    <ion-col style="text-align: center">
+      <button (click)="goToProfile()" class="btn">Save</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

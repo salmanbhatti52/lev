@@ -1,0 +1,170 @@
+<ion-content>
+
+  <ion-row class="top-margin-head-40">
+    <ion-col size="3" style="text-align: left; padding-left: 10px;">
+      <img (click)="goToBack()" style="width: 20px;
+    height: 20px;" src="assets/imgs/left.svg">
+    </ion-col>
+    <ion-col size="6" style="text-align: center;">
+      <ion-label style="font-size: 14pt;">Get Started</ion-label>
+    </ion-col>
+    <ion-col size="3">
+
+    </ion-col>
+  </ion-row>
+
+
+  <div style="padding: 0px 20px 20px 20px;" class="margin-top-fixed">
+
+
+    <ion-row style="margin-top: 20px;">
+      <ion-col>
+        <ion-label style="font-size: 9pt;">Your Details</ion-label> <br>
+        <ion-text style="font-size: 7pt;">Your data will be stored in accordance with the terms in our privacy policy.
+        </ion-text>
+
+      </ion-col>
+    </ion-row>
+
+
+    <div style="border: 2px solid #707070; border-radius: 10px; margin-top: 15px;">
+
+      <div style="padding-top: 10px;
+      padding-left: 10px;
+      padding-right: 10px;
+      padding-bottom: 0px;" class="inp-top-radius">
+
+        <ion-text [class.redclass]="fnameStatus" style="font-size: 7pt;">First name *</ion-text>
+        <ion-input autocapitalize=words style="height: 26px;
+      font-size: 9pt;" placeholder="Enter First Name" [(ngModel)]="fname" (ionChange)="changename($event)"></ion-input>
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text [class.redclass]="lnameStatus" style="font-size: 7pt;">Last name *</ion-text>
+        <ion-input autocapitalize=words style="height: 26px;
+      font-size: 9pt;" placeholder="Enter Last Name" [(ngModel)]="lname" (ionChange)="changelname($event)"></ion-input>
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text [class.redclass]="emailStatus" style="font-size: 7pt;">Email *</ion-text>
+        <ion-input style="height: 26px;
+      font-size: 9pt;" placeholder="Enter Email" [(ngModel)]="email" (ionChange)="changeemail($event)"></ion-input>
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text [class.redclass]="pass1Status" style="font-size: 7pt;">Create password *</ion-text>
+        <ion-input type="password" style="height: 26px;
+      font-size: 9pt;" placeholder="******" [(ngModel)]="pass1" (ionChange)="changepass($event)"></ion-input>
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+      <div class="inp-bottom-radius" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text [class.redclass]="pass2Status" style="font-size: 7pt;">Re-enter password *</ion-text>
+        <ion-input type="password" style="height: 26px;
+      font-size: 9pt;" placeholder="******" [(ngModel)]="pass2" (ionChange)="changepass2($event)"></ion-input>
+
+      </div>
+
+    </div>
+
+
+    <ion-row style="margin-top: 20px;">
+      <ion-col>
+
+        <ion-text style="font-size: 7pt; color: #888888;">By signing up, you agree to the LEV privacy policy and terms
+          and conditions.
+          You can change the way we contact you or unsubscribe at any time.
+        </ion-text>
+
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row style="margin-top: 10px;">
+      <ion-col size="9">
+        <ion-text style="font-size: 8pt; color: #ffffff;">I would like to receive updates, news and benefits from
+          LEV.
+        </ion-text>
+      </ion-col>
+
+      <ion-col size="3">
+        <ion-toggle *ngIf="getNotiAndUpdates == 'Yes'" (ionChange)="getNoti($event)"
+          [class.togglePaddClass]="togglePlatformAndroid" checked></ion-toggle>
+        <ion-toggle *ngIf="getNotiAndUpdates == 'No'" (ionChange)="getNoti($event)"
+          [class.togglePaddClass]="togglePlatformAndroid"></ion-toggle>
+      </ion-col>
+    </ion-row>
+
+
+
+    <ion-row style="margin-top: 30px;">
+      <ion-col style="text-align: -webkit-center;">
+        <div (click)="createAccount()" style="margin-bottom: 12px;" class="btn">
+          <ion-text style="color: black;"><b>Create my account</b></ion-text>
+        </div>
+      </ion-col>
+    </ion-row>
+
+
+
+
+    <ion-row style="margin-top: 5px;">
+      <ion-col style="text-align: -webkit-center;">
+        <div (click)="goToSignin()" style="margin-bottom: 12px;">
+          <ion-text style="color: rgb(255, 255, 255);"><b>Sign in</b></ion-text>
+        </div>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row style="margin-top: 5px;">
+      <ion-col>
+        <ion-text (click)="goToTermsPolicy()" style="color: rgb(255, 255, 255);">Terms and Policies</ion-text>
+      </ion-col>
+
+      <ion-col>
+        <ion-text (click)="goToCareer()" style="color: rgb(255, 255, 255);">Careers</ion-text>
+      </ion-col>
+    </ion-row>
+
+
+
+
+    <ion-row style="margin-top: 5px;">
+
+      <ion-col>
+        <ion-text (click)="goToContact()" style="color: rgb(255, 255, 255);">Contact</ion-text>
+      </ion-col>
+
+      <ion-col>
+        <ion-text (click)="gotoInta()" style="color: rgb(255, 255, 255);">@instagram</ion-text>
+      </ion-col>
+    </ion-row>
+
+
+
+
+
+  </div>
+
+
+
+
+</ion-content>

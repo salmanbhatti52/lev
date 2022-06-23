@@ -1,0 +1,22 @@
+{
+  "name": "cordova-plugin-detect-screenshot",
+  "version": "1.0.8",
+  "description": "Detects screenshots on iOS",
+  "cordova": {
+    "id": "cordova-plugin-detect-screenshot",
+    "platforms": [
+      "ios"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/restocks/cordova-plugin-detect-screenshot"
+  },
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-ios"
+  ],
+  "author": "Restocks",
+  "license": "MIT"
+}

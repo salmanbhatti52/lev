@@ -1,0 +1,358 @@
+<ion-content>
+
+  <ion-row class="top-margin-head-40">
+    <ion-col size="2" style="text-align: center;">
+      <img (click)="goBack()" style="height: 20px; width:20px;" src="assets/imgs/left.svg">
+    </ion-col>
+    <ion-col size="6" style="text-align: center; padding-top: 0px;">
+
+    </ion-col>
+    <ion-col size="4" style="text-align: center;">
+
+    </ion-col>
+  </ion-row>
+
+
+
+  <ion-row style="margin-top: 90px;">
+    <ion-col style="text-align: left;">
+      <p style="margin-left: 14px;
+      font-size: 14pt;">{{userData.first_name}} {{userData.last_name}}</p>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row style="margin-top: 10px;">
+    <ion-col style="text-align: center;">
+      <img (error)="handleImgError($event, item)" style="width:70%;height: 250px;"
+        src="{{restService.baseUrlForImg}}{{userData.profile_pic_1}}">
+    </ion-col>
+  </ion-row>
+
+
+  <div style="padding: 25px;">
+    <p style="font-size:14pt;">Prompt</p>
+
+    <div style="margin-top: 18px;
+    border-radius: 5px;
+    border: 2px solid #707070; 
+    padding: 15px;">
+
+      <ion-text style="font-size: 10pt;">
+        {{prompt1Head}}
+      </ion-text>
+      <br>
+      <ion-text style="font-size: 10pt;">
+        {{prompt1Data}}
+      </ion-text>
+      <br *ngIf="prompt1UserReply != ''">
+      <ion-text *ngIf="prompt1UserReply != ''" style="font-size: 10pt;">
+        {{prompt1UserReply}}
+      </ion-text>
+
+      <img *ngIf="prompt1Loader" style="position: absolute;
+      height: 25px;
+      width: 25px;
+      right: 36px;" src="assets/imgs/loader.gif">
+
+
+      <img *ngIf="!prompt1Loader" (click)="prompt1ShareClick()" style="position: absolute;
+          height: 25px;
+          width: 25px;
+          padding: 2px;
+          border: 1px solid white;
+          right: 36px;" src="assets/imgs/share.svg">
+    </div>
+
+
+
+    <ion-row style="margin-top: 20px;">
+      <ion-col style="text-align: center;">
+        <img (error)="handleImgError($event, item)" style="width:80%;height:250px;"
+          src="{{restService.baseUrlForImg}}{{userData.profile_pic_2}}">
+      </ion-col>
+    </ion-row>
+
+
+    <div style="padding: 0px;">
+      <p style="font-size:14pt;">Prompt</p>
+
+      <div style="margin-top: 18px;
+    border-radius: 5px;
+    border: 2px solid #707070;
+    padding: 15px;">
+
+        <ion-text style="font-size: 10pt;">
+          {{prompt2Head}}
+        </ion-text>
+        <br>
+        <ion-text style="font-size: 10pt;">
+          {{prompt2Data}}
+        </ion-text>
+
+        <br *ngIf="prompt2UserReply != ''">
+        <ion-text *ngIf="prompt2UserReply != ''" style="font-size: 10pt;">
+          {{prompt2UserReply}}
+        </ion-text>
+
+
+        <img *ngIf="prompt2Loader" style="position: absolute;
+        height: 25px;
+        width: 25px;
+        right: 36px;" src="assets/imgs/loader.gif">
+
+        <img *ngIf="!prompt2Loader" (click)="prompt2ShareClick()" style="position: absolute;
+          height: 25px;
+          width: 25px;
+          padding: 2px;
+          border: 1px solid white;
+          right: 36px;" src="assets/imgs/share.svg">
+      </div>
+
+    </div>
+
+
+
+
+
+    <ion-row style="margin-top: 30px;">
+      <ion-col>
+
+        <ion-text style="font-size: 10pt;">Height</ion-text>
+        <br>
+        <ion-text style="font-size: 10pt; color: #ffffff;">{{height1}}'{{height2}} feet</ion-text>
+
+      </ion-col>
+
+      <ion-col>
+
+        <ion-text style="font-size: 10pt;">Location</ion-text>
+        <br>
+        <ion-text style="font-size: 10pt; color: #ffffff;">{{userData.lives}}</ion-text>
+
+      </ion-col>
+    </ion-row>
+
+    <hr style="border-bottom: 1px solid white; width: 100%;">
+
+
+
+
+    <ion-row style="margin-top: 10px;">
+      <ion-col>
+
+        <ion-text style="font-size: 10pt;">Status</ion-text>
+        <br>
+        <ion-text style="font-size: 10pt; color: #ffffff;">{{userData.system_maritalstatus_name}}</ion-text>
+
+      </ion-col>
+
+
+    </ion-row>
+
+    <hr style="border-bottom: 1px solid white; width: 100%;">
+
+
+
+
+
+    <ion-row style="margin-top: 10px;">
+      <ion-col>
+
+        <ion-text style="font-size: 10pt;">Religion</ion-text>
+        <br>
+        <ion-text style="font-size: 10pt; color: #ffffff;">{{userData.system_religions_name}}</ion-text>
+
+      </ion-col>
+
+
+    </ion-row>
+
+    <hr style="border-bottom: 1px solid white; width: 100%;">
+
+
+
+
+    <div style="margin-top: 10px;">
+      <ion-text style="font-size: 10pt;">School</ion-text>
+      <br>
+      <ion-chip style="background: #4f4f4f; max-width: 99%;
+        overflow: auto;" *ngFor="let school of userSchool; let i = index">
+        <ion-label>{{school.name}}</ion-label>
+      </ion-chip>
+
+
+    </div>
+
+    <hr style="border-bottom: 1px solid white; width: 100%;">
+
+
+
+    <ion-row style="margin-top: 10px;">
+      <ion-col>
+
+        <ion-text style="font-size: 10pt;">Short Bio</ion-text>
+        <br>
+        <ion-text style="font-size: 10pt; color: #ffffff;">{{userData.short_bio}}</ion-text>
+
+      </ion-col>
+
+
+    </ion-row>
+    <p style="font-size:14pt;">Prompt</p>
+
+    <div style="margin-top: 18px;
+    border-radius: 5px;
+    border: 2px solid #707070;
+    padding: 15px;">
+
+      <ion-text style="font-size: 10pt;">
+        {{prompt3Head}}
+      </ion-text>
+      <br>
+
+      <ion-text style="font-size: 10pt;">
+        {{prompt3Data}}
+      </ion-text>
+      <br *ngIf="prompt3UserReply != ''">
+
+      <ion-text *ngIf="prompt3UserReply != ''" style="font-size: 10pt;">
+        {{prompt3UserReply}}
+      </ion-text>
+
+
+
+
+      <img *ngIf="prompt3Loader" style="position: absolute;
+      height: 25px;
+      width: 25px;
+      right: 36px;" src="assets/imgs/loader.gif">
+
+      <img *ngIf="!prompt3Loader" (click)="prompt3ShareClick()" style="position: absolute;
+          height: 25px;
+          width: 25px;
+          padding: 2px;
+          border: 1px solid white;
+          right: 36px;" src="assets/imgs/share.svg">
+    </div>
+
+  </div>
+
+
+</ion-content>
+
+
+
+
+
+<div [hidden]="popupHiddon" style="
+    height: 100%;
+    width: 100%;
+    background-color: #314f40;
+    position: absolute;
+    opacity:90%;
+  ">
+  <div style="    left: 10%;
+  position: absolute;
+  top: 40px;
+  width: 80%;
+  height: 366px;
+  background-color: rgb(0 0 0 / 0%);">
+    <ion-row>
+      <ion-col style=" padding-top: 10 px; padding-right: 10px; text-align: right">
+        <img style="
+            height: 15px;
+            width: 15px;
+            margin-right: 10px;
+            margin-top: 14px;
+          " src="assets/imgs/close.svg" (click)="hidePopup()" />
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-top: 0px">
+      <ion-col style="text-align: center">
+        <img style="    width: 300px;
+        height: 190px;" src="assets/imgs/logo.svg" />
+      </ion-col>
+    </ion-row>
+
+    <div style="margin-left: 20px; margin-right: 20px;">
+
+
+      <div style="padding: 15px;
+        border: 2px solid white;
+        text-align: center;">
+        <ion-label style="font-size: 8pt;">{{promptToReply}}</ion-label>
+      </div>
+
+      <ion-row style="margin-top: 15px;">
+        <ion-col style="padding: 0px;">
+          <ion-input [class.redBorder]="replyStatus" class="inp" placeholder="Enter your reply"
+            [(ngModel)]="promptReply" (ionChange)="changeFunction($event)"></ion-input>
+        </ion-col>
+      </ion-row>
+
+      <ion-row style="margin-top: 15px;">
+        <ion-col style="padding: 0px;">
+          <button (click)="replyPrompt()" class="btn" style="font-size: 11pt;">Reply</button>
+        </ion-col>
+      </ion-row>
+
+
+    </div>
+
+
+  </div>
+</div>
+
+<div [hidden]="viewProfilePopupHidden" style="
+    height: 100%;
+    width: 100%;
+    background-color: #314f40;
+    position: absolute;
+    opacity:90%;
+  ">
+  <div style="  left: 10%;
+  position: absolute;
+  top: 39%;
+  width: 80%;
+  height: auto;
+  background-color: rgb(0, 0, 0); ">
+    <ion-row>
+      <ion-col style="padding-top: 10 px; padding-right: 10px; text-align: right">
+        <img style="
+            height: 15px;
+            width: 15px;
+            margin-right: 10px;
+            margin-top: 14px;
+          " src="assets/imgs/close.svg" (click)="hidePopupViewProfile()" />
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row style="margin-top: 0px">
+      <ion-col style="text-align: center">
+        <img style="    width: 300px;
+        height: 190px;" src="assets/imgs/logo.svg" />
+      </ion-col>
+    </ion-row> -->
+
+    <div style="
+   
+        padding: 15px;
+        border: 2px solid white;
+        text-align: center;
+        margin: 17px;
+      ">
+      <!-- <ion-label style="color: #314f40 ;">New here? Just respond <br>
+        to a prompt and say hello.</ion-label> -->
+
+      <ion-label style="color: white ;">New here? Just respond <br>
+        to a prompt and say hello.</ion-label>
+    </div>
+
+
+
+
+
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<ion-content>
+
+
+
+  <ion-row class="top-margin-head-40">
+    <ion-col size="2" style="text-align: center;">
+      <img (click)="goBack()" style="height: 20px;
+      width: 20px;" src="assets/imgs/left.svg">
+    </ion-col>
+    <ion-col size="8" style="text-align: center; padding-top: 0px;">
+      <ion-text style="font-size: 15pt;">Notifications</ion-text>
+    </ion-col>
+    <ion-col size="2">
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row *ngIf="noNotiAvailable">
+    <ion-col>
+      <p style="font-size: 10pt; text-align: center;">No Notifications.</p>
+    </ion-col>
+  </ion-row>
+
+
+  <div style="padding: 0px 20px 20px 20px;" class="margin-top-fixed"> 
+
+    <ion-row *ngFor="let noti of notiArray" style="border-bottom: 1.5px solid white;
+    padding-bottom: 10px;
+    padding-top: 10px;">
+      <ion-col size="8">
+
+        <ion-text style="font-size: 8pt;">{{noti.content}}</ion-text>
+
+      </ion-col>
+
+      <ion-col size="4" style="text-align: right;">
+        <ion-text style="font-size: 8pt;">{{noti.added_date}}</ion-text>
+      </ion-col>
+    </ion-row>
+
+
+
+  </div>
+
+</ion-content>

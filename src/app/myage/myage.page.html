@@ -1,0 +1,49 @@
+<ion-content>
+
+
+
+  <ion-row class="top-margin-head-40">
+    <ion-col size="2" style="text-align: center;">
+      <img (click)="goBack()" style="height: 20px;
+      width: 20px;" src="assets/imgs/left.svg">
+    </ion-col>
+    <ion-col size="8" style="text-align: center;">
+    </ion-col>
+    <ion-col size="2">
+    </ion-col>
+  </ion-row>
+
+
+  <div style="padding: 0px 20px 20px 20px;" class="margin-top-fixed">
+
+    <ion-text>Your Height</ion-text>
+
+    <div style="margin-top: 4px;">
+
+      <ion-row style="padding: 0px;">
+        <ion-col style="text-align: center; padding: 0px;"><label>{{height1}}<span
+              *ngIf="height1">'</span>{{height2}}</label> </ion-col>
+      </ion-row>
+
+
+      <ion-range min="4" max="7" step="0.1" style="margin-top: 17px;" (ionChange)="onSliderChanged($event)"
+        [(ngModel)]="height">
+      </ion-range>
+
+
+      <!-- <float-range [_ngModel]="item.value"></float-range> -->
+
+    </div>
+
+
+  </div>
+
+
+
+  <ion-row style="width: 100%;  bottom: 3px; padding: 20px">
+    <ion-col style="text-align: center">
+      <button (click)="goBack()" class="btn">Save</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

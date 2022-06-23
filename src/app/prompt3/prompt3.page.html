@@ -1,0 +1,31 @@
+<ion-content>
+  <ion-row style="margin-right: 20px" class="top-margin-head-40">
+    <ion-col style="text-align: right; margin-top: 20px; padding-right: 24px;">
+      <img (click)="goBack()" style="height: 20px; width: 20px" src="assets/imgs/close.svg" />
+    </ion-col>
+  </ion-row>
+
+  <div style="padding: 0px 20px 20px 20px" class="margin-top-fixed">
+    <ion-row style="margin-top: 0px">
+      <ion-col>
+        <ion-label style="font-size: 9pt">{{promptTitle}}</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-top: -10px">
+      <ion-col>
+        <ion-textarea style="
+            height: 170px;
+            border-radius: 10px;
+            background: rgba(112, 112, 112, 0.44);
+          " placeholder="Write here...." [(ngModel)]="prompt" (ionChange)="changeFunction($event)"></ion-textarea>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <ion-row style="width: 100%;  bottom: 3px; padding: 20px">
+    <ion-col style="text-align: center">
+      <button (click)="goToProfile()" class="btn">Save</button>
+    </ion-col>
+  </ion-row>
+</ion-content>

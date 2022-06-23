@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "806016614387",
+    "project_id": "levotp",
+    "storage_bucket": "levotp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806016614387:android:d4f862f17be351a2735c86",
+        "android_client_info": {
+          "package_name": "com.lev.apps1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "806016614387-ateh1q7buavceio28te75a1kh5fd7g1n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lev.apps1",
+            "certificate_hash": "2f8fc894683fa4e57bda1583aa26470eba7e09de"
+          }
+        },
+        {
+          "client_id": "806016614387-847v02jlahavks0r7hvsc12kklt1paqh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3gC5Pnk1SGl-0683CIivAB3K-gl7y7jE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "806016614387-847v02jlahavks0r7hvsc12kklt1paqh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

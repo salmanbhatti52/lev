@@ -1,0 +1,136 @@
+<ion-content>
+
+  <ion-row>
+    <ion-col style="padding-right: 20px;
+    text-align: right;" class="top-margin-head-android" *ngIf="mobile=='android'">
+      <ion-text (click)="startTalkToChat()" style="margin: 20px;">Hi</ion-text> <br>
+      <ion-text (click)="startTalkToChat()" style="margin: 20px 17px 20px 20px;
+      font-size: 10px;">Message Our Matchmaker</ion-text>
+    </ion-col>
+
+    <ion-col style="padding-right: 20px;
+    text-align: right;" class="top-margin-head-ios" *ngIf="mobile=='ios'">
+      <ion-text (click)="startTalkToChat()" style="margin: 20px;">Hi</ion-text> <br>
+      <ion-text (click)="startTalkToChat()" style="margin: 20px 17px 20px 20px;
+      font-size: 10px;">Message Our Matchmaker</ion-text>
+    </ion-col>
+
+  </ion-row>
+
+
+
+
+  <div class="v-center-s" style="padding: 20px;">
+
+    <!-- <ion-row>
+      <ion-col style="text-align: center;padding-bottom: 0px;">
+        <img style="width: 300px;
+        height: 190px;" src="assets/imgs/logo.svg">
+      </ion-col>
+    </ion-row> -->
+
+    <ion-row>
+      <ion-col style="text-align: -webkit-center;padding-top: 0px">
+
+        <!-- <ion-text (click)="showPopup()" style="    margin-top: -13px;
+        letter-spacing: 0.8pt;
+        line-height: 24px;"> LEV is new and growing. <br>
+          You will receive matches as<br>
+          our matchmaker sees fit. <br>
+          Please visit the FAQ's section <br>
+          for our community guidelines.</ion-text> -->
+
+        <ion-text (click)="showPopup()" style="    margin-top: -13px;
+          letter-spacing: 0.8pt;
+          line-height: 24px;font-size: 13px;"> LEV is new and growing. <br>
+          Navigating the sea of seemingly endless<br>
+          options can be overwhelming!<br>
+          LEV is here to help! <br>
+          You will receive matches as our<br>
+          matchmaker sees fit.<br>
+          We’ll help you narrow down <br>
+          the options so you can <br>
+          make the best choice possible.<br>
+        </ion-text>
+
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="    margin-top: 0px;
+      margin-bottom: 0px;">
+      <ion-col style="text-align: center;">
+        <button (click)="goToHi()" style="    width: 59%;
+        background: none;
+        margin: 0px 0px 5px 0px;
+        font-size: 16px;
+        border: 2px solid white;
+        border-radius: 48px;
+        height: 48px;
+        padding: 15px 16px 16px 16px;
+        margin-top: 20%;">Enter &nbsp; LEV</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col style="text-align: -webkit-center;padding-top:22px;">
+        <ion-text style="letter-spacing: 0.8pt;
+        line-height: 24px;font-size: 12px">
+          Please visit the FAQ's section <br>
+          for our community guidelines.
+        </ion-text>
+      </ion-col>
+
+    </ion-row>
+  </div>
+
+
+
+  <!--Start of Tawk.to Script-->
+  <script type="text/javascript">
+    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
+    (function () {
+      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/61b30a5dc82c976b71c0bdc1/1fmhm108j';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+    })();
+  </script>
+  <!--End of Tawk.to Script-->
+
+
+</ion-content>
+
+
+<div *ngIf="divPopupShow" style="background: #0c293d;
+height: max-content;
+width: 80%;
+left: 10%;
+text-align: center;
+top: 40%;
+position: absolute;
+padding: 10px 10px 40px 10px;">
+
+  <ion-row>
+    <ion-col style="padding-top: 10 px; padding-right: 10px; text-align: right">
+      <img style="
+        height: 15px;
+        width: 15px;
+        margin-right: 10px;
+        margin-top: 14px;
+      " src="assets/imgs/close.svg" (click)="hidePopup()" />
+    </ion-col>
+  </ion-row>
+
+
+  <ion-text> LEV is new and growing. <br>
+    You will receive matches as<br>
+    our matchmaker sees fit. <br>
+    Please visit the FAQ's section <br>
+    for our community guidelines.
+  </ion-text>
+
+
+
+</div>

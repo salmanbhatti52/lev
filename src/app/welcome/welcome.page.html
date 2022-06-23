@@ -1,0 +1,40 @@
+<ion-content>
+
+
+
+
+  <div class="v-center-s" style="padding: 20px;">
+
+    <ion-row>
+      <ion-col style="text-align: center;">
+        <img style="    width: 300px;
+        height: 190px;" src="assets/imgs/logo.svg">
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row style="    margin-top: 30px;
+    margin-bottom: 50px;">
+      <ion-col style="text-align: center;">
+        <button style="     width: 59%;
+        background: none;
+        margin-top: 10px;
+        font-size: 10px;
+        border: 2px solid white;
+        border-radius: 48px;
+        height: 48px;
+        padding: 16px;"> Welcome To LEV</button>
+      </ion-col>
+    </ion-row>
+
+    <p style="text-align: center; font-size: 10pt;">Include a bunch of writing</p>
+
+    <p style="text-align: center; font-size: 9pt;">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam
+      nonumy eirmod tempor invidunt ut labore et dolore magna</p>
+
+    <ion-input placeholder="typehere" [(ngModel)]="searchValue" type="text" autocomplete="off" autocorrect="off"
+      (ionChange)="changeFunction($event)">
+    </ion-input>
+  </div>
+
+</ion-content>

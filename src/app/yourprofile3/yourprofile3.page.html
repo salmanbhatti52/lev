@@ -1,0 +1,330 @@
+<ion-content>
+
+  <ion-row class="top-margin-head-40">
+    <ion-col size="3" style="padding-left: 10px;">
+      <img (click)="goBack()" style="width: 20px;
+    height: 20px;" src="assets/imgs/left.svg">
+    </ion-col>
+    <ion-col size="6" style="text-align: center; padding-top: 0px;">
+      <ion-label style="font-size: 14pt;">Prompts</ion-label>
+    </ion-col>
+    <ion-col size="3">
+
+    </ion-col>
+  </ion-row>
+
+
+  <div style="padding: 0px 20px 20px 20px;" class="margin-top-fixed">
+
+
+
+    <ion-row style="margin-top: 20px;">
+      <ion-col style="text-align: -webkit-right;">
+        <div (click)="goToProfile1()" class="numberDiv1"><label>1</label></div>
+      </ion-col>
+
+      <ion-col style="text-align: -webkit-center;">
+        <div (click)="goToProfile2()" class="numberDiv2"><label>2</label></div>
+      </ion-col>
+
+      <ion-col>
+        <div class="numberDiv3"><label>3</label></div>
+      </ion-col>
+    </ion-row>
+
+
+
+
+    <ion-row style="margin-top: 20px;">
+      <ion-col>
+        <ion-label style="font-size: 9pt;">Tell Us A Little About Yourself</ion-label>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-top: 0px;">
+      <ion-col>
+        <ion-text style="font-size: 8pt;">Provide a few sentences about you, what you care about and why you'd like to
+          be part of LEV.
+        </ion-text>
+
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row style="margin-top: 0px;">
+      <ion-col>
+        <ion-label style="font-size: 9pt;" [class.redclass]="shortBioStatus">The Short Bio *</ion-label>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row style="margin-top: -10px;">
+      <ion-col>
+        <ion-textarea style="height: 170px;
+        border-radius: 10px;
+        background: #70707070; 
+        margin-top: 7px;" placeholder="Write here...." [(ngModel)]="shortBio" (ionChange)="textarea($event)">
+        </ion-textarea>
+      </ion-col>
+    </ion-row>
+
+
+
+
+    <ion-row style="margin-top: 0px;">
+      <ion-col>
+        <ion-label style="font-size: 9pt;">Prompts *</ion-label>
+
+      </ion-col>
+    </ion-row>
+
+
+
+
+
+
+    <div style="border: 2px solid #707070; border-radius: 10px; margin-top: 7px;">
+
+
+
+      <div style="padding:10px;">
+
+
+        <ion-row (click)="showprompt1()">
+          <ion-col size="10">
+            <ion-text *ngIf="prompt1Name" style="font-size: 9pt; " [class.redclass]="prompt1ValStatus">{{prompt1Name}}
+            </ion-text> <br *ngIf="prompt1Name">
+            <ion-text style="font-size: 9pt;" [class.redclass]="prompt1ValStatus">{{prompt1Val}}</ion-text>
+          </ion-col>
+
+          <ion-col size="2" style="text-align: right;">
+            <img *ngIf="prompts1show" style="width: 16px;
+            height: 16px;" src="assets/imgs/down.png">
+            <img *ngIf="!prompts1show" style="width: 16px;
+             height: 16px;" src="assets/imgs/up.png">
+          </ion-col>
+
+
+        </ion-row>
+
+        <div [hidden]="prompts1show" style="height: 85px;
+          overflow: auto;">
+
+          <h6 (click)="prompt1(nat,i)" *ngFor="let nat of user_prompts_array ; let i = index">{{nat.name}}
+          </h6>
+
+        </div>
+
+
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%; margin-top: 4px;">
+
+
+
+      <div style="padding:10px;">
+
+
+        <ion-row (click)="showprompt2()">
+          <ion-col size="10">
+            <ion-text *ngIf="prompt2Name" style="font-size: 9pt; " [class.redclass]="prompt1ValStatus">{{prompt2Name}}
+            </ion-text> <br *ngIf="prompt2Name">
+            <ion-text style="font-size: 9pt;" [class.redclass]="prompt2ValStatus">{{prompt2Val}}</ion-text>
+          </ion-col>
+
+          <ion-col size="2" style="text-align: right;">
+            <img *ngIf="prompts2show" style="width: 16px;
+            height: 16px;" src="assets/imgs/down.png">
+            <img *ngIf="!prompts2show" style="width: 16px;
+             height: 16px;" src="assets/imgs/up.png">
+          </ion-col>
+        </ion-row>
+
+        <div [hidden]="prompts2show" style="height: 85px;
+        overflow: auto;">
+
+          <h6 (click)="prompt2(nat,i)" *ngFor="let nat of user_prompts_array ; let i = index">{{nat.name}}
+          </h6>
+
+        </div>
+
+
+
+      </div>
+      <hr style="border-bottom: 2px solid #707070; width: 100%; margin-top: 4px;">
+
+
+
+
+      <div style="padding:10px;">
+
+
+        <ion-row (click)="showprompt3()" style="margin-bottom: 4px;">
+          <ion-col size="10">
+            <ion-text *ngIf="prompt3Name" style="font-size: 9pt; " [class.redclass]="prompt1ValStatus">{{prompt3Name}}
+            </ion-text> <br *ngIf="prompt3Name">
+            <ion-text style="font-size: 9pt;" [class.redclass]="prompt3ValStatus">{{prompt3Val}}</ion-text>
+          </ion-col>
+
+          <ion-col size="2" style="text-align: right;">
+            <img *ngIf="prompts3show" style="width: 16px;
+            height: 16px;" src="assets/imgs/down.png">
+            <img *ngIf="!prompts3show" style="width: 16px;
+             height: 16px;" src="assets/imgs/up.png">
+          </ion-col>
+        </ion-row>
+
+
+        <div [hidden]="prompts3show" style="height: 85px;
+        overflow: auto;">
+
+          <h6 (click)="prompt3(nat,i)" *ngFor="let nat of user_prompts_array ; let i = index">{{nat.name}}
+          </h6>
+
+        </div>
+
+
+
+      </div>
+
+
+
+
+
+    </div>
+
+
+    <ion-row style="margin-top: 7px;">
+      <ion-col>
+        <ion-label style="font-size: 9pt;">Social Media</ion-label>
+      </ion-col>
+    </ion-row>
+
+
+
+    <div style="border: 2px solid #707070; border-radius: 10px; margin-top: 7px;">
+
+      <div (click)="myInstaClick()" class="inp-top-radius"
+        style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="instaStatus">Instagram *</ion-text>
+        <ion-input style="height: 26px;
+      font-size: 9pt;" placeholder="@insta" [(ngModel)]="insta" (ionChange)="changeFunction($event)"></ion-input>
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="linkedinStatus">Linkedin</ion-text>
+        <ion-input style="height: 26px;
+      font-size: 9pt;" placeholder="@linkedin" [(ngModel)]="linkedin" (ionChange)="changeFunction1($event)">
+        </ion-input>
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+      <div class="inp-bottom-radius" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="spotifyStatus">Spotify </ion-text>
+        <ion-input style="height: 26px;
+      font-size: 9pt;" placeholder="@spotify" [(ngModel)]="spotify" (ionChange)="changeFunction2($event)"></ion-input>
+      </div>
+
+
+
+
+    </div>
+
+
+    <ion-row style="margin-top: 15px;">
+      <ion-col size="9" style="padding-top: 10px;">
+        <ion-label style="font-size: 9pt;">I Don't Know Any Member</ion-label>
+      </ion-col>
+
+      <ion-col size="3" style="text-align: right;">
+
+        <ion-toggle *ngIf="knowAnyoneFun == 'No'" (ionChange)=" getNoti($event)"
+          [class.togglePaddClass]="togglePlatformAndroid"></ion-toggle>
+        <ion-toggle *ngIf="knowAnyoneFun == 'Yes'" (ionChange)="getNoti($event)"
+          [class.togglePaddClass]="togglePlatformAndroid" checked></ion-toggle>
+      </ion-col>
+    </ion-row>
+
+
+
+
+
+
+    <ion-row style="margin-top: 0px;">
+      <ion-col>
+        <ion-label style="font-size: 9pt;">Know Any LEV Members?</ion-label>
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-top: 0px;">
+      <ion-col>
+        <ion-text style="font-size: 9pt;">If you know an existing member who can recommend you, add them here.
+        </ion-text>
+      </ion-col>
+    </ion-row>
+
+
+
+
+
+
+
+    <div style="border: 2px solid #707070; border-radius: 10px; margin-top: 15px;">
+
+      <div class="inp-top-radius" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="fullnameStatus">Full name</ion-text>
+        <ion-input autocapitalize=words style="height: 26px;
+      font-size: 9pt;" placeholder="Enter Name Here" [(ngModel)]="fullnameOfOther"
+          (ionChange)="changeFunction3($event)"></ion-input>
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="emailStatus">Email</ion-text>
+        <ion-input style="height: 26px;
+      font-size: 9pt;" placeholder="Enter Email Here" [(ngModel)]="emailOfOther" (ionChange)="changeFunction4($event)">
+        </ion-input>
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+      <div class="inp-bottom-radius" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="phoneStatus">Cell phone number</ion-text>
+        <ion-input type="tel" style="height: 26px;
+      font-size: 9pt;" placeholder="Enter Contact Number" [(ngModel)]="phoneOfOther"></ion-input>
+      </div>
+
+
+
+
+    </div>
+
+
+
+
+    <ion-row style="margin-top: 30px;">
+      <ion-col style="text-align: center;">
+        <button (click)="Continue()" style="margin-bottom: 12px;" class="btn">Continue</button>
+      </ion-col>
+    </ion-row>
+
+  </div>
+
+
+
+
+</ion-content>

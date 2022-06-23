@@ -1,0 +1,143 @@
+<ion-content>
+
+
+
+  <ion-row class="top-margin-head-40">
+    <ion-col size="2" style="text-align: center;">
+      <img (click)="goBack()" style="height: 20px;
+      width: 20px;" src="assets/imgs/left.svg">
+
+    </ion-col>
+
+    <ion-col size="8" style="text-align: center;">
+      <ion-text>Membership Options</ion-text>
+
+    </ion-col>
+
+    <ion-col size="2">
+
+    </ion-col>
+  </ion-row>
+
+
+
+
+
+
+
+
+  <ion-row class="margin-top-fixed">
+    <ion-col>
+      <ion-text style="margin-left: 25px;
+      font-size: 10pt;">Your Subscription</ion-text>
+    </ion-col>
+  </ion-row>
+
+
+  <div *ngIf="noSubScription" class="divbg">
+    <ion-text style="font-size: 10pt; margin-left: 18px;">You have not purchased any subsctiption yet</ion-text>
+  </div>
+
+
+
+  <div *ngIf="!noSubScription" class="divbg">
+
+    <div *ngFor="let sub of subArray">
+      <div *ngIf="sub.packages_id == sbID">
+        <ion-text style="font-size: 10pt; margin-left: 18px;">$ {{sub.amount}}</ion-text>
+        <br>
+        <ion-text style="font-size: 7pt; margin-left: 18px;">{{sub.name}}</ion-text>
+      </div>
+    </div>
+  </div>
+
+  <!-- <ion-row *ngIf="!noSubScription" style="
+                  margin-left: 20px;
+                  margin-top: 13px;
+                  margin-right: 20px;
+                  margin-bottom: 0px;">
+    <ion-col>
+      <button (click)="cancelMembership()" class="btn">Cancel Membership</button>
+    </ion-col>
+  </ion-row> -->
+
+
+
+
+  <ion-row style="margin-top: 30px;">
+    <ion-col>
+      <ion-text style="margin-left: 25px;
+      font-size: 10pt;">Options</ion-text>
+    </ion-col>
+  </ion-row>
+
+  <div class="divbg" *ngFor="let sub of subArray" (click)="subSelect(sub)">
+
+    <ion-row>
+      <ion-col size="8">
+        <ion-text style="font-size: 7pt; margin-left: 13px;">{{sub.name}}</ion-text>
+        <br>
+        <ion-text style="font-size: 7pt; margin-left: 13px;">{{sub.duration}} Month</ion-text>
+      </ion-col>
+
+      <ion-col size="4" style="text-align: center; padding-top: 14px;">
+        <ion-text style="font-size: 10pt;"> $ {{sub.amount}}</ion-text>
+      </ion-col>
+    </ion-row>
+
+  </div>
+
+
+
+
+  <ion-row style="margin-top: 20px;">
+    <ion-col style="margin-left: 25px;">
+      <ion-text style="font-size: 12pt;">Select an option to resubscribe</ion-text>
+      <br>
+
+      <ion-text style="font-size: 8pt;">If you resubscribe, your new subscription will begin on Jun 30, 2021.</ion-text>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row style="margin-top: 14px;">
+    <ion-col>
+      <ion-text style="margin-left: 25px;
+      font-size: 10pt;">Coupon Code</ion-text>
+    </ion-col>
+  </ion-row>
+
+
+
+  <ion-row style="    margin-left: 20px;
+  margin-top: 0px;
+  margin-right: 20px;
+  margin-bottom: 0px;">
+    <ion-col>
+      <ion-input placeholder="Please enter copun code" class="inp" [(ngModel)]="copun" [class.redBorder]="copunStatus"
+        (ionChange)="changeFunction($event)">
+      </ion-input>
+    </ion-col>
+  </ion-row>
+
+  <ion-row style="margin-top: 0px;">
+    <ion-col>
+      <ion-text style="margin-left: 25px;
+      font-size: 8pt;">*Enter coupon code to get one free month to start..</ion-text>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row style="margin-left: 20px;
+                  margin-top: 0px;
+                  margin-right: 20px;
+                  margin-bottom: 0px;">
+    <ion-col>
+      <button (click)="goToTabs()" class="btn">Confirm Membership</button>
+    </ion-col>
+  </ion-row>
+
+
+
+
+</ion-content>

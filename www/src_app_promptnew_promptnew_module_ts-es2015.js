@@ -1,0 +1,305 @@
+(self["webpackChunklev"] = self["webpackChunklev"] || []).push([["src_app_promptnew_promptnew_module_ts"],{
+
+/***/ 21867:
+/*!*******************************************************!*\
+  !*** ./src/app/promptnew/promptnew-routing.module.ts ***!
+  \*******************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PromptnewPageRoutingModule": function() { return /* binding */ PromptnewPageRoutingModule; }
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _promptnew_page__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./promptnew.page */ 57036);
+
+
+
+
+const routes = [
+    {
+        path: '',
+        component: _promptnew_page__WEBPACK_IMPORTED_MODULE_0__.PromptnewPage
+    }
+];
+let PromptnewPageRoutingModule = class PromptnewPageRoutingModule {
+};
+PromptnewPageRoutingModule = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.NgModule)({
+        imports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterModule.forChild(routes)],
+        exports: [_angular_router__WEBPACK_IMPORTED_MODULE_3__.RouterModule],
+    })
+], PromptnewPageRoutingModule);
+
+
+
+/***/ }),
+
+/***/ 21190:
+/*!***********************************************!*\
+  !*** ./src/app/promptnew/promptnew.module.ts ***!
+  \***********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PromptnewPageModule": function() { return /* binding */ PromptnewPageModule; }
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/common */ 38583);
+/* harmony import */ var _angular_forms__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/forms */ 3679);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _promptnew_routing_module__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./promptnew-routing.module */ 21867);
+/* harmony import */ var _promptnew_page__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./promptnew.page */ 57036);
+
+
+
+
+
+
+
+let PromptnewPageModule = class PromptnewPageModule {
+};
+PromptnewPageModule = (0,tslib__WEBPACK_IMPORTED_MODULE_2__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.NgModule)({
+        imports: [
+            _angular_common__WEBPACK_IMPORTED_MODULE_4__.CommonModule,
+            _angular_forms__WEBPACK_IMPORTED_MODULE_5__.FormsModule,
+            _ionic_angular__WEBPACK_IMPORTED_MODULE_6__.IonicModule,
+            _promptnew_routing_module__WEBPACK_IMPORTED_MODULE_0__.PromptnewPageRoutingModule
+        ],
+        declarations: [_promptnew_page__WEBPACK_IMPORTED_MODULE_1__.PromptnewPage]
+    })
+], PromptnewPageModule);
+
+
+
+/***/ }),
+
+/***/ 57036:
+/*!*********************************************!*\
+  !*** ./src/app/promptnew/promptnew.page.ts ***!
+  \*********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "PromptnewPage": function() { return /* binding */ PromptnewPage; }
+/* harmony export */ });
+/* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 64762);
+/* harmony import */ var _raw_loader_promptnew_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./promptnew.page.html */ 39751);
+/* harmony import */ var _promptnew_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./promptnew.page.scss */ 41473);
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @angular/common */ 38583);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @angular/router */ 39895);
+/* harmony import */ var _rest_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../rest.service */ 61881);
+/* harmony import */ var _work_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../work.service */ 8981);
+
+
+
+
+
+
+
+
+let PromptnewPage = class PromptnewPage {
+    constructor(router, location, restService, workService) {
+        this.router = router;
+        this.location = location;
+        this.restService = restService;
+        this.workService = workService;
+        this.pvalue1 = 0.60;
+        this.pvalue2 = 0.78;
+        this.questionNo = 0;
+        this.currentQuestion = '';
+        this.currentQuestionDesc = '';
+        this.currentQuestionID = '';
+        this.currentQuestionOption1 = '';
+        this.currentQuestionOption1ID = '';
+        this.percentage1 = '';
+        this.percentage1percent = '';
+        this.currentQuestionOption2 = '';
+        this.currentQuestionOption2ID = '';
+        this.percentage2 = '';
+        this.percentage2percent = '';
+        this.question = '';
+        this.commnent = '';
+        this.commentStatus = false;
+        this.noMoreQuestion = false;
+    }
+    ngOnInit() { }
+    ionViewWillEnter() {
+        var stringy = JSON.stringify({});
+        this.workService.presentLoading();
+        this.restService.getSystemDataAPI(stringy).subscribe((res) => {
+            console.log('incomming data----', res);
+            this.workService.hideLoading();
+            if (res.status == "success") {
+                console.log(res.data);
+                // console.log('instalgrammm', res.data.system_instagram);
+                localStorage.setItem('user_instagram', res.data.system_instagram);
+                this.question = res.data.system_polsqs;
+                console.log('systm pols---', this.question);
+                this.currentQuestion = this.question[this.questionNo].name;
+                this.currentQuestionDesc = this.question[this.questionNo].desc;
+                this.currentQuestionID = this.question[this.questionNo].system_polsqs_id;
+                ///////////////////
+                this.currentQuestionOption1 = this.question[this.questionNo].options[0].title;
+                this.currentQuestionOption1ID = this.question[this.questionNo].options[0].system_polsqs_options_id;
+                this.percentage1 = this.question[this.questionNo].options[0].percentage;
+                if (this.percentage1 == 100) {
+                    this.percentage1percent = this.percentage1;
+                }
+                else {
+                    this.percentage1percent = '0.' + this.percentage1;
+                }
+                this.currentQuestionOption2 = this.question[this.questionNo].options[1].title;
+                this.currentQuestionOption2ID = this.question[this.questionNo].options[1].system_polsqs_options_id;
+                this.percentage2 = this.question[this.questionNo].options[1].percentage;
+                if (this.percentage2 == 100) {
+                    this.percentage2percent = this.percentage2;
+                }
+                else {
+                    this.percentage2percent = '0.' + this.percentage2;
+                }
+                console.log('percentage2percent---', this.percentage2percent);
+                console.log('percentage2---', this.percentage2);
+            }
+        }, err => {
+            this.workService.hideLoading();
+            this.workService.presentToast('Network error occured');
+        });
+    }
+    goToSubscription(system_polsqs_options_id) {
+        console.log('Comment------------', this.commnent);
+        this.commnent = "aaaa";
+        if (system_polsqs_options_id != '') {
+            console.log('system_polsqs_options_id-----', system_polsqs_options_id);
+            this.workService.presentLoading();
+            var ss = JSON.stringify({
+                "users_customers_id": localStorage.getItem('loggedinUserID'),
+                "system_polsqs_options_id": system_polsqs_options_id,
+                "system_polsqs_id": this.currentQuestionID
+            });
+            console.log('outgoing data---', ss);
+            this.restService.create_polsqsAPI(ss).subscribe((res) => {
+                this.workService.hideLoading();
+                console.log('res===>', res);
+                if (res.status == 'success') {
+                    this.commnent = '';
+                    if (this.question.length == 1) {
+                        this.noMoreQuestion = true;
+                        // this.router.navigate(['tabs/tab1'], { replaceUrl: true });
+                    }
+                    else {
+                        this.removeItem(this.questionNo);
+                        // this.questionNo = this.questionNo + 1
+                        console.log('question===>', this.question);
+                        console.log('questionNo===>', this.questionNo);
+                        this.currentQuestion = this.question[this.questionNo].name;
+                        this.currentQuestionDesc = this.question[this.questionNo].desc;
+                        this.currentQuestionID = this.question[this.questionNo].system_polsqs_id;
+                        this.currentQuestionOption1 = this.question[this.questionNo].options[0].title;
+                        this.currentQuestionOption1ID = this.question[this.questionNo].options[0].system_polsqs_options_id;
+                        this.percentage1 = this.question[this.questionNo].options[0].percentage;
+                        if (this.percentage1 == 100) {
+                            this.percentage1percent = this.percentage1;
+                        }
+                        else {
+                            this.percentage1percent = '0.' + this.percentage1;
+                        }
+                        this.currentQuestionOption2 = this.question[this.questionNo].options[1].title;
+                        this.currentQuestionOption2ID = this.question[this.questionNo].options[1].system_polsqs_options_id;
+                        this.percentage2 = this.question[this.questionNo].options[1].percentage;
+                        if (this.percentage2 == 100) {
+                            this.percentage2percent = this.percentage2;
+                        }
+                        else {
+                            this.percentage2percent = '0.' + this.percentage2;
+                        }
+                    }
+                    // 
+                }
+            }, err => {
+                this.workService.hideLoading();
+                this.workService.presentToast('Network error occured');
+            });
+            //this.router.navigate(['subscription']);
+        }
+        else {
+            this.commentStatus = true;
+            setTimeout(() => {
+                this.commentStatus = false;
+            }, 3000);
+        }
+    }
+    removeItem(i) {
+        this.question.splice(i, 1);
+        console.log(this.question);
+    }
+    goBack() {
+        // this.location.back()
+        this.router.navigate(['apply'], { replaceUrl: true });
+    }
+    subSttFun(val) {
+        // console.log('avvvvvvvvvvvvv', val);
+        var vv = "Whats your Name  ";
+        // console.log('vvv----', vv.length);
+        if (val.length > 44) {
+            return val.substring(0, 44) + "...";
+        }
+        else {
+            return val;
+        }
+    }
+};
+PromptnewPage.ctorParameters = () => [
+    { type: _angular_router__WEBPACK_IMPORTED_MODULE_4__.Router },
+    { type: _angular_common__WEBPACK_IMPORTED_MODULE_5__.Location },
+    { type: _rest_service__WEBPACK_IMPORTED_MODULE_2__.RestService },
+    { type: _work_service__WEBPACK_IMPORTED_MODULE_3__.WorkService }
+];
+PromptnewPage = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_7__.Component)({
+        selector: 'app-promptnew',
+        template: _raw_loader_promptnew_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
+        styles: [_promptnew_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]
+    })
+], PromptnewPage);
+
+
+
+/***/ }),
+
+/***/ 41473:
+/*!***********************************************!*\
+  !*** ./src/app/promptnew/promptnew.page.scss ***!
+  \***********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = (".inp {\n  padding: 10px;\n  background: #2d2d39;\n  box-shadow: 0px 4px 10px #0000001f;\n  border-radius: 8px;\n  opacity: 1;\n}\n\n.sc-ion-input-md-h {\n  --padding-top: 13px;\n  --padding-end: 13px;\n  --padding-bottom: 13px;\n  --padding-start: 13px;\n  font-size: inherit;\n}\n\n.sc-ion-input-ios-h {\n  --padding-top: 13px;\n  --padding-end: 13px;\n  --padding-bottom: 13px;\n  --padding-start: 13px;\n  font-size: inherit;\n}\n\n.btn {\n  background: #ffffff 0% 0% no-repeat padding-box;\n  color: black;\n  font-size: 14pt;\n  box-shadow: 0px 4px 10px #0000001f;\n  border-radius: 10px;\n  opacity: 1;\n  width: 190pt;\n  padding-top: 16px;\n  padding-bottom: 16px;\n}\n\np {\n  display: block;\n  -webkit-margin-before: 0.5em;\n          margin-block-start: 0.5em;\n  -webkit-margin-after: 0em;\n          margin-block-end: 0em;\n  -webkit-margin-start: 0px;\n          margin-inline-start: 0px;\n  -webkit-margin-end: 0px;\n          margin-inline-end: 0px;\n}\n\n@media (orientation: portrait) {\n  .v-center-s {\n    width: 100%;\n    position: relative;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%);\n  }\n}\n\n@media (orientation: landscape) {\n  .v-center-s {\n    width: 100%;\n    position: relative;\n    left: 50%;\n    top: 70%;\n    transform: translate(-50%, -50%);\n  }\n}\n\n.redBorder {\n  border: 1px solid red;\n}\n\n.progress1 {\n  --background: #9a9a9a;\n  padding: 0px;\n  border-radius: 20px;\n  --progress-background: #314f40;\n  margin-top: 1%;\n  height: 58px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInByb21wdG5ldy5wYWdlLnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDSSxhQUFBO0VBQ0EsbUJBQUE7RUFDQSxrQ0FBQTtFQUNBLGtCQUFBO0VBQ0EsVUFBQTtBQUNKOztBQUVBO0VBQ0ksbUJBQUE7RUFDQSxtQkFBQTtFQUNBLHNCQUFBO0VBQ0EscUJBQUE7RUFDQSxrQkFBQTtBQUNKOztBQUVBO0VBQ0ksbUJBQUE7RUFDQSxtQkFBQTtFQUNBLHNCQUFBO0VBQ0EscUJBQUE7RUFDQSxrQkFBQTtBQUNKOztBQUVBO0VBQ0ksK0NBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtFQUNBLGtDQUFBO0VBQ0EsbUJBQUE7RUFDQSxVQUFBO0VBQ0EsWUFBQTtFQUNBLGlCQUFBO0VBQ0Esb0JBQUE7QUFDSjs7QUFFQTtFQUNJLGNBQUE7RUFDQSw0QkFBQTtVQUFBLHlCQUFBO0VBQ0EseUJBQUE7VUFBQSxxQkFBQTtFQUNBLHlCQUFBO1VBQUEsd0JBQUE7RUFDQSx1QkFBQTtVQUFBLHNCQUFBO0FBQ0o7O0FBRUE7RUFDSTtJQUNJLFdBQUE7SUFDQSxrQkFBQTtJQUNBLFNBQUE7SUFDQSxRQUFBO0lBQ0EsZ0NBQUE7RUFDTjtBQUNGOztBQUVBO0VBQ0k7SUFDSSxXQUFBO0lBQ0Esa0JBQUE7SUFDQSxTQUFBO0lBQ0EsUUFBQTtJQUNBLGdDQUFBO0VBQU47QUFDRjs7QUFHQTtFQUNJLHFCQUFBO0FBREo7O0FBR0E7RUFDSSxxQkFBQTtFQUNBLFlBQUE7RUFDQSxtQkFBQTtFQUNBLDhCQUFBO0VBQ0EsY0FBQTtFQUNBLFlBQUE7QUFBSiIsImZpbGUiOiJwcm9tcHRuZXcucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmlucCB7XHJcbiAgICBwYWRkaW5nOiAxMHB4O1xyXG4gICAgYmFja2dyb3VuZDogIzJkMmQzOTtcclxuICAgIGJveC1zaGFkb3c6IDBweCA0cHggMTBweCAjMDAwMDAwMWY7XHJcbiAgICBib3JkZXItcmFkaXVzOiA4cHg7XHJcbiAgICBvcGFjaXR5OiAxO1xyXG59XHJcblxyXG4uc2MtaW9uLWlucHV0LW1kLWgge1xyXG4gICAgLS1wYWRkaW5nLXRvcDogMTNweDtcclxuICAgIC0tcGFkZGluZy1lbmQ6IDEzcHg7XHJcbiAgICAtLXBhZGRpbmctYm90dG9tOiAxM3B4O1xyXG4gICAgLS1wYWRkaW5nLXN0YXJ0OiAxM3B4O1xyXG4gICAgZm9udC1zaXplOiBpbmhlcml0O1xyXG59XHJcblxyXG4uc2MtaW9uLWlucHV0LWlvcy1oIHtcclxuICAgIC0tcGFkZGluZy10b3A6IDEzcHg7XHJcbiAgICAtLXBhZGRpbmctZW5kOiAxM3B4O1xyXG4gICAgLS1wYWRkaW5nLWJvdHRvbTogMTNweDtcclxuICAgIC0tcGFkZGluZy1zdGFydDogMTNweDtcclxuICAgIGZvbnQtc2l6ZTogaW5oZXJpdDtcclxufVxyXG5cclxuLmJ0biB7XHJcbiAgICBiYWNrZ3JvdW5kOiAjZmZmZmZmIDAlIDAlIG5vLXJlcGVhdCBwYWRkaW5nLWJveDtcclxuICAgIGNvbG9yOiBibGFjaztcclxuICAgIGZvbnQtc2l6ZTogMTRwdDtcclxuICAgIGJveC1zaGFkb3c6IDBweCA0cHggMTBweCAjMDAwMDAwMWY7XHJcbiAgICBib3JkZXItcmFkaXVzOiAxMHB4O1xyXG4gICAgb3BhY2l0eTogMTtcclxuICAgIHdpZHRoOiAxOTBwdDtcclxuICAgIHBhZGRpbmctdG9wOiAxNnB4O1xyXG4gICAgcGFkZGluZy1ib3R0b206IDE2cHg7XHJcbn1cclxuXHJcbnAge1xyXG4gICAgZGlzcGxheTogYmxvY2s7XHJcbiAgICBtYXJnaW4tYmxvY2stc3RhcnQ6IDAuNWVtO1xyXG4gICAgbWFyZ2luLWJsb2NrLWVuZDogMGVtO1xyXG4gICAgbWFyZ2luLWlubGluZS1zdGFydDogMHB4O1xyXG4gICAgbWFyZ2luLWlubGluZS1lbmQ6IDBweDtcclxufVxyXG5cclxuQG1lZGlhIChvcmllbnRhdGlvbjogcG9ydHJhaXQpIHtcclxuICAgIC52LWNlbnRlci1zIHtcclxuICAgICAgICB3aWR0aDogMTAwJTtcclxuICAgICAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgICAgICAgbGVmdDogNTAlO1xyXG4gICAgICAgIHRvcDogNTAlO1xyXG4gICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xyXG4gICAgfVxyXG59XHJcblxyXG5AbWVkaWEgKG9yaWVudGF0aW9uOiBsYW5kc2NhcGUpIHtcclxuICAgIC52LWNlbnRlci1zIHtcclxuICAgICAgICB3aWR0aDogMTAwJTtcclxuICAgICAgICBwb3NpdGlvbjogcmVsYXRpdmU7XHJcbiAgICAgICAgbGVmdDogNTAlO1xyXG4gICAgICAgIHRvcDogNzAlO1xyXG4gICAgICAgIHRyYW5zZm9ybTogdHJhbnNsYXRlKC01MCUsIC01MCUpO1xyXG4gICAgfVxyXG59XHJcblxyXG4ucmVkQm9yZGVyIHtcclxuICAgIGJvcmRlcjogMXB4IHNvbGlkIHJlZDtcclxufVxyXG4ucHJvZ3Jlc3MxIHtcclxuICAgIC0tYmFja2dyb3VuZDogIzlhOWE5YTtcclxuICAgIHBhZGRpbmc6IDBweDtcclxuICAgIGJvcmRlci1yYWRpdXM6IDIwcHg7XHJcbiAgICAtLXByb2dyZXNzLWJhY2tncm91bmQ6ICMzMTRmNDA7XHJcbiAgICBtYXJnaW4tdG9wOiAxJTtcclxuICAgIGhlaWdodDogNThweDtcclxufVxyXG4iXX0= */");
+
+/***/ }),
+
+/***/ 39751:
+/*!*************************************************************************************!*\
+  !*** ./node_modules/raw-loader/dist/cjs.js!./src/app/promptnew/promptnew.page.html ***!
+  \*************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ("<ion-content style=\"--background: #314f40\">\n  <div class=\"v-center-s\" style=\"padding: 20px\">\n    <ion-row style=\"background: black; padding-top: 20px; padding-bottom: 20px\">\n      <img (click)=\"goBack()\" style=\"position: absolute; height: 15px; width: 15px; right: 35px\"\n        src=\"assets/imgs/close.svg\" />\n\n      <ion-col style=\"text-align: center; margin-top: 25px\">\n        <img style=\"    width: 300px;\n        height: 190px;\" src=\"assets/imgs/logo.svg\" />\n\n        <div style=\"\n            padding: 10px;\n            /* border: 1px solid white; */\n            height: max-content;\n            margin: 0px 0px 0px 0px;\">\n\n\n          <div *ngIf=\"noMoreQuestion\">\n            <ion-row>\n              <ion-col style=\"text-align: center\">\n                <label style=\"font-size: 15pt\">No more poll questions to show</label>\n              </ion-col>\n            </ion-row>\n\n\n          </div>\n\n          <div *ngIf=\"!noMoreQuestion\">\n\n            <ion-row>\n              <ion-col style=\"text-align: center\">\n                <label style=\"font-size: 12pt\">{{currentQuestion}}</label>\n              </ion-col>\n            </ion-row>\n\n            <!-- <ion-row>\n              <ion-col style=\"text-align: center\">\n                <ion-text style=\"font-size: 8pt\">{{currentQuestionDesc}} </ion-text>\n              </ion-col>\n            </ion-row> -->\n\n            <ion-row style=\"margin: 10px 14px 0px 14px\">\n              <ion-col style=\"text-align: left;\">\n                <!-- <ion-input [class.redBorder]=\"commentStatus\" class=\"inp\" autocapitalize=\"word\" placeholder=\"Add a comment\"\n                  [(ngModel)]=\"commnent\">\n                </ion-input> -->\n                <div (click)=\"goToSubscription(currentQuestionOption1ID)\" style=\"    display: flex;\n                position: relative;\n                align-items: center;\">\n\n                  <label style=\"    position: absolute;\n                  font-size: 13pt;\n                  z-index: 9999;\n                  left: 24px;\n                  color: white;\n                  font-weight: 600;\n                  overflow: hidden;\n                  /* height: 50px; */\n                  width: 70%;\">{{ subSttFun(currentQuestionOption1) }}</label>\n\n                  <ion-label style=\"    position: absolute;\n                          z-index: 9999;\n                          right: 13px;\n                          font-weight: 600;\n                          font-size: 20px;\">{{percentage1 | number : '1.0-0'}} %</ion-label>\n\n\n\n                  <ion-progress-bar class=\"progress1\" value={{percentage1percent}}></ion-progress-bar>\n\n                </div>\n\n                <div (click)=\"goToSubscription(currentQuestionOption2ID)\" style=\"display: flex;\n                position: relative;\n                align-items: center;\n                margin-top: 17px;\">\n                  <label style=\"    position: absolute;\n                  font-size: 13pt;\n                  z-index: 9999;\n                  left: 24px;\n                  color: white;\n                  font-weight: 600;\n                  overflow: hidden;\n                  /* height: 50px; */\n                  width: 70%;\">{{ subSttFun(currentQuestionOption2) }}</label>\n\n                  <ion-label style=\"    position: absolute;\n                  z-index: 9999;\n                  right: 13px;\n                  font-weight: 600;\n                  font-size: 20px;\">{{percentage2 | number : '1.0-0'}} %</ion-label>\n\n                  <ion-progress-bar class=\"progress1\" value={{percentage2percent}}></ion-progress-bar>\n\n                </div>\n              </ion-col>\n            </ion-row>\n\n          </div>\n        </div>\n\n\n        <div *ngIf=\"!noMoreQuestion\">\n\n\n\n          <!-- <ion-row style=\"margin: 10px 14px 0px 14px\">\n            <ion-col>\n              <button (click)=\"goToSubscription()\" class=\"btn\" style=\"width: 100%\">\n                Submit\n              </button>\n            </ion-col>\n          </ion-row> -->\n\n        </div>\n\n      </ion-col>\n    </ion-row>\n  </div>\n</ion-content>");
+
+/***/ })
+
+}]);
+//# sourceMappingURL=src_app_promptnew_promptnew_module_ts-es2015.js.map

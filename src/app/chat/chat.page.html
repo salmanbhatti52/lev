@@ -1,0 +1,232 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="header">
+    <ion-row style="margin-top: 30px;">
+      <ion-col size="2" style="text-align: center;">
+        <img (click)="goBack()" style="height: 20px;
+          width: 20px;" src="assets/imgs/left.svg">
+      </ion-col>
+      <ion-col size="8" style="text-align: center; padding-top: 0px;">
+        <ion-text style="font-size: 20px;">Hi, {{senderUserName}}</ion-text>
+      </ion-col>
+      <ion-col size="2" style="text-align: center;">
+        <img style="    object-fit: cover;
+          height: 35px;
+          width: 35px;
+          border-radius: 50%;" src="{{userIMG}}" (error)="handleImgError($event, userIMG)">
+      </ion-col>
+    </ion-row>
+
+
+    <div (click)="showPopup()" style="    display: flex;
+    width: 100%;
+    text-align: center;
+    margin-top: -13px;
+    justify-content: center;">
+
+      <img style="height: 20px;
+        width: 20px;" src="assets/imgs/i.svg">
+
+      <ion-text style="margin-top: 2px;
+      font-size: 12px;
+      color: red;
+      margin-left: 10px;">{{remainingSMS}} Text Remaining</ion-text>
+
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content #IonContent>
+  <div class="container">
+    <ng-container *ngIf="!showSkeleton">
+      <div class="chat" style="display: grid; grid-row-gap: 4px">
+        <ng-container *ngFor="let msg of allMessages">
+          <div class="reciever_message_container reciever_message_cont" *ngIf="msg.userId!=currentUser">
+            <div class="reciever">
+              <ion-text class="textMessage" *ngIf="msg.msgType=='text'">
+                {{msg.message}}
+              </ion-text>
+              <div (click)="viewImage(msg.message)" *ngIf="msg.msgType=='attachment'">
+                <img class="attachment_receiver" src="{{msg.message}}" />
+              </div>
+            </div>
+            <ion-text class="messageTime">{{msg.time}}</ion-text>
+          </div>
+          <div class="sender" *ngIf="msg.userId==currentUser">
+            <div class="sender_message_container">
+              <div class="senderMessage">
+                <ion-text class="textMessage" *ngIf="msg.msgType=='text'">
+                  {{msg.message}}
+                </ion-text>
+                <div (click)="viewImage(msg.message)" *ngIf="msg.msgType=='attachment'">
+                  <img class="attachment_sender" src="{{msg.message}}" />
+                </div>
+              </div>
+            </div>
+
+            <ion-row style="padding: 0px;">
+              <ion-col style="text-align: right; padding: 0px;">
+                <ion-text class="messageTimeSender">{{msg.time}}</ion-text>
+              </ion-col>
+
+            </ion-row>
+
+
+
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="showSkeleton">
+      <div class="chat" style="display: grid; grid-gap: 15px">
+        <div class="reciever_message_container">
+          <ion-skeleton-text class="skel_receiver" animated></ion-skeleton-text>
+          <ion-text class="messageTime"></ion-text>
+          <!-- <div class="reciever">
+                <p class="textMessage">Hi Moaviz skeleton. How are you?</p>
+              </div> -->
+        </div>
+
+        <div class="sender">
+          <div class="sender_message_container">
+            <ion-skeleton-text style="height: 97px" class="skel_sender" animated></ion-skeleton-text>
+          </div>
+        </div>
+        <div class="reciever_message_container">
+          <ion-skeleton-text class="skel_receiver" animated></ion-skeleton-text>
+        </div>
+
+        <div class="sender">
+          <div class="sender_message_container">
+            <ion-skeleton-text class="skel_sender" animated>
+            </ion-skeleton-text>
+          </div>
+        </div>
+        <div class="reciever_message_container">
+          <ion-skeleton-text style="height: 97px" class="skel_receiver" animated></ion-skeleton-text>
+        </div>
+
+        <div class="sender">
+          <div class="sender_message_container">
+            <ion-skeleton-text class="skel_sender" animated></ion-skeleton-text>
+          </div>
+        </div>
+        <div class="reciever_message_container">
+          <ion-skeleton-text style="height: 97px" class="skel_receiver" animated></ion-skeleton-text>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ion-content>
+<ion-footer style="    padding-left: 20px;    padding-right: 20px;
+    background: black;" class="ion-no-margin ion-no-padding ion-no-border">
+  <ion-toolbar class="footer">
+    <ion-row>
+      <ion-col style="text-align: center;">
+        <ion-text style="margin-top: 2px;
+        font-size: 12px;
+        color: #fff;
+        margin-left: 10px;">Message automatically expire after 3 days.</ion-text>
+
+      </ion-col>
+    </ion-row>
+
+
+
+    <div style="background-color: #4e4c4cdb; border-radius: 10px; height: 52px;">
+
+      <ion-row>
+
+        <ion-col size="2" style="padding: 0px;">
+          <img (click)="selectImages('profile')" src="assets/imgs/plus.svg" style=" padding: 8px;
+          height: 50px;
+          background: white;
+          border-radius: 10px;
+          margin-top: 1px;">
+        </ion-col>
+
+        <ion-col size="8" style="padding-top: 0px;">
+          <ion-input style="height: 50px;" class="input" rows="1" cols="20" [(ngModel)]="user_input"
+            placeholder="Type something" (keypress)="userTyping($event)" (ionChange)="changeFunction($event)">
+          </ion-input>
+        </ion-col>
+
+        <ion-col size="2" style="text-align: right; padding-right: 13px;">
+          <img (click)="sendMsg()" src="assets/imgs/send.svg" style="margin-top: 10px;
+          height: 25px;">
+        </ion-col>
+      </ion-row>
+    </div>
+
+
+    <!-- <div class="container">
+      <div class="footerAction">
+        <div class="attachments">
+          <img class="attachSvg" (click)="selectImages('profile')" src="/assets/icon/attach.svg" alt="" />
+        </div>
+        <div class="message">
+         
+        </div>
+        <div class="sendMessage" (click)="sendMsg()">
+          <img class="sendSvg" src="/assets/icon/send.svg" alt="" />
+        </div>
+      </div>
+    </div> -->
+
+
+
+
+  </ion-toolbar>
+</ion-footer>
+
+
+
+<div [hidden]="matchpopupHidden" style="
+    height: 100%;
+    width: 100%;
+    background-color: #0c293dd9;
+    position: absolute;
+  ">
+  <div style="    left: 10%;
+  position: absolute;
+  top: 24%;
+  width: 80%;
+  height: auto;
+  background-color: rgb(0 0 0);
+  padding-bottom: 20px;">
+    <ion-row>
+      <ion-col style="padding-top: 10 px; padding-right: 10px; text-align: right">
+        <img style="
+            height: 15px;
+            width: 15px;
+            margin-right: 10px;
+            margin-top: 14px;
+          " src="assets/imgs/close.svg" (click)="hidePopup()" />
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-top: 0px">
+      <ion-col style="text-align: center">
+        <img style="    width: 300px;
+        height: 190px;" src="assets/imgs/logo.svg" />
+      </ion-col>
+    </ion-row>
+
+    <div style="padding: 15px;
+        border: 2px solid white;
+        text-align: center;
+        margin: 17px;">
+      <ion-label style="font-size: 8pt;">You can chat for free up-to 6 messages then the app will automatically
+        exchange
+        your information or the
+        you can pay to chat more through messaging.</ion-label>
+    </div>
+
+    <ion-row style="padding-right: 15px;
+    margin-left: 15px;">
+      <ion-col>
+        <button (click)="goToMemberShip()" class="btn" style="font-size: 11pt;">Buy More Messages</button>
+      </ion-col>
+    </ion-row>
+
+
+  </div>
+</div>
