@@ -1,3 +1,4 @@
+import { AlertController } from '@ionic/angular';
 import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -272,7 +273,8 @@ export class RestService {
 
   newarr: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+    public alertcontroller: AlertController) { }
 
   removebadwords(string) {
     let strtoarray = string.split(' ')
@@ -294,7 +296,7 @@ export class RestService {
 
         string = newStringValue.replaceAll(',', ' ')
         console.log('replace afreter==', string);
-
+        this.basicAlert('you are not allowed to use this word')
       }
       else {
         console.log("Pak saf word ");
@@ -640,6 +642,13 @@ export class RestService {
     return this.http.post(this.baseURL + 'update_profile/' + userID, data, { headers });
   }
 
-
+  async basicAlert(message) {
+    const alert = await this.alertcontroller.create({
+      cssClass: 'basicAlert',
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
 
 }
