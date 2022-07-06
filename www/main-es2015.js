@@ -1835,14 +1835,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "RestService": function() { return /* binding */ RestService; }
 /* harmony export */ });
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! tslib */ 64762);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @ionic/angular */ 80476);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_common_http__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/common/http */ 91841);
 
 
 
+
 let RestService = class RestService {
-    constructor(http) {
+    constructor(http, alertcontroller) {
         this.http = http;
+        this.alertcontroller = alertcontroller;
         this.flagsList = [{ "id": 4, "name": "Afghanistan", "alpha2": "af", "alpha3": "afg" },
             { "id": 248, "name": "Åland Islands", "alpha2": "ax", "alpha3": "ala" },
             { "id": 8, "name": "Albania", "alpha2": "al", "alpha3": "alb" },
@@ -2110,6 +2113,7 @@ let RestService = class RestService {
                 var newStringValue = strtoarray.toString();
                 string = newStringValue.replaceAll(',', ' ');
                 console.log('replace afreter==', string);
+                this.basicAlert('you are not allowed to use this word');
             }
             else {
                 console.log("Pak saf word ");
@@ -2267,6 +2271,18 @@ let RestService = class RestService {
         };
         return this.http.post(this.baseURL + 'get_matches/', data, { headers });
     }
+    blockuser(data) {
+        let headers = {
+            'Content-Type': 'application/json',
+        };
+        return this.http.post(this.baseURL + 'blockuser/', data, { headers });
+    }
+    unblockuser(data) {
+        let headers = {
+            'Content-Type': 'application/json',
+        };
+        return this.http.post(this.baseURL + 'unblockuser/', data, { headers });
+    }
     update_notification_switchAPI(data) {
         let headers = {
             'Content-Type': 'application/json',
@@ -2328,12 +2344,23 @@ let RestService = class RestService {
         console.log('rest data -----', this.baseURL + 'update_profile' + userID + data);
         return this.http.post(this.baseURL + 'update_profile/' + userID, data, { headers });
     }
+    basicAlert(message) {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__awaiter)(this, void 0, void 0, function* () {
+            const alert = yield this.alertcontroller.create({
+                cssClass: 'basicAlert',
+                message: message,
+                buttons: ['OK']
+            });
+            yield alert.present();
+        });
+    }
 };
 RestService.ctorParameters = () => [
-    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpClient }
+    { type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpClient },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__.AlertController }
 ];
 RestService = (0,tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)({
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)({
         providedIn: 'root'
     })
 ], RestService);

@@ -3506,7 +3506,13 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(
+      /*! @ionic/angular */
+      80476);
+      /* harmony import */
+
+
+      var _angular_core__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
@@ -3517,10 +3523,11 @@
       91841);
 
       var _RestService = /*#__PURE__*/function () {
-        function RestService(http) {
+        function RestService(http, alertcontroller) {
           _classCallCheck(this, RestService);
 
           this.http = http;
+          this.alertcontroller = alertcontroller;
           this.flagsList = [{
             "id": 4,
             "name": "Afghanistan",
@@ -4774,6 +4781,8 @@
         _createClass(RestService, [{
           key: "removebadwords",
           value: function removebadwords(string) {
+            var _this6 = this;
+
             var strtoarray = string.split(' ');
             console.log('strtoarray=', strtoarray);
             var badwords = this.newarr;
@@ -4789,6 +4798,8 @@
                 var newStringValue = strtoarray.toString();
                 string = newStringValue.replaceAll(',', ' ');
                 console.log('replace afreter==', string);
+
+                _this6.basicAlert('you are not allowed to use this word');
               } else {
                 console.log("Pak saf word ");
               }
@@ -5037,6 +5048,26 @@
             });
           }
         }, {
+          key: "blockuser",
+          value: function blockuser(data) {
+            var headers = {
+              'Content-Type': 'application/json'
+            };
+            return this.http.post(this.baseURL + 'blockuser/', data, {
+              headers: headers
+            });
+          }
+        }, {
+          key: "unblockuser",
+          value: function unblockuser(data) {
+            var headers = {
+              'Content-Type': 'application/json'
+            };
+            return this.http.post(this.baseURL + 'unblockuser/', data, {
+              headers: headers
+            });
+          }
+        }, {
           key: "update_notification_switchAPI",
           value: function update_notification_switchAPI(data) {
             var headers = {
@@ -5137,6 +5168,35 @@
               headers: headers
             });
           }
+        }, {
+          key: "basicAlert",
+          value: function basicAlert(message) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var alert;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.alertcontroller.create({
+                        cssClass: 'basicAlert',
+                        message: message,
+                        buttons: ['OK']
+                      });
+
+                    case 2:
+                      alert = _context2.sent;
+                      _context2.next = 5;
+                      return alert.present();
+
+                    case 5:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
         }]);
 
         return RestService;
@@ -5145,10 +5205,12 @@
       _RestService.ctorParameters = function () {
         return [{
           type: _angular_common_http__WEBPACK_IMPORTED_MODULE_0__.HttpClient
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_2__.AlertController
         }];
       };
 
-      _RestService = (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_2__.Injectable)({
+      _RestService = (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_3__.Injectable)({
         providedIn: 'root'
       })], _RestService);
       /***/
@@ -5287,40 +5349,22 @@
         _createClass(WorkService, [{
           key: "presentLoading",
           value: function presentLoading() {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
-                while (1) {
-                  switch (_context2.prev = _context2.next) {
-                    case 0:
-                      _context2.next = 2;
-                      return this.loadingController.create({
-                        message: 'Please wait...'
-                      });
-
-                    case 2:
-                      this.loading = _context2.sent;
-                      _context2.next = 5;
-                      return this.loading.present();
-
-                    case 5:
-                    case "end":
-                      return _context2.stop();
-                  }
-                }
-              }, _callee2, this);
-            }));
-          }
-        }, {
-          key: "hideLoading",
-          value: function hideLoading() {
             return (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
               return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
                   switch (_context3.prev = _context3.next) {
                     case 0:
-                      this.loading.dismiss();
+                      _context3.next = 2;
+                      return this.loadingController.create({
+                        message: 'Please wait...'
+                      });
 
-                    case 1:
+                    case 2:
+                      this.loading = _context3.sent;
+                      _context3.next = 5;
+                      return this.loading.present();
+
+                    case 5:
                     case "end":
                       return _context3.stop();
                   }
@@ -5329,24 +5373,16 @@
             }));
           }
         }, {
-          key: "presentToast",
-          value: function presentToast(msg) {
+          key: "hideLoading",
+          value: function hideLoading() {
             return (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
               return regeneratorRuntime.wrap(function _callee4$(_context4) {
                 while (1) {
                   switch (_context4.prev = _context4.next) {
                     case 0:
-                      _context4.next = 2;
-                      return this.toastController.create({
-                        message: msg,
-                        duration: 2000
-                      });
+                      this.loading.dismiss();
 
-                    case 2:
-                      this.toast = _context4.sent;
-                      this.toast.present();
-
-                    case 4:
+                    case 1:
                     case "end":
                       return _context4.stop();
                   }
@@ -5355,21 +5391,47 @@
             }));
           }
         }, {
-          key: "hideToast",
-          value: function hideToast() {
+          key: "presentToast",
+          value: function presentToast(msg) {
             return (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
               return regeneratorRuntime.wrap(function _callee5$(_context5) {
                 while (1) {
                   switch (_context5.prev = _context5.next) {
                     case 0:
-                      this.toast.dismiss();
+                      _context5.next = 2;
+                      return this.toastController.create({
+                        message: msg,
+                        duration: 2000
+                      });
 
-                    case 1:
+                    case 2:
+                      this.toast = _context5.sent;
+                      this.toast.present();
+
+                    case 4:
                     case "end":
                       return _context5.stop();
                   }
                 }
               }, _callee5, this);
+            }));
+          }
+        }, {
+          key: "hideToast",
+          value: function hideToast() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_1__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
+              return regeneratorRuntime.wrap(function _callee6$(_context6) {
+                while (1) {
+                  switch (_context6.prev = _context6.next) {
+                    case 0:
+                      this.toast.dismiss();
+
+                    case 1:
+                    case "end":
+                      return _context6.stop();
+                  }
+                }
+              }, _callee6, this);
             }));
           }
         }, {

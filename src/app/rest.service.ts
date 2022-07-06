@@ -540,6 +540,21 @@ export class RestService {
     return this.http.post(this.baseURL + 'get_matches/', data, { headers });
   }
 
+  blockuser(data) {
+    let headers = {
+      'Content-Type': 'application/json',
+    };
+
+    return this.http.post(this.baseURL + 'blockuser/', data, { headers });
+  }
+  unblockuser(data) {
+    let headers = {
+      'Content-Type': 'application/json',
+    };
+
+    return this.http.post(this.baseURL + 'unblockuser/', data, { headers });
+  }
+
 
 
   update_notification_switchAPI(data) {

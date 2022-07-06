@@ -42,7 +42,7 @@ export class MatchPage implements OnInit {
   toggleNotSelected = 1
 
   matchDeleted: any = 0
-
+  bvalue = false;
   matches = [
 
     // { "users_customers_id": "15", "onesignal_id": "de1a9360-6fd8-11ec-ad6b-1a75e5ae0c98", "packages_id": "0", "packages_sms_id": "0", "allowed_sms": "-14", "first_name": "Ali", "last_name": "Syed", "user_email": "123@ff.vv", "user_password": "$2y$10$Z2eFZjHwK9aCzr002MnKlOi1kwcdTJkfEgKI\/oqYmzBT\/MKxblDRC", "newsletter": "Yes", "date_of_birth": "1998-04-01", "lives": "Muhammad Ali International Airport, Louisville, KY, USA", "froms": "K.K.NAGAR, KK Nagar Road, Ghatlodiya, Nirnay Nagar, Ahmedabad, Gujarat, India", "profile_pic_1": "b332eab4f74d4bc42624c3d4040b3823.png", "profile_pic_2": "01acd1d318c154cee3edddbafb1bdf51.png", "contact_number": "+923047848242", "system_countries_id": "2", "system_ethinicity_id": "0", "system_genders_id": "1", "system_looking_for_id": "2", "height": "6.4000", "work_company": "Tt", "system_jobtitle": "Ff", "system_edulevel_id": "5", "school": "", "career_goals": "no gols", "system_religions_id": "2", "system_kosher_id": "0", "system_affiliations_id": "8", "system_maritalstatus_id": "2", "willing_relocate": "Yes", "system_personality_type_id": "1", "short_bio": "shot", "instagram": "gf", "linkedin": "gg", "spotify": "cv", "know_anyone": "Yes", "friend_full_name": "", "friend_email": "", "friend_contact": "", "additional_comments": "Comment", "notification_switch": "Yes", "created_at": "2022-01-31 01:47:22", "updated_at": "2022-01-05 12:51:52", "status": "Active", "system_affiliations_name": "Other", "system_countries_name": "Albanian", "system_ethinicity_name": null, "system_edulevel_name": "Bachelor's Degree", "system_genders_name": "Male", "system_looking_for_name": "Female", "system_maritalstatus_name": "Single", "system_personality_type_name": "Introvert", "system_religions_name": "Other", "system_kosher_name": null, "prompt_replies": "Yes" },
@@ -116,15 +116,55 @@ export class MatchPage implements OnInit {
     this.matchpopupHidden = true;
   }
 
+  blockorunblockuser(value) {
+    console.log('user data==', value)
+    if (value.block_status == 'Unblock' || value.block_status == null) {
+      value.block_status = 'Block'
+      this.blockuser(value.users_customers_id)
+    } else {
+      value.block_status = 'Unblock'
+      this.unblockuser(value.users_customers_id)
+    }
+  }
+  blockuser(otheruserid) {
+    let data = {
+      "blocked_user_id": otheruserid,
+      "blocked_by_user_id": localStorage.getItem('loggedinUserID')
+    }
+    this.restService.blockuser(data).subscribe((res: any) => {
+      console.log('block user result==', res)
+      if (res.status == 'success') {
+        this.workService.presentToast('User blocked')
+      }
+    })
+  }
+
+  unblockuser(otheruserid) {
+    let data = {
+      "blocked_user_id": otheruserid,
+      "blocked_by_user_id": localStorage.getItem('loggedinUserID')
+    }
+    this.restService.unblockuser(data).subscribe((res: any) => {
+      console.log('unblock user result==', res);
+      if (res.status == 'success') {
+        this.workService.presentToast('User Unblocked')
+      }
+    })
+  }
+
   goToMessage(match) {
     console.log(match);
     //this.router.navigate(['/tabs/tab2'])
-
+    if (match.block_status == 'Block') {
+      this.restService.basicAlert('You had blocked the user!')
+    } else {
+      console.log('other user id on match page line 125', match.users_customers_id);
+      this.workService.myUserData = match
+      this.router.navigate(['otherprofile']);
+    }
 
     // if (match.prompt_replies == 'No') {
-    console.log('other user id on match page line 125', match.users_customers_id);
-    this.workService.myUserData = match
-    this.router.navigate(['otherprofile']);
+
 
 
     // } else {
