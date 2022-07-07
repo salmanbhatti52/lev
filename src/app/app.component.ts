@@ -62,8 +62,11 @@ export class AppComponent {
 
 
     var userID = localStorage.getItem('loggedinUserID')
-
-    this.restService.get_user_dataAPI(userID).subscribe((res: any) => {
+    let data = {
+      loginuser: 0,
+      otheruser: userID
+    }
+    this.restService.get_user_dataAPI(data).subscribe((res: any) => {
 
       console.log('incomming data === ', res);
       if (res.status == "success") {

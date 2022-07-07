@@ -203,7 +203,7 @@
       /* harmony import */
 
 
-      var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(
       /*! @angular/core */
       37716);
       /* harmony import */
@@ -230,9 +230,15 @@
       var _userservice_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(
       /*! ../userservice.service */
       75157);
+      /* harmony import */
+
+
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(
+      /*! @ionic/angular */
+      80476);
 
       var _OtherprofilePage = /*#__PURE__*/function () {
-        function OtherprofilePage(location, router, workService, restService, userService) {
+        function OtherprofilePage(location, router, workService, restService, userService, alertcontroller) {
           _classCallCheck(this, OtherprofilePage);
 
           this.location = location;
@@ -240,6 +246,7 @@
           this.workService = workService;
           this.restService = restService;
           this.userService = userService;
+          this.alertcontroller = alertcontroller;
           this.viewProfilePopupHidden = false;
           this.userData = '';
           this.userPrompts = '';
@@ -283,7 +290,12 @@
             this.workService.presentLoading();
             this.otherUserID = this.workService.myUserData.users_customers_id;
             console.log('other user id on otherprofile page line 82', this.otherUserID);
-            this.restService.get_user_dataAPI(this.otherUserID).subscribe(function (res) {
+            var data = {
+              loginuser: localStorage.getItem('loggedinUserID'),
+              otheruser: this.otherUserID
+            };
+            console.log('data get==', data);
+            this.restService.get_user_dataAPI(data).subscribe(function (res) {
               _this.workService.hideLoading();
 
               console.log('incomming data === ', res);
@@ -384,6 +396,15 @@
 
                   _this.workService.presentToast('Network error occured');
                 });
+              }
+
+              if (res.status == 'error') {
+                _this.viewProfilePopupHidden = true;
+                _this.prompt1Loader = false;
+                _this.prompt2Loader = false;
+                _this.prompt3Loader = false;
+
+                _this.basicAlert(res.message);
               }
             }, function (err) {
               _this.workService.hideLoading();
@@ -598,6 +619,35 @@
           value: function hidePopupViewProfile() {
             this.viewProfilePopupHidden = true;
           }
+        }, {
+          key: "basicAlert",
+          value: function basicAlert(message) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var alert;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.alertcontroller.create({
+                        cssClass: 'basicAlert',
+                        message: message,
+                        buttons: ['OK']
+                      });
+
+                    case 2:
+                      alert = _context2.sent;
+                      _context2.next = 5;
+                      return alert.present();
+
+                    case 5:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
         }]);
 
         return OtherprofilePage;
@@ -614,10 +664,12 @@
           type: _rest_service__WEBPACK_IMPORTED_MODULE_2__.RestService
         }, {
           type: _userservice_service__WEBPACK_IMPORTED_MODULE_4__.UserserviceService
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.AlertController
         }];
       };
 
-      _OtherprofilePage = (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
+      _OtherprofilePage = (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([(0, _angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
         selector: 'app-otherprofile',
         template: _raw_loader_otherprofile_page_html__WEBPACK_IMPORTED_MODULE_0__["default"],
         styles: [_otherprofile_page_scss__WEBPACK_IMPORTED_MODULE_1__["default"]]

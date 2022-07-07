@@ -137,7 +137,11 @@ let Tab2Page = class Tab2Page {
     ionViewWillEnter() {
         console.log('ionviewwillenter');
         var userID = localStorage.getItem('loggedinUserID');
-        this.restService.get_user_dataAPI(userID).subscribe((res) => {
+        let data = {
+            loginuser: 0,
+            otheruser: userID
+        };
+        this.restService.get_user_dataAPI(data).subscribe((res) => {
             console.log('incomming data === ', res);
             if (res.status == "success") {
                 localStorage.setItem('remainingSMS', res.data.user_data.allowed_sms);
@@ -146,7 +150,7 @@ let Tab2Page = class Tab2Page {
             }
         }, err => {
             this.workService.hideLoading();
-            // this.workService.presentToast('Network error occured')
+            this.workService.presentToast('Network error occured');
         });
     }
     getChatList(event) {

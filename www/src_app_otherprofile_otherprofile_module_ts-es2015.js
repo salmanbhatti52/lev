@@ -96,11 +96,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _raw_loader_otherprofile_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./otherprofile.page.html */ 4434);
 /* harmony import */ var _otherprofile_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./otherprofile.page.scss */ 83429);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @angular/common */ 38583);
-/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @angular/core */ 37716);
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_router__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/router */ 39895);
 /* harmony import */ var _rest_service__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../rest.service */ 61881);
 /* harmony import */ var _work_service__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../work.service */ 8981);
 /* harmony import */ var _userservice_service__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../userservice.service */ 75157);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @ionic/angular */ 80476);
+
 
 
 
@@ -111,12 +113,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let OtherprofilePage = class OtherprofilePage {
-    constructor(location, router, workService, restService, userService) {
+    constructor(location, router, workService, restService, userService, alertcontroller) {
         this.location = location;
         this.router = router;
         this.workService = workService;
         this.restService = restService;
         this.userService = userService;
+        this.alertcontroller = alertcontroller;
         this.viewProfilePopupHidden = false;
         this.userData = '';
         this.userPrompts = '';
@@ -154,7 +157,12 @@ let OtherprofilePage = class OtherprofilePage {
         this.workService.presentLoading();
         this.otherUserID = this.workService.myUserData.users_customers_id;
         console.log('other user id on otherprofile page line 82', this.otherUserID);
-        this.restService.get_user_dataAPI(this.otherUserID).subscribe((res) => {
+        let data = {
+            loginuser: localStorage.getItem('loggedinUserID'),
+            otheruser: this.otherUserID
+        };
+        console.log('data get==', data);
+        this.restService.get_user_dataAPI(data).subscribe((res) => {
             this.workService.hideLoading();
             console.log('incomming data === ', res);
             if (res.status == "success") {
@@ -241,6 +249,13 @@ let OtherprofilePage = class OtherprofilePage {
                     this.workService.hideLoading();
                     this.workService.presentToast('Network error occured');
                 });
+            }
+            if (res.status == 'error') {
+                this.viewProfilePopupHidden = true;
+                this.prompt1Loader = false;
+                this.prompt2Loader = false;
+                this.prompt3Loader = false;
+                this.basicAlert(res.message);
             }
         }, err => {
             this.workService.hideLoading();
@@ -401,16 +416,27 @@ let OtherprofilePage = class OtherprofilePage {
     hidePopupViewProfile() {
         this.viewProfilePopupHidden = true;
     }
+    basicAlert(message) {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+            const alert = yield this.alertcontroller.create({
+                cssClass: 'basicAlert',
+                message: message,
+                buttons: ['OK']
+            });
+            yield alert.present();
+        });
+    }
 };
 OtherprofilePage.ctorParameters = () => [
     { type: _angular_common__WEBPACK_IMPORTED_MODULE_6__.Location },
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_7__.Router },
     { type: _work_service__WEBPACK_IMPORTED_MODULE_3__.WorkService },
     { type: _rest_service__WEBPACK_IMPORTED_MODULE_2__.RestService },
-    { type: _userservice_service__WEBPACK_IMPORTED_MODULE_4__.UserserviceService }
+    { type: _userservice_service__WEBPACK_IMPORTED_MODULE_4__.UserserviceService },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_8__.AlertController }
 ];
 OtherprofilePage = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
-    (0,_angular_core__WEBPACK_IMPORTED_MODULE_8__.Component)({
+    (0,_angular_core__WEBPACK_IMPORTED_MODULE_9__.Component)({
         selector: 'app-otherprofile',
         template: _raw_loader_otherprofile_page_html__WEBPACK_IMPORTED_MODULE_0__.default,
         styles: [_otherprofile_page_scss__WEBPACK_IMPORTED_MODULE_1__.default]

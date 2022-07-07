@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ModalController, NavController, Platform } from '@ionic/angular';
+import { ModalController, NavController, Platform, AlertController } from '@ionic/angular';
 import { MatchdeletePage } from '../matchdelete/matchdelete.page';
 import { RestService } from '../rest.service';
 import { SignupService } from '../signup.service';
@@ -49,6 +49,7 @@ export class MatchPage implements OnInit {
     //  { "users_customers_id": "2", "onesignal_id": "ecd8942c-6e22-11ec-88e4-a6bbdbfc2e1e", "packages_id": "0", "packages_sms_id": "0", "allowed_sms": "-5", "first_name": "Arslan", "last_name": "Ahmad", "user_email": "arslan_ahmad91@yahoo.com", "user_password": "$2y$10$\/Z4WlXJpetFTFABg7melrOT1QT373gl1rA0dW.fD.dfRbvaqBYA0G", "newsletter": "Yes", "date_of_birth": "2018-09-01", "lives": "hah", "froms": "hah", "profile_pic_1": "26d5660156b6c966427629d256c549bd.png\t", "profile_pic_2": "26d5660156b6c966427629d256c549bd.png\t", "contact_number": "+923002485139---Deleted", "system_countries_id": "1", "system_ethinicity_id": "0", "system_genders_id": "1", "system_looking_for_id": "1", "height": "111.0000", "work_company": "test", "system_jobtitle": "1", "system_edulevel_id": "1", "school": "asdf school", "career_goals": "goals", "system_religions_id": "1", "system_kosher_id": "0", "system_affiliations_id": "1", "system_maritalstatus_id": "1", "willing_relocate": "Yes", "system_personality_type_id": "1", "short_bio": "asd asdfsdfa", "instagram": "asdf", "linkedin": "asdf", "spotify": "asdf", "know_anyone": "Yes", "friend_full_name": "asdf", "friend_email": "asdf@asd.com", "friend_contact": "123123123123", "additional_comments": "asdfasdfas asa asd", "notification_switch": "Yes", "created_at": "2022-01-31 00:05:31", "updated_at": "2021-11-15 03:12:16", "status": "Active", "system_affiliations_name": "Orthodox", "system_countries_name": "Afghan", "system_ethinicity_name": null, "system_edulevel_name": "Matric", "system_genders_name": "Male", "system_looking_for_name": "Male", "system_maritalstatus_name": "Divorsed", "system_personality_type_name": "Introvert", "system_religions_name": "Jewish", "system_kosher_name": null, "prompt_replies": "No" }
 
   ]
+  otherUserID: any;
 
   constructor(public router: Router,
     public signupService: SignupService,
@@ -57,7 +58,8 @@ export class MatchPage implements OnInit {
     public workService: WorkService,
     public userService: UserserviceService,
     public navCtrl: NavController,
-    public modalCtrl: ModalController) { }
+    public modalCtrl: ModalController,
+    public alertcontroller: AlertController) { }
 
   ngOnInit() {
     if (this.platform.is('android')) {
@@ -159,8 +161,9 @@ export class MatchPage implements OnInit {
       this.restService.basicAlert('You had blocked the user!')
     } else {
       console.log('other user id on match page line 125', match.users_customers_id);
-      this.workService.myUserData = match
-      this.router.navigate(['otherprofile']);
+      // this.workService.myUserData = match
+      // this.router.navigate(['otherprofile']);
+      this.checkedmatchblockeduser(match)
     }
 
     // if (match.prompt_replies == 'No') {
@@ -188,6 +191,43 @@ export class MatchPage implements OnInit {
 
 
 
+  }
+
+  checkedmatchblockeduser(match) {
+    this.workService.presentLoading()
+    this.otherUserID = match.users_customers_id
+    console.log('other user id on otherprofile page line 82', this.otherUserID);
+    let data = {
+      loginuser: localStorage.getItem('loggedinUserID'),
+      otheruser: this.otherUserID
+    }
+    console.log('data get==', data)
+    this.restService.get_user_dataAPI(data).subscribe((res: any) => {
+      this.workService.hideLoading()
+      console.log('incomming data === ', res);
+      if (res.status == "success") {
+        this.workService.hideLoading();
+        this.workService.myUserData = match
+        this.router.navigate(['otherprofile']);
+
+        console.log('other profile ---->>');
+
+
+
+
+
+
+
+      }
+      if (res.status == 'error') {
+        this.workService.hideLoading();
+        this.basicAlert(res.message)
+      }
+
+    }, err => {
+      this.workService.hideLoading()
+      this.workService.presentToast('Network error occured')
+    })
   }
 
   goToMessageMain(match) {
@@ -377,5 +417,12 @@ export class MatchPage implements OnInit {
     this.router.navigate(['notification'])
   }
 
-
+  async basicAlert(message) {
+    const alert = await this.alertcontroller.create({
+      cssClass: 'basicAlert',
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
+  }
 }

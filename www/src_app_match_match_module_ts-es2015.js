@@ -115,7 +115,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 let MatchPage = class MatchPage {
-    constructor(router, signupService, platform, restService, workService, userService, navCtrl, modalCtrl) {
+    constructor(router, signupService, platform, restService, workService, userService, navCtrl, modalCtrl, alertcontroller) {
         this.router = router;
         this.signupService = signupService;
         this.platform = platform;
@@ -124,6 +124,7 @@ let MatchPage = class MatchPage {
         this.userService = userService;
         this.navCtrl = navCtrl;
         this.modalCtrl = modalCtrl;
+        this.alertcontroller = alertcontroller;
         this.matchpopupHidden = true;
         this.togglePlatformAndroid = false;
         this.toggleFalse = false;
@@ -225,8 +226,9 @@ let MatchPage = class MatchPage {
         }
         else {
             console.log('other user id on match page line 125', match.users_customers_id);
-            this.workService.myUserData = match;
-            this.router.navigate(['otherprofile']);
+            // this.workService.myUserData = match
+            // this.router.navigate(['otherprofile']);
+            this.checkedmatchblockeduser(match);
         }
         // if (match.prompt_replies == 'No') {
         // } else {
@@ -246,6 +248,33 @@ let MatchPage = class MatchPage {
         //   })
         //   this.navCtrl.navigateForward("/chat");
         // }
+    }
+    checkedmatchblockeduser(match) {
+        this.workService.presentLoading();
+        this.otherUserID = match.users_customers_id;
+        console.log('other user id on otherprofile page line 82', this.otherUserID);
+        let data = {
+            loginuser: localStorage.getItem('loggedinUserID'),
+            otheruser: this.otherUserID
+        };
+        console.log('data get==', data);
+        this.restService.get_user_dataAPI(data).subscribe((res) => {
+            this.workService.hideLoading();
+            console.log('incomming data === ', res);
+            if (res.status == "success") {
+                this.workService.hideLoading();
+                this.workService.myUserData = match;
+                this.router.navigate(['otherprofile']);
+                console.log('other profile ---->>');
+            }
+            if (res.status == 'error') {
+                this.workService.hideLoading();
+                this.basicAlert(res.message);
+            }
+        }, err => {
+            this.workService.hideLoading();
+            this.workService.presentToast('Network error occured');
+        });
     }
     goToMessageMain(match) {
         console.log(match);
@@ -367,6 +396,16 @@ let MatchPage = class MatchPage {
     goTONoti() {
         this.router.navigate(['notification']);
     }
+    basicAlert(message) {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, function* () {
+            const alert = yield this.alertcontroller.create({
+                cssClass: 'basicAlert',
+                message: message,
+                buttons: ['OK']
+            });
+            yield alert.present();
+        });
+    }
 };
 MatchPage.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_8__.Router },
@@ -376,7 +415,8 @@ MatchPage.ctorParameters = () => [
     { type: _work_service__WEBPACK_IMPORTED_MODULE_6__.WorkService },
     { type: _userservice_service__WEBPACK_IMPORTED_MODULE_5__.UserserviceService },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.NavController },
-    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.ModalController }
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.ModalController },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.AlertController }
 ];
 MatchPage = (0,tslib__WEBPACK_IMPORTED_MODULE_7__.__decorate)([
     (0,_angular_core__WEBPACK_IMPORTED_MODULE_10__.Component)({

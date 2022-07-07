@@ -437,7 +437,7 @@ export class RestService {
       'Content-Type': 'application/json',
     };
 
-    return this.http.post(this.baseURL + 'get_user_data/' + data, { headers });
+    return this.http.post(this.baseURL + 'get_user_data', data, { headers });
   }
 
 

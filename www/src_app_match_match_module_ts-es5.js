@@ -244,7 +244,7 @@
       8981);
 
       var _MatchPage = /*#__PURE__*/function () {
-        function MatchPage(router, signupService, platform, restService, workService, userService, navCtrl, modalCtrl) {
+        function MatchPage(router, signupService, platform, restService, workService, userService, navCtrl, modalCtrl, alertcontroller) {
           _classCallCheck(this, MatchPage);
 
           this.router = router;
@@ -255,6 +255,7 @@
           this.userService = userService;
           this.navCtrl = navCtrl;
           this.modalCtrl = modalCtrl;
+          this.alertcontroller = alertcontroller;
           this.matchpopupHidden = true;
           this.togglePlatformAndroid = false;
           this.toggleFalse = false;
@@ -395,9 +396,10 @@
             if (match.block_status == 'Block') {
               this.restService.basicAlert('You had blocked the user!');
             } else {
-              console.log('other user id on match page line 125', match.users_customers_id);
-              this.workService.myUserData = match;
-              this.router.navigate(['otherprofile']);
+              console.log('other user id on match page line 125', match.users_customers_id); // this.workService.myUserData = match
+              // this.router.navigate(['otherprofile']);
+
+              this.checkedmatchblockeduser(match);
             } // if (match.prompt_replies == 'No') {
             // } else {
             //   this.userService.userName = match.first_name + ' ' + match.last_name
@@ -417,6 +419,45 @@
             //   this.navCtrl.navigateForward("/chat");
             // }
 
+          }
+        }, {
+          key: "checkedmatchblockeduser",
+          value: function checkedmatchblockeduser(match) {
+            var _this4 = this;
+
+            this.workService.presentLoading();
+            this.otherUserID = match.users_customers_id;
+            console.log('other user id on otherprofile page line 82', this.otherUserID);
+            var data = {
+              loginuser: localStorage.getItem('loggedinUserID'),
+              otheruser: this.otherUserID
+            };
+            console.log('data get==', data);
+            this.restService.get_user_dataAPI(data).subscribe(function (res) {
+              _this4.workService.hideLoading();
+
+              console.log('incomming data === ', res);
+
+              if (res.status == "success") {
+                _this4.workService.hideLoading();
+
+                _this4.workService.myUserData = match;
+
+                _this4.router.navigate(['otherprofile']);
+
+                console.log('other profile ---->>');
+              }
+
+              if (res.status == 'error') {
+                _this4.workService.hideLoading();
+
+                _this4.basicAlert(res.message);
+              }
+            }, function (err) {
+              _this4.workService.hideLoading();
+
+              _this4.workService.presentToast('Network error occured');
+            });
           }
         }, {
           key: "goToMessageMain",
@@ -447,7 +488,7 @@
         }, {
           key: "closeMatch",
           value: function closeMatch() {
-            var _this4 = this;
+            var _this5 = this;
 
             var ss = JSON.stringify({
               'users_customers_id': localStorage.getItem('loggedinUserID'),
@@ -455,36 +496,6 @@
             });
             this.workService.presentLoading();
             this.restService.delete_matchAPI(ss).subscribe(function (res) {
-              _this4.workService.hideLoading();
-
-              if (res.status.success) {
-                _this4.workService.presentToast(res.message);
-
-                _this4.matches.splice(_this4.selectedIndexToDelete, 1);
-
-                _this4.totalMatches = _this4.totalMatches - 1;
-              } else {
-                _this4.workService.presentToast(res.message);
-              }
-            }, function (err) {
-              _this4.workService.hideLoading();
-
-              _this4.workService.presentToast('Network error occured');
-            });
-            console.log(ss); //
-          }
-        }, {
-          key: "openChat",
-          value: function openChat(event) {
-            var _this5 = this;
-
-            console.log("event---", event);
-            var ss = JSON.stringify({
-              'users_customers_id': localStorage.getItem('loggedinUserID'),
-              'other_users_customers_id': this.selectedUserID
-            });
-            this.workService.presentLoading();
-            this.restService.remove_matchAPI(ss).subscribe(function (res) {
               _this5.workService.hideLoading();
 
               if (res.status.success) {
@@ -501,12 +512,42 @@
 
               _this5.workService.presentToast('Network error occured');
             });
+            console.log(ss); //
+          }
+        }, {
+          key: "openChat",
+          value: function openChat(event) {
+            var _this6 = this;
+
+            console.log("event---", event);
+            var ss = JSON.stringify({
+              'users_customers_id': localStorage.getItem('loggedinUserID'),
+              'other_users_customers_id': this.selectedUserID
+            });
+            this.workService.presentLoading();
+            this.restService.remove_matchAPI(ss).subscribe(function (res) {
+              _this6.workService.hideLoading();
+
+              if (res.status.success) {
+                _this6.workService.presentToast(res.message);
+
+                _this6.matches.splice(_this6.selectedIndexToDelete, 1);
+
+                _this6.totalMatches = _this6.totalMatches - 1;
+              } else {
+                _this6.workService.presentToast(res.message);
+              }
+            }, function (err) {
+              _this6.workService.hideLoading();
+
+              _this6.workService.presentToast('Network error occured');
+            });
             console.log(ss);
           }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
-            var _this6 = this;
+            var _this7 = this;
 
             // localStorage.setItem('loggedinUserID', '71')
             this.userData = JSON.parse(localStorage.getItem('loggedinUserData'));
@@ -525,20 +566,20 @@
             });
             console.log('data-----', data);
             this.restService.getBestMatchesAPI(data).subscribe(function (res) {
-              _this6.workService.hideLoading();
+              _this7.workService.hideLoading();
 
               console.log('data-----', res);
 
               if (res.status == 'success') {
-                _this6.matches = res.data;
-                _this6.totalMatches = _this6.matches.length;
+                _this7.matches = res.data;
+                _this7.totalMatches = _this7.matches.length;
               } else {
-                _this6.workService.presentToast('No Match Found');
+                _this7.workService.presentToast('No Match Found');
               }
             }, function (err) {
-              _this6.workService.hideLoading();
+              _this7.workService.hideLoading();
 
-              _this6.workService.presentToast('Network error occured');
+              _this7.workService.presentToast('Network error occured');
             });
           }
         }, {
@@ -569,6 +610,35 @@
           value: function goTONoti() {
             this.router.navigate(['notification']);
           }
+        }, {
+          key: "basicAlert",
+          value: function basicAlert(message) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var alert;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.alertcontroller.create({
+                        cssClass: 'basicAlert',
+                        message: message,
+                        buttons: ['OK']
+                      });
+
+                    case 2:
+                      alert = _context2.sent;
+                      _context2.next = 5;
+                      return alert.present();
+
+                    case 5:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
         }]);
 
         return MatchPage;
@@ -591,6 +661,8 @@
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.NavController
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.ModalController
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.AlertController
         }];
       };
 

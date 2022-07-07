@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { RestService } from '../rest.service';
 import { WorkService } from '../work.service';
 import { UserserviceService } from "../userservice.service";
+import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-otherprofile',
   templateUrl: './otherprofile.page.html',
@@ -66,7 +67,8 @@ export class OtherprofilePage implements OnInit {
     public router: Router,
     public workService: WorkService,
     public restService: RestService,
-    public userService: UserserviceService,) { }
+    public userService: UserserviceService,
+    public alertcontroller: AlertController) { }
 
   ngOnInit() {
   }
@@ -82,8 +84,12 @@ export class OtherprofilePage implements OnInit {
 
     this.otherUserID = this.workService.myUserData.users_customers_id
     console.log('other user id on otherprofile page line 82', this.otherUserID);
-
-    this.restService.get_user_dataAPI(this.otherUserID).subscribe((res: any) => {
+    let data = {
+      loginuser: localStorage.getItem('loggedinUserID'),
+      otheruser: this.otherUserID
+    }
+    console.log('data get==', data)
+    this.restService.get_user_dataAPI(data).subscribe((res: any) => {
       this.workService.hideLoading()
       console.log('incomming data === ', res);
       if (res.status == "success") {
@@ -238,7 +244,14 @@ export class OtherprofilePage implements OnInit {
 
 
       }
+      if (res.status == 'error') {
+        this.viewProfilePopupHidden = true;
+        this.prompt1Loader = false;
+        this.prompt2Loader = false;
+        this.prompt3Loader = false;
 
+        this.basicAlert(res.message)
+      }
 
     }, err => {
       this.workService.hideLoading()
@@ -462,5 +475,14 @@ export class OtherprofilePage implements OnInit {
 
   hidePopupViewProfile() {
     this.viewProfilePopupHidden = true
+  }
+
+  async basicAlert(message) {
+    const alert = await this.alertcontroller.create({
+      cssClass: 'basicAlert',
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 }

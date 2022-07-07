@@ -49,8 +49,11 @@ export class Tab3Page {
     this.workService.presentLoading()
 
     var userID = localStorage.getItem('loggedinUserID')
-
-    this.restService.get_user_dataAPI(userID).subscribe((res: any) => {
+    let data = {
+      loginuser: 0,
+      otheruser: userID
+    }
+    this.restService.get_user_dataAPI(data).subscribe((res: any) => {
       this.workService.hideLoading()
       console.log('incomming data ===333333333 ', res);
       if (res.status == "success") {

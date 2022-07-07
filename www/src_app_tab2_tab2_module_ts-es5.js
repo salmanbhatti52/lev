@@ -273,7 +273,11 @@
 
             console.log('ionviewwillenter');
             var userID = localStorage.getItem('loggedinUserID');
-            this.restService.get_user_dataAPI(userID).subscribe(function (res) {
+            var data = {
+              loginuser: 0,
+              otheruser: userID
+            };
+            this.restService.get_user_dataAPI(data).subscribe(function (res) {
               console.log('incomming data === ', res);
 
               if (res.status == "success") {
@@ -282,8 +286,9 @@
                 localStorage.setItem('userNotiStatus', _this2.workService.myUserData.data.user_data.notification_switch);
               }
             }, function (err) {
-              _this2.workService.hideLoading(); // this.workService.presentToast('Network error occured')
+              _this2.workService.hideLoading();
 
+              _this2.workService.presentToast('Network error occured');
             });
           }
         }, {

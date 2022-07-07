@@ -362,7 +362,11 @@ let AppComponent = class AppComponent {
     }
     checkSubscription() {
         var userID = localStorage.getItem('loggedinUserID');
-        this.restService.get_user_dataAPI(userID).subscribe((res) => {
+        let data = {
+            loginuser: 0,
+            otheruser: userID
+        };
+        this.restService.get_user_dataAPI(data).subscribe((res) => {
             console.log('incomming data === ', res);
             if (res.status == "success") {
                 if (res.data.user_data) {
@@ -2209,7 +2213,7 @@ let RestService = class RestService {
         let headers = {
             'Content-Type': 'application/json',
         };
-        return this.http.post(this.baseURL + 'get_user_data/' + data, { headers });
+        return this.http.post(this.baseURL + 'get_user_data', data, { headers });
     }
     get_user_auto_repsonse(data) {
         let headers = {

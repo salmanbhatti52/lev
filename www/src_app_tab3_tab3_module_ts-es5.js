@@ -276,7 +276,11 @@
             console.log('ionviewwillenter');
             this.workService.presentLoading();
             var userID = localStorage.getItem('loggedinUserID');
-            this.restService.get_user_dataAPI(userID).subscribe(function (res) {
+            var data = {
+              loginuser: 0,
+              otheruser: userID
+            };
+            this.restService.get_user_dataAPI(data).subscribe(function (res) {
               _this2.workService.hideLoading();
 
               console.log('incomming data ===333333333 ', res);

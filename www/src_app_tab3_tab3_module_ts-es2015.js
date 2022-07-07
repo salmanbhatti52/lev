@@ -136,7 +136,11 @@ let Tab3Page = class Tab3Page {
         console.log('ionviewwillenter');
         this.workService.presentLoading();
         var userID = localStorage.getItem('loggedinUserID');
-        this.restService.get_user_dataAPI(userID).subscribe((res) => {
+        let data = {
+            loginuser: 0,
+            otheruser: userID
+        };
+        this.restService.get_user_dataAPI(data).subscribe((res) => {
             this.workService.hideLoading();
             console.log('incomming data ===333333333 ', res);
             if (res.status == "success") {

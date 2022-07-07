@@ -861,7 +861,11 @@
             var _this = this;
 
             var userID = localStorage.getItem('loggedinUserID');
-            this.restService.get_user_dataAPI(userID).subscribe(function (res) {
+            var data = {
+              loginuser: 0,
+              otheruser: userID
+            };
+            this.restService.get_user_dataAPI(data).subscribe(function (res) {
               console.log('incomming data === ', res);
 
               if (res.status == "success") {
@@ -4943,7 +4947,7 @@
             var headers = {
               'Content-Type': 'application/json'
             };
-            return this.http.post(this.baseURL + 'get_user_data/' + data, {
+            return this.http.post(this.baseURL + 'get_user_data', data, {
               headers: headers
             });
           }
