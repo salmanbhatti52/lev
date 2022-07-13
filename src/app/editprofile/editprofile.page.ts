@@ -1,3 +1,4 @@
+import { AlertController } from '@ionic/angular';
 import { Location } from '@angular/common';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, NgZone, OnInit } from '@angular/core';
@@ -132,6 +133,7 @@ export class EditprofilePage implements OnInit {
   listishiddenSchool = false
 
   autoresp: any = ''
+  agediff: any;
 
 
   constructor(public locationPlugin: Location,
@@ -143,6 +145,7 @@ export class EditprofilePage implements OnInit {
     private nativeGeocoder: NativeGeocoder,
     private zone: NgZone,
     public storage: Storage,
+    public alertcontroller: AlertController,
     private transfer: FileTransfer) {
 
     this.GoogleAutocomplete = new google.maps.places.AutocompleteService();
@@ -642,7 +645,13 @@ export class EditprofilePage implements OnInit {
 
   done() {
     console.log('goooo');
+    let dob = this.dobYear + '-' + this.dobMonth + '-' + this.dobDay
 
+    ///age difference////
+    const bdate = new Date(dob);
+    const timeDiff = Math.abs(Date.now() - bdate.getTime());
+    this.agediff = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+    console.log('age diff', this.agediff);
 
     if (this.schoolsArray.length > 0 && this.lives != '' && this.short_bio != '' && this.dobDay != '' && this.dobMonth != '' && this.dobYear != ''
       && this.prompt1Data != '' && this.prompt2Data != '' && this.prompt3Data != '') {
@@ -888,9 +897,6 @@ export class EditprofilePage implements OnInit {
 
   subMitFormData() {
 
-
-    this.workService.presentLoading()
-
     var prompt1HeadIDVal = localStorage.getItem('prompt1ValHead')
     var prompt2HeadIDVal = localStorage.getItem('prompt2ValHead')
     var prompt3HeadIDVal = localStorage.getItem('prompt3ValHead')
@@ -926,22 +932,28 @@ export class EditprofilePage implements OnInit {
     console.log('stringy===========================', stringy);
 
     var userID = localStorage.getItem('loggedinUserID')
+    if (this.agediff < 18) {
+      this.basicAlert('You are under 18');
+    } else {
+      this.workService.presentLoading()
+      this.restService.updateUserDataAPI(stringy, userID).subscribe((res: any) => {
 
-    this.restService.updateUserDataAPI(stringy, userID).subscribe((res: any) => {
 
-      this.workService.hideLoading()
-      console.log('incomking resonse', res)
+        console.log('incomking resonse', res)
 
-      if (res.status == 'success') {
-        this.deleteData()
-        this.workService.presentToast('Profile Updaed Successfully')
-        this.router.navigate(['tabs/tab3'], { replaceUrl: true })
-      }
+        if (res.status == 'success') {
+          this.workService.hideLoading()
+          this.deleteData()
+          this.workService.presentToast('Profile Updaed Successfully')
+          this.router.navigate(['tabs/tab3'], { replaceUrl: true })
+        }
 
-    }, err => {
-      this.workService.hideLoading()
-      this.workService.presentToast('Network error occured')
-    })
+      }, err => {
+        this.workService.hideLoading()
+        this.workService.presentToast('Network error occured')
+      })
+    }
+
 
   }
 
@@ -1140,6 +1152,15 @@ export class EditprofilePage implements OnInit {
     }
 
 
+  }
+
+  async basicAlert(message) {
+    const alert = await this.alertcontroller.create({
+      cssClass: 'basicAlert',
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
 

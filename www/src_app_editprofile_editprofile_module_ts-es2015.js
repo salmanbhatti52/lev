@@ -95,6 +95,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! tslib */ 64762);
 /* harmony import */ var _raw_loader_editprofile_page_html__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !raw-loader!./editprofile.page.html */ 88131);
 /* harmony import */ var _editprofile_page_scss__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./editprofile.page.scss */ 77401);
+/* harmony import */ var _ionic_angular__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @ionic/angular */ 80476);
 /* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @angular/common */ 38583);
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @angular/core */ 37716);
 /* harmony import */ var _angular_platform_browser__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @angular/platform-browser */ 39075);
@@ -116,8 +117,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 let EditprofilePage = class EditprofilePage {
-    constructor(locationPlugin, router, restService, workService, DomSanitizer, locationBk, nativeGeocoder, zone, storage, transfer) {
+    constructor(locationPlugin, router, restService, workService, DomSanitizer, locationBk, nativeGeocoder, zone, storage, alertcontroller, transfer) {
         this.locationPlugin = locationPlugin;
         this.router = router;
         this.restService = restService;
@@ -127,6 +129,7 @@ let EditprofilePage = class EditprofilePage {
         this.nativeGeocoder = nativeGeocoder;
         this.zone = zone;
         this.storage = storage;
+        this.alertcontroller = alertcontroller;
         this.transfer = transfer;
         this.lives = '';
         this.listishidden = true;
@@ -489,6 +492,12 @@ let EditprofilePage = class EditprofilePage {
     }
     done() {
         console.log('goooo');
+        let dob = this.dobYear + '-' + this.dobMonth + '-' + this.dobDay;
+        ///age difference////
+        const bdate = new Date(dob);
+        const timeDiff = Math.abs(Date.now() - bdate.getTime());
+        this.agediff = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+        console.log('age diff', this.agediff);
         if (this.schoolsArray.length > 0 && this.lives != '' && this.short_bio != '' && this.dobDay != '' && this.dobMonth != '' && this.dobYear != ''
             && this.prompt1Data != '' && this.prompt2Data != '' && this.prompt3Data != '') {
             const fileTransfer = this.transfer.create();
@@ -652,7 +661,6 @@ let EditprofilePage = class EditprofilePage {
         });
     }
     subMitFormData() {
-        this.workService.presentLoading();
         var prompt1HeadIDVal = localStorage.getItem('prompt1ValHead');
         var prompt2HeadIDVal = localStorage.getItem('prompt2ValHead');
         var prompt3HeadIDVal = localStorage.getItem('prompt3ValHead');
@@ -678,18 +686,24 @@ let EditprofilePage = class EditprofilePage {
         });
         console.log('stringy===========================', stringy);
         var userID = localStorage.getItem('loggedinUserID');
-        this.restService.updateUserDataAPI(stringy, userID).subscribe((res) => {
-            this.workService.hideLoading();
-            console.log('incomking resonse', res);
-            if (res.status == 'success') {
-                this.deleteData();
-                this.workService.presentToast('Profile Updaed Successfully');
-                this.router.navigate(['tabs/tab3'], { replaceUrl: true });
-            }
-        }, err => {
-            this.workService.hideLoading();
-            this.workService.presentToast('Network error occured');
-        });
+        if (this.agediff < 18) {
+            this.basicAlert('You are under 18');
+        }
+        else {
+            this.workService.presentLoading();
+            this.restService.updateUserDataAPI(stringy, userID).subscribe((res) => {
+                console.log('incomking resonse', res);
+                if (res.status == 'success') {
+                    this.workService.hideLoading();
+                    this.deleteData();
+                    this.workService.presentToast('Profile Updaed Successfully');
+                    this.router.navigate(['tabs/tab3'], { replaceUrl: true });
+                }
+            }, err => {
+                this.workService.hideLoading();
+                this.workService.presentToast('Network error occured');
+            });
+        }
     }
     ageFromDOB(dateOfBirth) {
         console.log("my dob------------", dateOfBirth);
@@ -814,6 +828,16 @@ let EditprofilePage = class EditprofilePage {
             }
         }
     }
+    basicAlert(message) {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, function* () {
+            const alert = yield this.alertcontroller.create({
+                cssClass: 'basicAlert',
+                message: message,
+                buttons: ['OK']
+            });
+            yield alert.present();
+        });
+    }
 };
 EditprofilePage.ctorParameters = () => [
     { type: _angular_common__WEBPACK_IMPORTED_MODULE_7__.Location },
@@ -825,6 +849,7 @@ EditprofilePage.ctorParameters = () => [
     { type: _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_2__.NativeGeocoder },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_10__.NgZone },
     { type: _ionic_storage__WEBPACK_IMPORTED_MODULE_11__.Storage },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_12__.AlertController },
     { type: _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_5__.FileTransfer }
 ];
 EditprofilePage = (0,tslib__WEBPACK_IMPORTED_MODULE_6__.__decorate)([

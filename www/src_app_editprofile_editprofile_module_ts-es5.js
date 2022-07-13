@@ -197,6 +197,12 @@
       /* harmony import */
 
 
+      var _ionic_angular__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(
+      /*! @ionic/angular */
+      80476);
+      /* harmony import */
+
+
       var _angular_common__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(
       /*! @angular/common */
       38583);
@@ -250,7 +256,7 @@
       97905);
 
       var _EditprofilePage = /*#__PURE__*/function () {
-        function EditprofilePage(locationPlugin, router, restService, workService, DomSanitizer, locationBk, nativeGeocoder, zone, storage, transfer) {
+        function EditprofilePage(locationPlugin, router, restService, workService, DomSanitizer, locationBk, nativeGeocoder, zone, storage, alertcontroller, transfer) {
           _classCallCheck(this, EditprofilePage);
 
           this.locationPlugin = locationPlugin;
@@ -262,6 +268,7 @@
           this.nativeGeocoder = nativeGeocoder;
           this.zone = zone;
           this.storage = storage;
+          this.alertcontroller = alertcontroller;
           this.transfer = transfer;
           this.lives = '';
           this.listishidden = true;
@@ -702,6 +709,12 @@
           key: "done",
           value: function done() {
             console.log('goooo');
+            var dob = this.dobYear + '-' + this.dobMonth + '-' + this.dobDay; ///age difference////
+
+            var bdate = new Date(dob);
+            var timeDiff = Math.abs(Date.now() - bdate.getTime());
+            this.agediff = Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
+            console.log('age diff', this.agediff);
 
             if (this.schoolsArray.length > 0 && this.lives != '' && this.short_bio != '' && this.dobDay != '' && this.dobMonth != '' && this.dobYear != '' && this.prompt1Data != '' && this.prompt2Data != '' && this.prompt3Data != '') {
               var fileTransfer = this.transfer.create();
@@ -930,7 +943,6 @@
           value: function subMitFormData() {
             var _this10 = this;
 
-            this.workService.presentLoading();
             var prompt1HeadIDVal = localStorage.getItem('prompt1ValHead');
             var prompt2HeadIDVal = localStorage.getItem('prompt2ValHead');
             var prompt3HeadIDVal = localStorage.getItem('prompt3ValHead');
@@ -956,25 +968,31 @@
             });
             console.log('stringy===========================', stringy);
             var userID = localStorage.getItem('loggedinUserID');
-            this.restService.updateUserDataAPI(stringy, userID).subscribe(function (res) {
-              _this10.workService.hideLoading();
 
-              console.log('incomking resonse', res);
+            if (this.agediff < 18) {
+              this.basicAlert('You are under 18');
+            } else {
+              this.workService.presentLoading();
+              this.restService.updateUserDataAPI(stringy, userID).subscribe(function (res) {
+                console.log('incomking resonse', res);
 
-              if (res.status == 'success') {
-                _this10.deleteData();
+                if (res.status == 'success') {
+                  _this10.workService.hideLoading();
 
-                _this10.workService.presentToast('Profile Updaed Successfully');
+                  _this10.deleteData();
 
-                _this10.router.navigate(['tabs/tab3'], {
-                  replaceUrl: true
-                });
-              }
-            }, function (err) {
-              _this10.workService.hideLoading();
+                  _this10.workService.presentToast('Profile Updaed Successfully');
 
-              _this10.workService.presentToast('Network error occured');
-            });
+                  _this10.router.navigate(['tabs/tab3'], {
+                    replaceUrl: true
+                  });
+                }
+              }, function (err) {
+                _this10.workService.hideLoading();
+
+                _this10.workService.presentToast('Network error occured');
+              });
+            }
           }
         }, {
           key: "ageFromDOB",
@@ -1111,6 +1129,35 @@
               }
             }
           }
+        }, {
+          key: "basicAlert",
+          value: function basicAlert(message) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_6__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
+              var alert;
+              return regeneratorRuntime.wrap(function _callee5$(_context5) {
+                while (1) {
+                  switch (_context5.prev = _context5.next) {
+                    case 0:
+                      _context5.next = 2;
+                      return this.alertcontroller.create({
+                        cssClass: 'basicAlert',
+                        message: message,
+                        buttons: ['OK']
+                      });
+
+                    case 2:
+                      alert = _context5.sent;
+                      _context5.next = 5;
+                      return alert.present();
+
+                    case 5:
+                    case "end":
+                      return _context5.stop();
+                  }
+                }
+              }, _callee5, this);
+            }));
+          }
         }]);
 
         return EditprofilePage;
@@ -1135,6 +1182,8 @@
           type: _angular_core__WEBPACK_IMPORTED_MODULE_10__.NgZone
         }, {
           type: _ionic_storage__WEBPACK_IMPORTED_MODULE_11__.Storage
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_12__.AlertController
         }, {
           type: _ionic_native_file_transfer_ngx__WEBPACK_IMPORTED_MODULE_5__.FileTransfer
         }];

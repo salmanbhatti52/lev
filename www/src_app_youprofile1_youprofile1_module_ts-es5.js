@@ -238,7 +238,7 @@
       80476);
 
       var _Youprofile1Page = /*#__PURE__*/function () {
-        function Youprofile1Page(router, restService, workService, locationBk, nativeGeocoder, zone, platform) {
+        function Youprofile1Page(router, restService, workService, locationBk, nativeGeocoder, zone, alertcontroller, platform) {
           _classCallCheck(this, Youprofile1Page);
 
           this.router = router;
@@ -247,6 +247,7 @@
           this.locationBk = locationBk;
           this.nativeGeocoder = nativeGeocoder;
           this.zone = zone;
+          this.alertcontroller = alertcontroller;
           this.platform = platform;
           this.listishidden = true;
           this.latitude = '';
@@ -389,6 +390,12 @@
             this.instaHandle = localStorage.getItem('instaHandle');
             this.lives = localStorage.getItem('lives');
             this.from = localStorage.getItem('from');
+            var dob = localStorage.getItem('dobYear') + '-' + localStorage.getItem('dobMonth') + '-' + localStorage.getItem('dobDay'); ///age difference////
+
+            var bdate = new Date(dob);
+            var timeDiff = Math.abs(Date.now() - bdate.getTime());
+            var age = Math.floor(timeDiff / (1000 * 3600 * 24) / 365);
+            console.log('age diff', age);
 
             if (this.fname == 'null') {
               this.fname = '';
@@ -480,6 +487,8 @@
                 this.workService.presentToast('Invalid Month');
               } else if (this.dobYear > 2021) {
                 this.workService.presentToast('Invalid Year');
+              } else if (age < 18) {
+                this.basicAlert('You are under 18');
               } else {
                 localStorage.setItem('dobDay', this.dobDay);
                 localStorage.setItem('dobMonth', this.dobMonth);
@@ -748,6 +757,35 @@
             console.log('ciccc', this.instaHandle.length);
             if (this.instaHandle.length < 1) this.instaHandle = '@';
           }
+        }, {
+          key: "basicAlert",
+          value: function basicAlert(message) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var alert;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      _context2.next = 2;
+                      return this.alertcontroller.create({
+                        cssClass: 'basicAlert',
+                        message: message,
+                        buttons: ['OK']
+                      });
+
+                    case 2:
+                      alert = _context2.sent;
+                      _context2.next = 5;
+                      return alert.present();
+
+                    case 5:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
         }]);
 
         return Youprofile1Page;
@@ -766,6 +804,8 @@
           type: _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_4__.NativeGeocoder
         }, {
           type: _angular_core__WEBPACK_IMPORTED_MODULE_8__.NgZone
+        }, {
+          type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.AlertController
         }, {
           type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.Platform
         }];

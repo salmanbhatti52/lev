@@ -9,7 +9,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderResult, NativeGeocoderOptions } from '@ionic-native/native-geocoder/ngx';
 
 
-
+import { AlertController } from '@ionic/angular';
 
 import { google } from '@google/maps';
 import { Platform } from '@ionic/angular';
@@ -72,6 +72,7 @@ export class Youprofile1Page implements OnInit {
     public locationBk: Location,
     private nativeGeocoder: NativeGeocoder,
     private zone: NgZone,
+    public alertcontroller: AlertController,
     public platform: Platform) {
 
     var aa = this.filterSchool('AIzaSyA7ks8X2YnLcxTuEC3qydL2adzA0NYbl6c', 'school')
@@ -189,6 +190,14 @@ export class Youprofile1Page implements OnInit {
     this.lives = localStorage.getItem('lives')
     this.from = localStorage.getItem('from')
 
+    let dob = localStorage.getItem('dobYear') + '-' + localStorage.getItem('dobMonth') + '-' + localStorage.getItem('dobDay');
+
+    ///age difference////
+    const bdate = new Date(dob);
+    const timeDiff = Math.abs(Date.now() - bdate.getTime());
+    let age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+    console.log('age diff', age);
+
 
     if (this.fname == 'null') {
       this.fname = ''
@@ -246,7 +255,6 @@ export class Youprofile1Page implements OnInit {
     if (this.dobDay == '' || this.dobMonth == '' || this.dobYear == '') {
       this.dobStatus = true
     }
-
     // if (this.instaHandle == '') {
     //   this.instaHandleStatus = true
     // }
@@ -288,7 +296,10 @@ export class Youprofile1Page implements OnInit {
         this.workService.presentToast('Invalid Year')
 
 
-      } else {
+      } else if (age < 18) {
+        this.basicAlert('You are under 18');
+      }
+      else {
         localStorage.setItem('dobDay', this.dobDay)
         localStorage.setItem('dobMonth', this.dobMonth)
         localStorage.setItem('dobYear', this.dobYear)
@@ -624,5 +635,16 @@ export class Youprofile1Page implements OnInit {
     console.log('ciccc', this.instaHandle.length);
     if (this.instaHandle.length < 1)
       this.instaHandle = '@'
+  }
+
+
+
+  async basicAlert(message) {
+    const alert = await this.alertcontroller.create({
+      cssClass: 'basicAlert',
+      message: message,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 }

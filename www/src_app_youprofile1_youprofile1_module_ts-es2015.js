@@ -114,14 +114,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 let Youprofile1Page = class Youprofile1Page {
-    constructor(router, restService, workService, locationBk, nativeGeocoder, zone, platform) {
+    constructor(router, restService, workService, locationBk, nativeGeocoder, zone, alertcontroller, platform) {
         this.router = router;
         this.restService = restService;
         this.workService = workService;
         this.locationBk = locationBk;
         this.nativeGeocoder = nativeGeocoder;
         this.zone = zone;
+        this.alertcontroller = alertcontroller;
         this.platform = platform;
         this.listishidden = true;
         this.latitude = '';
@@ -233,6 +235,12 @@ let Youprofile1Page = class Youprofile1Page {
         this.instaHandle = localStorage.getItem('instaHandle');
         this.lives = localStorage.getItem('lives');
         this.from = localStorage.getItem('from');
+        let dob = localStorage.getItem('dobYear') + '-' + localStorage.getItem('dobMonth') + '-' + localStorage.getItem('dobDay');
+        ///age difference////
+        const bdate = new Date(dob);
+        const timeDiff = Math.abs(Date.now() - bdate.getTime());
+        let age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+        console.log('age diff', age);
         if (this.fname == 'null') {
             this.fname = '';
         }
@@ -308,6 +316,9 @@ let Youprofile1Page = class Youprofile1Page {
             }
             else if (this.dobYear > 2021) {
                 this.workService.presentToast('Invalid Year');
+            }
+            else if (age < 18) {
+                this.basicAlert('You are under 18');
             }
             else {
                 localStorage.setItem('dobDay', this.dobDay);
@@ -512,6 +523,16 @@ let Youprofile1Page = class Youprofile1Page {
         if (this.instaHandle.length < 1)
             this.instaHandle = '@';
     }
+    basicAlert(message) {
+        return (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, function* () {
+            const alert = yield this.alertcontroller.create({
+                cssClass: 'basicAlert',
+                message: message,
+                buttons: ['OK']
+            });
+            yield alert.present();
+        });
+    }
 };
 Youprofile1Page.ctorParameters = () => [
     { type: _angular_router__WEBPACK_IMPORTED_MODULE_6__.Router },
@@ -520,6 +541,7 @@ Youprofile1Page.ctorParameters = () => [
     { type: _angular_common__WEBPACK_IMPORTED_MODULE_7__.Location },
     { type: _ionic_native_native_geocoder_ngx__WEBPACK_IMPORTED_MODULE_4__.NativeGeocoder },
     { type: _angular_core__WEBPACK_IMPORTED_MODULE_8__.NgZone },
+    { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.AlertController },
     { type: _ionic_angular__WEBPACK_IMPORTED_MODULE_9__.Platform }
 ];
 Youprofile1Page = (0,tslib__WEBPACK_IMPORTED_MODULE_5__.__decorate)([
