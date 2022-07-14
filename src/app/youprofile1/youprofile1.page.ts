@@ -168,6 +168,7 @@ export class Youprofile1Page implements OnInit {
   }
 
   Continue() {
+    console.log('length of number==', this.dobMonth.length);
 
 
     localStorage.setItem('dobDay', this.dobDay)
@@ -289,9 +290,14 @@ export class Youprofile1Page implements OnInit {
         this.workService.presentToast('Invalid Date')
 
       }
+      else if (this.dobDay.length < 2) {
+        this.workService.presentToast('Date must be 2 digit')
+      }
       else if (this.dobMonth > 12) {
         this.workService.presentToast('Invalid Month')
 
+      } else if (this.dobMonth.length < 2) {
+        this.workService.presentToast('Month must be 2 digit')
       }
       else if (this.dobYear > 2021) {
         this.workService.presentToast('Invalid Year')

@@ -375,6 +375,7 @@
           value: function Continue() {
             var _this = this;
 
+            console.log('length of number==', this.dobMonth.length);
             localStorage.setItem('dobDay', this.dobDay);
             localStorage.setItem('dobMonth', this.dobMonth);
             localStorage.setItem('dobYear', this.dobYear);
@@ -483,12 +484,16 @@
             if (this.fname != '' && this.lname != '' && this.email != '' && re.test(this.email) && this.dobDay != '' && this.dobMonth != '' && this.dobYear != '' && (this.lives != '' || this.lives == 'null') && (this.from != '' || this.from == 'null')) {
               if (this.dobDay > 31) {
                 this.workService.presentToast('Invalid Date');
+              } else if (this.dobDay.length < 2) {
+                this.workService.presentToast('Date must be 2 digit');
               } else if (this.dobMonth > 12) {
                 this.workService.presentToast('Invalid Month');
+              } else if (this.dobMonth.length < 2) {
+                this.workService.presentToast('Month must be 2 digit');
               } else if (this.dobYear > 2021) {
                 this.workService.presentToast('Invalid Year');
               } else if (this.age < 18) {
-                this.basicAlert('Youeee are under 18');
+                this.workService.presentToast('You are under 18');
               } else {
                 localStorage.setItem('dobDay', this.dobDay);
                 localStorage.setItem('dobMonth', this.dobMonth);

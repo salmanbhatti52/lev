@@ -220,6 +220,7 @@ let Youprofile1Page = class Youprofile1Page {
         this.from = this.restService.removebadwords(ev.detail.value);
     }
     Continue() {
+        console.log('length of number==', this.dobMonth.length);
         localStorage.setItem('dobDay', this.dobDay);
         localStorage.setItem('dobMonth', this.dobMonth);
         localStorage.setItem('dobYear', this.dobYear);
@@ -311,14 +312,20 @@ let Youprofile1Page = class Youprofile1Page {
             if (this.dobDay > 31) {
                 this.workService.presentToast('Invalid Date');
             }
+            else if (this.dobDay.length < 2) {
+                this.workService.presentToast('Date must be 2 digit');
+            }
             else if (this.dobMonth > 12) {
                 this.workService.presentToast('Invalid Month');
+            }
+            else if (this.dobMonth.length < 2) {
+                this.workService.presentToast('Month must be 2 digit');
             }
             else if (this.dobYear > 2021) {
                 this.workService.presentToast('Invalid Year');
             }
             else if (this.age < 18) {
-                this.basicAlert('Youeee are under 18');
+                this.workService.presentToast('You are under 18');
             }
             else {
                 localStorage.setItem('dobDay', this.dobDay);

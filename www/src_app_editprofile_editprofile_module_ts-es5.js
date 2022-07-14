@@ -971,6 +971,10 @@
 
             if (this.agediff < 18) {
               this.basicAlert('You are under 18');
+            } else if (this.dobDay.length < 2) {
+              this.workService.presentToast('Date must be 2 digit');
+            } else if (this.dobMonth.length < 2) {
+              this.workService.presentToast('Month must be 2 digit');
             } else {
               this.workService.presentLoading();
               this.restService.updateUserDataAPI(stringy, userID).subscribe(function (res) {
