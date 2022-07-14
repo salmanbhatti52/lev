@@ -239,8 +239,8 @@ let Youprofile1Page = class Youprofile1Page {
         ///age difference////
         const bdate = new Date(dob);
         const timeDiff = Math.abs(Date.now() - bdate.getTime());
-        let age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
-        console.log('age diff', age);
+        this.age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+        console.log('age diff', this.age);
         if (this.fname == 'null') {
             this.fname = '';
         }
@@ -317,8 +317,8 @@ let Youprofile1Page = class Youprofile1Page {
             else if (this.dobYear > 2021) {
                 this.workService.presentToast('Invalid Year');
             }
-            else if (age < 18) {
-                this.basicAlert('You are under 18');
+            else if (this.age < 18) {
+                this.basicAlert('Youeee are under 18');
             }
             else {
                 localStorage.setItem('dobDay', this.dobDay);

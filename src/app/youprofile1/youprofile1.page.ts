@@ -65,6 +65,7 @@ export class Youprofile1Page implements OnInit {
   instaHandleStatus: boolean = false
   livesStatus: boolean = false
   fromStatus: boolean = false
+  age: any;
 
   constructor(public router: Router,
     public restService: RestService,
@@ -195,8 +196,8 @@ export class Youprofile1Page implements OnInit {
     ///age difference////
     const bdate = new Date(dob);
     const timeDiff = Math.abs(Date.now() - bdate.getTime());
-    let age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
-    console.log('age diff', age);
+    this.age = Math.floor((timeDiff / (1000 * 3600 * 24)) / 365);
+    console.log('age diff', this.age);
 
 
     if (this.fname == 'null') {
@@ -296,8 +297,8 @@ export class Youprofile1Page implements OnInit {
         this.workService.presentToast('Invalid Year')
 
 
-      } else if (age < 18) {
-        this.basicAlert('You are under 18');
+      } else if (this.age < 18) {
+        this.workService.presentToast('You are under 18')
       }
       else {
         localStorage.setItem('dobDay', this.dobDay)
