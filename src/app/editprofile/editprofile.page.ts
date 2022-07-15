@@ -155,7 +155,7 @@ export class EditprofilePage implements OnInit {
 
 
   ngOnInit() {
-
+    console.log('ngonit calling=================');
     this.userData = this.workService.myUserData.data.user_data
     this.schoolsArray = this.workService.myUserData.data.users_schools
     this.userPrompts = this.workService.myUserData.data.users_prompts
@@ -215,7 +215,6 @@ export class EditprofilePage implements OnInit {
     this.height1 = this.userHeight.substring(0, 1)
     this.height2 = this.userHeight.substring(2, 3)
 
-
     this.ageFromDOB(this.workService.myUserData.data.user_data.date_of_birth)
 
 
@@ -259,7 +258,6 @@ export class EditprofilePage implements OnInit {
 
 
   ionViewWillEnter() {
-
     this.storage.set('coverImg', this.base64ImageCover)
     this.storage.set('coverImg2', this.base64ImageCover2)
     this.schoolsArray = JSON.parse(localStorage.getItem('schoolsArray'))
@@ -278,7 +276,8 @@ export class EditprofilePage implements OnInit {
     this.prompt3Head = localStorage.getItem('prompt3Name')
     this.prompt3Data = localStorage.getItem('prompt3Data')
     this.userHeight = localStorage.getItem('height')
-    this.dobDay = localStorage.getItem('dobDay')
+    this.dobDay = localStorage.getItem('dobDay');
+
     this.dobMonth = localStorage.getItem('dobMonth')
     this.dobYear = localStorage.getItem('dobYear')
     this.userData.system_religions_id = localStorage.getItem('religionID')
@@ -974,7 +973,16 @@ export class EditprofilePage implements OnInit {
     this.dobDay = new Date(dateOfBirth).getDate()
     this.dobYear = new Date(dateOfBirth).getFullYear()
     this.dobMonth = new Date(dateOfBirth).getMonth() + 1
+    if (this.dobDay < 10) {
+      this.dobDay = '0' + this.dobDay;
+      console.log('date formatted==', this.dobDay);
 
+    }
+    if (this.dobMonth < 10) {
+      this.dobMonth = '0' + this.dobMonth;
+      console.log('month formatted==', this.dobMonth);
+
+    }
 
   }
 
@@ -1016,7 +1024,6 @@ export class EditprofilePage implements OnInit {
 
     localStorage.setItem('meritalStatus', this.system_maritalstatus_name)
     localStorage.setItem('religion', this.system_religions_name)
-
 
   }
 

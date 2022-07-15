@@ -196,6 +196,7 @@ let EditprofilePage = class EditprofilePage {
         this.autocompleteItems = [];
     }
     ngOnInit() {
+        console.log('ngonit calling=================');
         this.userData = this.workService.myUserData.data.user_data;
         this.schoolsArray = this.workService.myUserData.data.users_schools;
         this.userPrompts = this.workService.myUserData.data.users_prompts;
@@ -231,6 +232,8 @@ let EditprofilePage = class EditprofilePage {
         this.userHeight = parseFloat(this.workService.myUserData.data.user_data.height).toFixed(1);
         this.height1 = this.userHeight.substring(0, 1);
         this.height2 = this.userHeight.substring(2, 3);
+        console.log('before ageFromDOB function=====================');
+        console.log('date get in ion-view==', localStorage.getItem('dobDay'));
         this.ageFromDOB(this.workService.myUserData.data.user_data.date_of_birth);
         this.storeData();
         this.workService.presentLoading();
@@ -252,6 +255,7 @@ let EditprofilePage = class EditprofilePage {
         });
     }
     ionViewWillEnter() {
+        console.log('ionViewWillEnter calling=================');
         this.storage.set('coverImg', this.base64ImageCover);
         this.storage.set('coverImg2', this.base64ImageCover2);
         this.schoolsArray = JSON.parse(localStorage.getItem('schoolsArray'));
@@ -719,6 +723,14 @@ let EditprofilePage = class EditprofilePage {
         this.dobDay = new Date(dateOfBirth).getDate();
         this.dobYear = new Date(dateOfBirth).getFullYear();
         this.dobMonth = new Date(dateOfBirth).getMonth() + 1;
+        if (this.dobDay < 10) {
+            this.dobDay = '0' + this.dobDay;
+            console.log('date formatted==', this.dobDay);
+        }
+        if (this.dobMonth < 10) {
+            this.dobMonth = '0' + this.dobMonth;
+            console.log('month formatted==', this.dobMonth);
+        }
     }
     storeData() {
         localStorage.setItem('first_name', this.first_name);
@@ -748,6 +760,7 @@ let EditprofilePage = class EditprofilePage {
         localStorage.setItem('schoolsArray', JSON.stringify(this.schoolsArray));
         localStorage.setItem('meritalStatus', this.system_maritalstatus_name);
         localStorage.setItem('religion', this.system_religions_name);
+        console.log('store date on edit profile page===', this.dobDay);
     }
     deleteData() {
         localStorage.removeItem('first_name');
