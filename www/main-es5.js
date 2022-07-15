@@ -815,6 +815,9 @@
         function AppComponent(platform, navCtrl, oneSignal, workService, restService) {
           _classCallCheck(this, AppComponent);
 
+          // if (this.platform.ready()) {
+          //   this.initializeApp()
+          //   console.log('platform Ready apComponent', localStorage.getItem('login'))
           this.platform = platform;
           this.navCtrl = navCtrl;
           this.oneSignal = oneSignal;
@@ -826,33 +829,23 @@
           this.oneSignalFirebaseId = '150920249203';
           this.identy = '';
           this.userData = '';
-          this.arr = [];
-
-          if (this.platform.ready()) {
-            this.initializeApp();
-            console.log('platform Ready apComponent', localStorage.getItem('login')); // Login code start here
-
-            if (localStorage.getItem('login') == 'isLogin') {
-              this.checkSubscription();
-              this.userData = JSON.parse(localStorage.getItem('loggedinUserData'));
-              console.log('usr packageee--->>>>>', this.userData.packages_id); // var sbID = this.userData.packages_id
-
-              var sbID = localStorage.getItem('packages_id');
-
-              if (sbID == '0' || sbID == 'null' || sbID == null) {
-                this.navCtrl.navigateRoot(['apply'], {
-                  replaceUrl: true
-                });
-              } else {
-                this.navCtrl.navigateRoot(['/tabs/tab1'], {
-                  replaceUrl: true
-                });
-              }
-            } else {
-              this.navCtrl.navigateRoot('/apply');
-            } //   // Login code end here
-
-          }
+          this.arr = []; //   // Login code start here
+          //   if (localStorage.getItem('login') == 'isLogin') {
+          //     this.checkSubscription()
+          //     this.userData = JSON.parse(localStorage.getItem('loggedinUserData'))
+          //     console.log('usr packageee--->>>>>', this.userData.packages_id);
+          //     // var sbID = this.userData.packages_id
+          //     var sbID = localStorage.getItem('packages_id')
+          //     if (sbID == '0' || sbID == 'null' || sbID == null) {
+          //       this.navCtrl.navigateRoot(['apply'], { replaceUrl: true })
+          //     } else {
+          //       this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
+          //     }
+          //   } else {
+          //     this.navCtrl.navigateRoot('/apply')
+          //   }
+          //   //   // Login code end here
+          // }
         }
 
         _createClass(AppComponent, [{

@@ -558,6 +558,9 @@ export class SubscriptionloginPage implements OnInit {
 
   }
 
+  goTo() {
+    this.router.navigate(['tabs/tab1'], { replaceUrl: true })
+  }
 
   cancelMembership() {
     console.log('cancel');
