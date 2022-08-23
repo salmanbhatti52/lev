@@ -50,6 +50,7 @@ export class MatchPage implements OnInit {
 
   ]
   otherUserID: any;
+  block_status: string;
 
   constructor(public router: Router,
     public signupService: SignupService,
@@ -118,6 +119,50 @@ export class MatchPage implements OnInit {
     this.matchpopupHidden = true;
   }
 
+  async presentAlert(data) {
+    if (data.block_status == 'Unblock' || data.block_status == null) {
+      this.block_status = 'Block'
+    } else {
+      this.block_status = 'Unblock'
+    }
+
+    const alert = await this.alertcontroller.create({
+      cssClass: 'custom-alert',
+      buttons: [
+        {
+          text: 'Report',
+          cssClass: 'alert-button-cancel',
+          handler: () => {
+            console.log('I care about humanity');
+            this.reportUser(data)
+          }
+        },
+        {
+          text: this.block_status,
+          cssClass: 'alert-button-confirm',
+          handler: () => {
+            console.log('I care about humanity');
+            this.blockorunblockuser(data)
+          }
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  reportUser(value) {
+    let data = {
+      "reported_user_id": value.users_customers_id,
+      "reported_by_user_id": localStorage.getItem('loggedinUserID')
+    }
+    this.restService.repoertuser(data).subscribe((res: any) => {
+      console.log('block user result==', res)
+      if (res.status == 'success') {
+        this.workService.presentToast(res.message)
+      }
+    })
+  }
   blockorunblockuser(value) {
     console.log('user data==', value)
     if (value.block_status == 'Unblock' || value.block_status == null) {
@@ -298,6 +343,8 @@ export class MatchPage implements OnInit {
 
     //
   }
+
+
 
   openChat(event) {
     console.log("event---", event)

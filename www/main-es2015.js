@@ -325,6 +325,9 @@ __webpack_require__.r(__webpack_exports__);
 
 let AppComponent = class AppComponent {
     constructor(platform, navCtrl, oneSignal, workService, restService) {
+        // if (this.platform.ready()) {
+        //   this.initializeApp()
+        //   console.log('platform Ready apComponent', localStorage.getItem('login'))
         this.platform = platform;
         this.navCtrl = navCtrl;
         this.oneSignal = oneSignal;
@@ -337,28 +340,23 @@ let AppComponent = class AppComponent {
         this.identy = '';
         this.userData = '';
         this.arr = [];
-        if (this.platform.ready()) {
-            this.initializeApp();
-            console.log('platform Ready apComponent', localStorage.getItem('login'));
-            // Login code start here
-            if (localStorage.getItem('login') == 'isLogin') {
-                this.checkSubscription();
-                this.userData = JSON.parse(localStorage.getItem('loggedinUserData'));
-                console.log('usr packageee--->>>>>', this.userData.packages_id);
-                // var sbID = this.userData.packages_id
-                var sbID = localStorage.getItem('packages_id');
-                if (sbID == '0' || sbID == 'null' || sbID == null) {
-                    this.navCtrl.navigateRoot(['apply'], { replaceUrl: true });
-                }
-                else {
-                    this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true });
-                }
-            }
-            else {
-                this.navCtrl.navigateRoot('/apply');
-            }
-            //   // Login code end here
-        }
+        //   // Login code start here
+        //   if (localStorage.getItem('login') == 'isLogin') {
+        //     this.checkSubscription()
+        //     this.userData = JSON.parse(localStorage.getItem('loggedinUserData'))
+        //     console.log('usr packageee--->>>>>', this.userData.packages_id);
+        //     // var sbID = this.userData.packages_id
+        //     var sbID = localStorage.getItem('packages_id')
+        //     if (sbID == '0' || sbID == 'null' || sbID == null) {
+        //       this.navCtrl.navigateRoot(['apply'], { replaceUrl: true })
+        //     } else {
+        //       this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
+        //     }
+        //   } else {
+        //     this.navCtrl.navigateRoot('/apply')
+        //   }
+        //   //   // Login code end here
+        // }
     }
     checkSubscription() {
         var userID = localStorage.getItem('loggedinUserID');
@@ -2286,6 +2284,12 @@ let RestService = class RestService {
             'Content-Type': 'application/json',
         };
         return this.http.post(this.baseURL + 'unblockuser/', data, { headers });
+    }
+    repoertuser(data) {
+        let headers = {
+            'Content-Type': 'application/json',
+        };
+        return this.http.post(this.baseURL + 'reportUser/', data, { headers });
     }
     update_notification_switchAPI(data) {
         let headers = {

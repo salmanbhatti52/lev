@@ -80,3 +80,13 @@ hr {
 .redclass {
     color: red;
 }
+.check{
+    --background: #fff;
+      --background-checked: #fff;
+      --checkmark-color: #000;
+      --border-color-checked: #fff;
+      --size: 17px;
+      --border-color: #fff;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 0px 10px 0px;
+  }
+  

@@ -342,6 +342,75 @@
             this.matchpopupHidden = true;
           }
         }, {
+          key: "presentAlert",
+          value: function presentAlert(data) {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+              var _this2 = this;
+
+              var alert;
+              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+                while (1) {
+                  switch (_context2.prev = _context2.next) {
+                    case 0:
+                      if (data.block_status == 'Unblock' || data.block_status == null) {
+                        this.block_status = 'Block';
+                      } else {
+                        this.block_status = 'Unblock';
+                      }
+
+                      _context2.next = 3;
+                      return this.alertcontroller.create({
+                        cssClass: 'custom-alert',
+                        buttons: [{
+                          text: 'Report',
+                          cssClass: 'alert-button-cancel',
+                          handler: function handler() {
+                            console.log('I care about humanity');
+
+                            _this2.reportUser(data);
+                          }
+                        }, {
+                          text: this.block_status,
+                          cssClass: 'alert-button-confirm',
+                          handler: function handler() {
+                            console.log('I care about humanity');
+
+                            _this2.blockorunblockuser(data);
+                          }
+                        }]
+                      });
+
+                    case 3:
+                      alert = _context2.sent;
+                      _context2.next = 6;
+                      return alert.present();
+
+                    case 6:
+                    case "end":
+                      return _context2.stop();
+                  }
+                }
+              }, _callee2, this);
+            }));
+          }
+        }, {
+          key: "reportUser",
+          value: function reportUser(value) {
+            var _this3 = this;
+
+            var data = {
+              "reported_user_id": value.users_customers_id,
+              "reported_by_user_id": localStorage.getItem('loggedinUserID')
+            };
+            this.restService.repoertuser(data).subscribe(function (res) {
+              console.log('block user result==', res);
+
+              if (res.status == 'success') {
+                _this3.workService.presentToast(res.message);
+              }
+            });
+          }
+        }, {
           key: "blockorunblockuser",
           value: function blockorunblockuser(value) {
             console.log('user data==', value);
@@ -357,7 +426,7 @@
         }, {
           key: "blockuser",
           value: function blockuser(otheruserid) {
-            var _this2 = this;
+            var _this4 = this;
 
             var data = {
               "blocked_user_id": otheruserid,
@@ -367,14 +436,14 @@
               console.log('block user result==', res);
 
               if (res.status == 'success') {
-                _this2.workService.presentToast('User blocked');
+                _this4.workService.presentToast('User blocked');
               }
             });
           }
         }, {
           key: "unblockuser",
           value: function unblockuser(otheruserid) {
-            var _this3 = this;
+            var _this5 = this;
 
             var data = {
               "blocked_user_id": otheruserid,
@@ -384,7 +453,7 @@
               console.log('unblock user result==', res);
 
               if (res.status == 'success') {
-                _this3.workService.presentToast('User Unblocked');
+                _this5.workService.presentToast('User Unblocked');
               }
             });
           }
@@ -423,7 +492,7 @@
         }, {
           key: "checkedmatchblockeduser",
           value: function checkedmatchblockeduser(match) {
-            var _this4 = this;
+            var _this6 = this;
 
             this.workService.presentLoading();
             this.otherUserID = match.users_customers_id;
@@ -434,29 +503,29 @@
             };
             console.log('data get==', data);
             this.restService.get_user_dataAPI(data).subscribe(function (res) {
-              _this4.workService.hideLoading();
+              _this6.workService.hideLoading();
 
               console.log('incomming data === ', res);
 
               if (res.status == "success") {
-                _this4.workService.hideLoading();
+                _this6.workService.hideLoading();
 
-                _this4.workService.myUserData = match;
+                _this6.workService.myUserData = match;
 
-                _this4.router.navigate(['otherprofile']);
+                _this6.router.navigate(['otherprofile']);
 
                 console.log('other profile ---->>');
               }
 
               if (res.status == 'error') {
-                _this4.workService.hideLoading();
+                _this6.workService.hideLoading();
 
-                _this4.basicAlert(res.message);
+                _this6.basicAlert(res.message);
               }
             }, function (err) {
-              _this4.workService.hideLoading();
+              _this6.workService.hideLoading();
 
-              _this4.workService.presentToast('Network error occured');
+              _this6.workService.presentToast('Network error occured');
             });
           }
         }, {
@@ -488,7 +557,7 @@
         }, {
           key: "closeMatch",
           value: function closeMatch() {
-            var _this5 = this;
+            var _this7 = this;
 
             var ss = JSON.stringify({
               'users_customers_id': localStorage.getItem('loggedinUserID'),
@@ -496,28 +565,28 @@
             });
             this.workService.presentLoading();
             this.restService.delete_matchAPI(ss).subscribe(function (res) {
-              _this5.workService.hideLoading();
+              _this7.workService.hideLoading();
 
               if (res.status.success) {
-                _this5.workService.presentToast(res.message);
+                _this7.workService.presentToast(res.message);
 
-                _this5.matches.splice(_this5.selectedIndexToDelete, 1);
+                _this7.matches.splice(_this7.selectedIndexToDelete, 1);
 
-                _this5.totalMatches = _this5.totalMatches - 1;
+                _this7.totalMatches = _this7.totalMatches - 1;
               } else {
-                _this5.workService.presentToast(res.message);
+                _this7.workService.presentToast(res.message);
               }
             }, function (err) {
-              _this5.workService.hideLoading();
+              _this7.workService.hideLoading();
 
-              _this5.workService.presentToast('Network error occured');
+              _this7.workService.presentToast('Network error occured');
             });
             console.log(ss); //
           }
         }, {
           key: "openChat",
           value: function openChat(event) {
-            var _this6 = this;
+            var _this8 = this;
 
             console.log("event---", event);
             var ss = JSON.stringify({
@@ -526,28 +595,28 @@
             });
             this.workService.presentLoading();
             this.restService.remove_matchAPI(ss).subscribe(function (res) {
-              _this6.workService.hideLoading();
+              _this8.workService.hideLoading();
 
               if (res.status.success) {
-                _this6.workService.presentToast(res.message);
+                _this8.workService.presentToast(res.message);
 
-                _this6.matches.splice(_this6.selectedIndexToDelete, 1);
+                _this8.matches.splice(_this8.selectedIndexToDelete, 1);
 
-                _this6.totalMatches = _this6.totalMatches - 1;
+                _this8.totalMatches = _this8.totalMatches - 1;
               } else {
-                _this6.workService.presentToast(res.message);
+                _this8.workService.presentToast(res.message);
               }
             }, function (err) {
-              _this6.workService.hideLoading();
+              _this8.workService.hideLoading();
 
-              _this6.workService.presentToast('Network error occured');
+              _this8.workService.presentToast('Network error occured');
             });
             console.log(ss);
           }
         }, {
           key: "ionViewWillEnter",
           value: function ionViewWillEnter() {
-            var _this7 = this;
+            var _this9 = this;
 
             // localStorage.setItem('loggedinUserID', '71')
             this.userData = JSON.parse(localStorage.getItem('loggedinUserData'));
@@ -566,20 +635,20 @@
             });
             console.log('data-----', data);
             this.restService.getBestMatchesAPI(data).subscribe(function (res) {
-              _this7.workService.hideLoading();
+              _this9.workService.hideLoading();
 
               console.log('data-----', res);
 
               if (res.status == 'success') {
-                _this7.matches = res.data;
-                _this7.totalMatches = _this7.matches.length;
+                _this9.matches = res.data;
+                _this9.totalMatches = _this9.matches.length;
               } else {
-                _this7.workService.presentToast('No Match Found');
+                _this9.workService.presentToast('No Match Found');
               }
             }, function (err) {
-              _this7.workService.hideLoading();
+              _this9.workService.hideLoading();
 
-              _this7.workService.presentToast('Network error occured');
+              _this9.workService.presentToast('Network error occured');
             });
           }
         }, {
@@ -613,13 +682,13 @@
         }, {
           key: "basicAlert",
           value: function basicAlert(message) {
-            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
+            return (0, tslib__WEBPACK_IMPORTED_MODULE_7__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
               var alert;
-              return regeneratorRuntime.wrap(function _callee2$(_context2) {
+              return regeneratorRuntime.wrap(function _callee3$(_context3) {
                 while (1) {
-                  switch (_context2.prev = _context2.next) {
+                  switch (_context3.prev = _context3.next) {
                     case 0:
-                      _context2.next = 2;
+                      _context3.next = 2;
                       return this.alertcontroller.create({
                         cssClass: 'basicAlert',
                         message: message,
@@ -627,16 +696,16 @@
                       });
 
                     case 2:
-                      alert = _context2.sent;
-                      _context2.next = 5;
+                      alert = _context3.sent;
+                      _context3.next = 5;
                       return alert.present();
 
                     case 5:
                     case "end":
-                      return _context2.stop();
+                      return _context3.stop();
                   }
                 }
-              }, _callee2, this);
+              }, _callee3, this);
             }));
           }
         }]);
@@ -706,7 +775,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n  <div style=\"z-index: 99999; width: 100%; background: black; position: fixed\">\n    <ion-row style=\"margin-top: 40px\">\n      <ion-col size=\"2\" style=\"text-align: center\"><img style=\"    height: 25px;\n        width: 25px;\" src=\"assets/imgs/notification.png\" (click)=\"goTONoti()\" /> </ion-col>\n      <ion-col size=\"8\" style=\"text-align: center; padding-top: 0px\">\n        <ion-text style=\"font-size: 15pt\">Hi, {{myUserName}} </ion-text>\n      </ion-col>\n      <ion-col size=\"2\">\n        <!-- <img (click)=\"showPopup()\" style=\"height: 20px; width: 20px\" src=\"assets/imgs/i.svg\" /> -->\n      </ion-col>\n    </ion-row>\n\n    <ion-row style=\"margin-top: 6px\">\n      <ion-col style=\"text-align: center\">\n        <ion-text style=\"font-size: 10pt\">{{totalMatches}} matches</ion-text>\n      </ion-col>\n    </ion-row>\n  </div>\n\n  <div style=\"margin-top: 87px;\"></div>\n\n  <div style=\"padding: 12px 20px;\" *ngFor=\"let match of matches let i = index\">\n    <ion-row>\n      <ion-col>\n        <img (error)=\"handleImgError($event, match)\" style=\"\n            height: 330pt;\n            width: 100%;\n            object-fit: cover;\n            border-radius: 10px;\n          \" src=\"{{restService.baseUrlForImg}}{{match.profile_pic_1}}\" />\n      </ion-col>\n    </ion-row>\n\n    <div style=\"\n        /* background-color: #302f2f; */\n        background-color: #314f40;\n        height: auto;\n        border-radius: 10px;\n        margin-top: 9px;\n      \">\n      <div style=\"padding: 15px 0px 0px 15px\">\n        <ion-row>\n          <ion-col size=\"6\">\n            <ion-row>\n              <ion-col>\n                <ion-label style=\"font-size: 11pt; color:white\">Name</ion-label>\n              </ion-col>\n            </ion-row>\n\n            <ion-row>\n              <ion-col>\n                <ion-label style=\"font-size: 11pt; color: white\"> {{match.first_name}} {{match.last_name}}</ion-label>\n              </ion-col>\n            </ion-row>\n          </ion-col>\n          <ion-col size=\"6\" style=\"text-align: end;margin-right: 0%;padding-right: 10%;\"\n            (click)=\"blockorunblockuser(match)\">\n            <img src=\"assets/imgs/blocked.png\" class=\"cimg\" [class.block]=\"match.block_status=='Block' || null\"><br>\n            <span style=\"font-size: 11pt; color: white\" *ngIf=\"match.block_status=='Block'\">unblock</span>\n            <span style=\"font-size: 11pt; color: white\" *ngIf=\"match.block_status!='Block' || null\">block</span>\n          </ion-col>\n\n        </ion-row>\n\n      </div>\n\n      <div style=\"padding: 15px 0px 0px 15px\">\n        <ion-row>\n          <ion-col>\n            <ion-label style=\"font-size: 11pt; color: white\">Location</ion-label>\n          </ion-col>\n        </ion-row>\n\n        <ion-row>\n          <ion-col>\n            <ion-label style=\"font-size: 11pt; color: white\">{{match.lives}}</ion-label>\n          </ion-col>\n        </ion-row>\n      </div>\n\n      <ion-row>\n        <ion-col>\n          <div style=\"padding: 15px 0px 0px 15px\">\n            <ion-row>\n              <ion-col>\n                <ion-label style=\"font-size: 11pt; color:white\">Religion</ion-label>\n              </ion-col>\n            </ion-row>\n\n            <ion-row>\n              <ion-col>\n                <ion-label style=\"font-size: 11pt; color: white\">{{match.system_religions_name}}</ion-label>\n              </ion-col>\n            </ion-row>\n          </div>\n        </ion-col>\n\n        <ion-col>\n          <div style=\"padding: 15px 0px 0px 15px\">\n            <ion-row>\n              <ion-col>\n                <ion-label style=\"font-size: 11pt; color: white\">Height</ion-label>\n              </ion-col>\n            </ion-row>\n\n            <ion-row>\n              <ion-col>\n                <!-- <ion-label style=\"font-size: 11pt; color: #314f40\">{{match.height | number:'1.0-1'}} feet</ion-label> -->\n\n                <ion-label style=\"font-size: 11pt; color: white\">{{vhangeHeight(match.height)}} feet</ion-label>\n              </ion-col>\n            </ion-row>\n          </div>\n        </ion-col>\n      </ion-row>\n\n      <!-- <div style=\"padding: 15px 0px 0px 15px\">\n        <ion-row>\n          <ion-col>\n            <ion-label style=\"font-size: 11pt; color: #caff9b\">School</ion-label>\n          </ion-col>\n        </ion-row>\n\n        <ion-row>\n          <ion-col>\n            <ion-label style=\"font-size: 11pt; color: white\">{{match.school}}</ion-label>\n          </ion-col>\n        </ion-row>\n      </div> -->\n\n      <div style=\"padding: 15px 15px 40px 15px;\">\n        <ion-row>\n          <ion-col>\n            <button class=\"btn\" (click)=\"goToMessage(match)\" [disabled]=\"buttonDisabled\">View\n              Profile</button>\n            <!-- <button class=\"btn\" *ngIf=\"match.prompt_replies=='No'\" (click)=\"goToMessage(match)\">View\n              Profile</button>\n            <button class=\"btn_disable\" *ngIf=\"match.prompt_replies!='No'\" (click)=\"goToMessage(match)\">Message</button> -->\n          </ion-col>\n        </ion-row>\n      </div>\n\n\n    </div>\n    <ion-row style=\"margin-top: -30px;\">\n      <ion-col>\n        <div style=\"    height: 60px;\n        width: 60px;\n        border-radius: 30px;\n        background: rgb(255, 255, 255);\n        display: flex;\n        align-content: center;\n        align-items: center;\n        justify-content: center;\" (click)=\"crossClick(match,i)\">\n          <img><img style=\"height: 20px; width: 20px\" src=\"assets/imgs/closeblack.svg\" />\n        </div>\n      </ion-col>\n    </ion-row>\n\n  </div>\n\n\n\n\n  <!-- \n  <ion-fab style=\"position: absolute;\n  bottom: 20px;\n  left: 20px;\n  z-index: 00000;\" slot=\"fixed\" >\n    <ion-fab-button style=\"--background: white\"><img style=\"height: 20px; width: 20px\"\n        src=\"assets/imgs/closeblack.svg\" /></ion-fab-button>\n  </ion-fab> -->\n</ion-content>\n\n<div [hidden]=\"matchpopupHidden\" style=\"\n    height: 100%;\n    width: 100%;\n    background-color: #0c293dd9;\n    position: absolute;\n  \">\n  <div style=\"   left: 10%;\n  position: absolute;\n  top: 40px;\n  width: 80%;\n  height: 366px;\n  background-color: rgb(0 0 0 / 0%); \">\n    <ion-row>\n      <ion-col style=\"padding-top: 10 px; padding-right: 10px; text-align: right\">\n        <img style=\"\n            height: 15px;\n            width: 15px;\n            margin-right: 10px;\n            margin-top: 14px;\n          \" src=\"assets/imgs/close.svg\" (click)=\"hidePopup()\" />\n      </ion-col>\n    </ion-row>\n\n    <ion-row style=\"margin-top: 0px\">\n      <ion-col style=\"text-align: center\">\n        <img style=\"    width: 300px;\n        height: 190px;\" src=\"assets/imgs/logo.svg\" />\n      </ion-col>\n    </ion-row>\n\n    <div style=\"\n        padding: 15px;\n        border: 2px solid white;\n        text-align: center;\n        margin: 17px;\n      \">\n      <ion-label>Mutual matches will expire within 6 days.</ion-label>\n    </div>\n\n    <div style=\"padding-left: 13px; padding-right: 13px; margin-top: 28px\">\n      <ion-row>\n        <ion-col size=\"9\" style=\"padding-top: 8px\">\n          <ion-text style=\"font-size: 10pt\">Close the match</ion-text>\n        </ion-col>\n\n        <ion-col size=\"3\" style=\"text-align: right\">\n          <ion-toggle checked=\"false\" (ionChange)=\"closeMatch($event)\" [class.togglePaddClass]=\"togglePlatformAndroid\">\n          </ion-toggle>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col size=\"9\" style=\"padding-top: 8px\">\n          <ion-text style=\"font-size: 10pt\">Conversation continued off the app</ion-text>\n        </ion-col>\n\n        <ion-col size=\"3\" style=\"text-align: right\">\n          <ion-toggle checked=\"false\" (ionChange)=\"openChat($event)\" [class.togglePaddClass]=\"togglePlatformAndroid\">\n          </ion-toggle>\n        </ion-col>\n      </ion-row>\n    </div>\n  </div>\n</div>";
+      __webpack_exports__["default"] = "<ion-content>\n  <div style=\"z-index: 99999; width: 100%; background: black; position: fixed\">\n    <ion-row style=\"margin-top: 40px\">\n      <ion-col size=\"2\" style=\"text-align: center\"><img style=\"    height: 25px;\n        width: 25px;\" src=\"assets/imgs/notification.png\" (click)=\"goTONoti()\" /> </ion-col>\n      <ion-col size=\"8\" style=\"text-align: center; padding-top: 0px\">\n        <ion-text style=\"font-size: 15pt\">Hi, {{myUserName}} </ion-text>\n      </ion-col>\n      <ion-col size=\"2\">\n        <!-- <img (click)=\"showPopup()\" style=\"height: 20px; width: 20px\" src=\"assets/imgs/i.svg\" /> -->\n      </ion-col>\n    </ion-row>\n\n    <ion-row style=\"margin-top: 6px\">\n      <ion-col style=\"text-align: center\">\n        <ion-text style=\"font-size: 10pt\">{{totalMatches}} matches</ion-text>\n      </ion-col>\n    </ion-row>\n  </div>\n\n  <div style=\"margin-top: 87px;\"></div>\n\n  <div style=\"padding: 12px 20px;\" *ngFor=\"let match of matches let i = index\">\n    <ion-row>\n      <ion-col>\n        <div style=\"position:relavtive;\">\n          <img (error)=\"handleImgError($event, match)\" style=\"\n          height: 330pt;\n          width: 100%;\n          object-fit: cover;\n          border-radius: 10px;\n        \" src=\"{{restService.baseUrlForImg}}{{match.profile_pic_1}}\" />\n          <ion-icon name=\"information-outline\" style=\"position: absolute;\n          color: #fff;\n          font-size: 25px;\n          left: 22px;\n          top: 20px;\" (click)=\"presentAlert(match)\"></ion-icon>\n        </div>\n\n\n      </ion-col>\n    </ion-row>\n\n    <div style=\"\n        /* background-color: #302f2f; */\n        background-color: #314f40;\n        height: auto;\n        border-radius: 10px;\n        margin-top: 9px;\n      \">\n      <div style=\"padding: 15px 0px 0px 15px\">\n        <ion-row>\n          <ion-col>\n            <ion-row>\n              <ion-col>\n                <ion-label style=\"font-size: 11pt; color:white\">Name</ion-label>\n              </ion-col>\n            </ion-row>\n\n            <ion-row>\n              <ion-col>\n                <ion-label style=\"font-size: 11pt; color: white\"> {{match.first_name}} {{match.last_name}}</ion-label>\n              </ion-col>\n            </ion-row>\n          </ion-col>\n          <!-- <ion-col size=\"6\" style=\"text-align: end;margin-right: 0%;padding-right: 10%;\"\n            (click)=\"blockorunblockuser(match)\">\n            <img src=\"assets/imgs/blocked.png\" class=\"cimg\" [class.block]=\"match.block_status=='Block' || null\"><br>\n            <span style=\"font-size: 11pt; color: white\" *ngIf=\"match.block_status=='Block'\">unblock</span>\n            <span style=\"font-size: 11pt; color: white\" *ngIf=\"match.block_status!='Block' || null\">block</span>\n          </ion-col> -->\n\n        </ion-row>\n\n      </div>\n\n      <div style=\"padding: 15px 0px 0px 15px\">\n        <ion-row>\n          <ion-col>\n            <ion-label style=\"font-size: 11pt; color: white\">Location</ion-label>\n          </ion-col>\n        </ion-row>\n\n        <ion-row>\n          <ion-col>\n            <ion-label style=\"font-size: 11pt; color: white\">{{match.lives}}</ion-label>\n          </ion-col>\n        </ion-row>\n      </div>\n\n      <ion-row>\n        <ion-col>\n          <div style=\"padding: 15px 0px 0px 15px\">\n            <ion-row>\n              <ion-col>\n                <ion-label style=\"font-size: 11pt; color:white\">Religion</ion-label>\n              </ion-col>\n            </ion-row>\n\n            <ion-row>\n              <ion-col>\n                <ion-label style=\"font-size: 11pt; color: white\">{{match.system_religions_name}}</ion-label>\n              </ion-col>\n            </ion-row>\n          </div>\n        </ion-col>\n\n        <ion-col>\n          <div style=\"padding: 15px 0px 0px 15px\">\n            <ion-row>\n              <ion-col>\n                <ion-label style=\"font-size: 11pt; color: white\">Height</ion-label>\n              </ion-col>\n            </ion-row>\n\n            <ion-row>\n              <ion-col>\n                <!-- <ion-label style=\"font-size: 11pt; color: #314f40\">{{match.height | number:'1.0-1'}} feet</ion-label> -->\n\n                <ion-label style=\"font-size: 11pt; color: white\">{{vhangeHeight(match.height)}} feet</ion-label>\n              </ion-col>\n            </ion-row>\n          </div>\n        </ion-col>\n      </ion-row>\n\n      <!-- <div style=\"padding: 15px 0px 0px 15px\">\n        <ion-row>\n          <ion-col>\n            <ion-label style=\"font-size: 11pt; color: #caff9b\">School</ion-label>\n          </ion-col>\n        </ion-row>\n\n        <ion-row>\n          <ion-col>\n            <ion-label style=\"font-size: 11pt; color: white\">{{match.school}}</ion-label>\n          </ion-col>\n        </ion-row>\n      </div> -->\n\n      <div style=\"padding: 15px 15px 40px 15px;\">\n        <ion-row>\n          <ion-col>\n            <button class=\"btn\" (click)=\"goToMessage(match)\" [disabled]=\"buttonDisabled\">View\n              Profile</button>\n            <!-- <button class=\"btn\" *ngIf=\"match.prompt_replies=='No'\" (click)=\"goToMessage(match)\">View\n              Profile</button>\n            <button class=\"btn_disable\" *ngIf=\"match.prompt_replies!='No'\" (click)=\"goToMessage(match)\">Message</button> -->\n          </ion-col>\n        </ion-row>\n      </div>\n\n\n    </div>\n    <ion-row style=\"margin-top: -30px;\">\n      <ion-col>\n        <div style=\"    height: 60px;\n        width: 60px;\n        border-radius: 30px;\n        background: rgb(255, 255, 255);\n        display: flex;\n        align-content: center;\n        align-items: center;\n        justify-content: center;\" (click)=\"crossClick(match,i)\">\n          <img><img style=\"height: 20px; width: 20px\" src=\"assets/imgs/closeblack.svg\" />\n        </div>\n      </ion-col>\n    </ion-row>\n\n  </div>\n\n\n\n\n  <!-- \n  <ion-fab style=\"position: absolute;\n  bottom: 20px;\n  left: 20px;\n  z-index: 00000;\" slot=\"fixed\" >\n    <ion-fab-button style=\"--background: white\"><img style=\"height: 20px; width: 20px\"\n        src=\"assets/imgs/closeblack.svg\" /></ion-fab-button>\n  </ion-fab> -->\n</ion-content>\n\n<div [hidden]=\"matchpopupHidden\" style=\"\n    height: 100%;\n    width: 100%;\n    background-color: #0c293dd9;\n    position: absolute;\n  \">\n  <div style=\"   left: 10%;\n  position: absolute;\n  top: 40px;\n  width: 80%;\n  height: 366px;\n  background-color: rgb(0 0 0 / 0%); \">\n    <ion-row>\n      <ion-col style=\"padding-top: 10 px; padding-right: 10px; text-align: right\">\n        <img style=\"\n            height: 15px;\n            width: 15px;\n            margin-right: 10px;\n            margin-top: 14px;\n          \" src=\"assets/imgs/close.svg\" (click)=\"hidePopup()\" />\n      </ion-col>\n    </ion-row>\n\n    <ion-row style=\"margin-top: 0px\">\n      <ion-col style=\"text-align: center\">\n        <img style=\"    width: 300px;\n        height: 190px;\" src=\"assets/imgs/logo.svg\" />\n      </ion-col>\n    </ion-row>\n\n    <div style=\"\n        padding: 15px;\n        border: 2px solid white;\n        text-align: center;\n        margin: 17px;\n      \">\n      <ion-label>Mutual matches will expire within 6 days.</ion-label>\n    </div>\n\n    <div style=\"padding-left: 13px; padding-right: 13px; margin-top: 28px\">\n      <ion-row>\n        <ion-col size=\"9\" style=\"padding-top: 8px\">\n          <ion-text style=\"font-size: 10pt\">Close the match</ion-text>\n        </ion-col>\n\n        <ion-col size=\"3\" style=\"text-align: right\">\n          <ion-toggle checked=\"false\" (ionChange)=\"closeMatch($event)\" [class.togglePaddClass]=\"togglePlatformAndroid\">\n          </ion-toggle>\n        </ion-col>\n      </ion-row>\n\n      <ion-row>\n        <ion-col size=\"9\" style=\"padding-top: 8px\">\n          <ion-text style=\"font-size: 10pt\">Conversation continued off the app</ion-text>\n        </ion-col>\n\n        <ion-col size=\"3\" style=\"text-align: right\">\n          <ion-toggle checked=\"false\" (ionChange)=\"openChat($event)\" [class.togglePaddClass]=\"togglePlatformAndroid\">\n          </ion-toggle>\n        </ion-col>\n      </ion-row>\n    </div>\n  </div>\n</div>";
       /***/
     }
   }]);

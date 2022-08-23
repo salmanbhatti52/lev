@@ -84,6 +84,7 @@ export class Yourprofile3Page implements OnInit {
 
 
   myImgArr: any = ''
+  check = false;
 
 
   constructor(
@@ -398,388 +399,407 @@ export class Yourprofile3Page implements OnInit {
   }
 
   Continue() {
-    console.log('go');
-
-    console.log('mychk');
-
-
-    console.log(localStorage.getItem('dobDay'));
-    console.log(localStorage.getItem('dobMonth'));
-    console.log(localStorage.getItem('dobYear'));
-
-
-
-
-    var prompt1HeadIDVal = localStorage.getItem('prompt1ValHead')
-    var prompt2HeadIDVal = localStorage.getItem('prompt2ValHead')
-    var prompt3HeadIDVal = localStorage.getItem('prompt3ValHead')
-
-    console.log(localStorage.getItem('prompt1ValHead'), localStorage.getItem('prompt2ValHead'), localStorage.getItem('prompt3ValHead'));
-
-
-
-    var prompt1Val = localStorage.getItem('prompt1Val')
-    var prompt2Val = localStorage.getItem('prompt2Val')
-    var prompt3Val = localStorage.getItem('prompt3Val')
-
-
-    var myprompts = {};
-    myprompts[prompt1HeadIDVal] = prompt1Val;
-    myprompts[prompt2HeadIDVal] = prompt2Val;
-    myprompts[prompt3HeadIDVal] = prompt3Val;
-
-    console.log('my array ---->>>', myprompts)
-
-
-
-    // this.router.navigate(['requestsubmitted']);
-
-    if (this.shortBio == '') {
-      this.shortBioStatus = true;
-    }
-
-    if (this.prompt1Val == 'Choose your prompt') {
-      this.prompt1ValStatus = true;
-    }
-    if (this.prompt2Val == 'Choose your prompt') {
-      this.prompt2ValStatus = true;
-    }
-    if (this.prompt3Val == 'Choose your prompt') {
-      this.prompt3ValStatus = true;
-    }
-
-    if (this.phoneOfOther == '' && this.knowAnyoneFun != "Yes") {
-      this.phoneStatus = true;
+    if (this.check == false) {
+      this.workService.presentToast('Please Accept Terms and Policies');
     } else {
-      this.phoneStatus = false;
-    }
-    if (this.emailOfOther == '' && this.knowAnyoneFun != "Yes") {
-      this.emailStatus = true;
-    } else {
-      this.emailStatus = false;
-    }
-    if (this.fullnameOfOther == '' && this.knowAnyoneFun != "Yes") {
-      this.fullnameStatus = true;
-    } else {
-      this.fullnameStatus = false;
-    }
-
-
-    // if (this.spotify == '') {
-    //   this.spotifyStatus = true;
-    // }
-    // if (this.linkedin == '') {
-    //   this.linkedinStatus = true;
-    // }
-    if (this.insta == '') {
-      this.instaStatus = true;
-    }
-
-    if (this.shortBio == '') {
-      this.shortBioStatus = true;
-    }
-
-    if (
-      this.prompt1Val != 'Choose your prompt' &&
-      this.prompt2Val != 'Choose your prompt' &&
-      this.prompt3Val != 'Choose your prompt' &&
-      this.shortBio != '' &&
-      // this.spotify != '' &&
-      // this.linkedin != '' &&
-      this.insta != ''
-    ) {
-
-
-      if (this.knowAnyoneFun == "Yes") {
-        this.workService.presentLoading()
-
-
-        localStorage.setItem('shortBio', this.shortBio)
-        localStorage.setItem('prompt1ValHead', this.prompt1ValHead)
-        localStorage.setItem('prompt2ValHead', this.prompt2ValHead)
-        localStorage.setItem('prompt3ValHead', this.prompt3ValHead)
-        localStorage.setItem('prompt1Val', this.prompt1Val)
-        localStorage.setItem('prompt2Val', this.prompt2Val)
-        localStorage.setItem('prompt3Val', this.prompt3Val)
-        localStorage.setItem('spotify', this.spotify)
-        localStorage.setItem('linkedin', this.linkedin)
-        localStorage.setItem('insta', this.insta)
-        localStorage.setItem('phoneOfOther', this.phoneOfOther)
-        localStorage.setItem('emailOfOther', this.emailOfOther)
-        localStorage.setItem('fullnameOfOther', this.fullnameOfOther)
-        localStorage.setItem('getNotiAndUpdates', this.getNotiAndUpdates.toString())
-
-
-
-        this.storage.get('imgArr').then(imgArr => {
-          console.log('imgArr------------Yes-', imgArr);
-
-          this.myImgArr = JSON.parse(imgArr)
-          this.coverImage = this.myImgArr[0].img
-          this.coverImage2 = this.myImgArr[1].img
-          console.log('cover image 1-------------Yes-', this.coverImage);
-          console.log('cover image 2-------------Yes-', this.coverImage);
-
-          // this.storage.get('coverImg2').then(coverImage2 => {
-          //   console.log(coverImage2);
-
-
-
-
-          const fileTransfer: FileTransferObject = this.transfer.create();
-          const random = Math.floor(Math.random() * 100);
-
-          if (localStorage.getItem('img1SelectedFromCamera1') == '0') {
-            //gallery
-            this.fleName1 = ".png"
-            this.minType1 = "image/png"
-          } else {
-            //camera
-            this.fleName1 = ".jpg"
-            this.minType1 = "image/jpeg"
-          }
-
-          if (localStorage.getItem('img2SelectedFromCamera2') == '0') {
-            //gallery
-            this.fleName2 = ".png"
-            this.minType2 = "image/png"
-          } else {
-            //camera
-            this.fleName2 = ".jpg"
-            this.minType2 = "image/jpeg"
-          }
-
-
-
-
+      console.log('go');
 
-          const optionsImageOne: FileUploadOptions = {
-            fileKey: "image_data",
-            fileName: "myImage_" + random + this.fleName1,
-            chunkedMode: false,
-            httpMethod: "post",
-            mimeType: this.minType1,
-            headers: {
-              // "Auth-Key": this.authToken,
-            },
-            params: {
-              image: "YPOP",
-            },
-          };
-
-
-
-          const optionsImageTwo: FileUploadOptions = {
-            fileKey: "image_data",
-            fileName: "myImage_" + random + this.fleName2,
-            chunkedMode: false,
-            httpMethod: "post",
-            mimeType: this.minType2,
-            headers: {
-              // "Auth-Key": this.authToken,
-            },
-            params: {
-              image: "YPOP",
-            },
-          };
-
-
-
-          fileTransfer
-            .upload(
-              this.coverImage,
-              "https://thelevapp.co/backoffice/webservices/process_image_upload/users_customers/",
-              optionsImageOne
-            )
-            .then(
-              async (data: any) => {
-                this.uploadedCOverImage = JSON.parse(data.response);
-
-                fileTransfer
-                  .upload(
-                    this.coverImage2,
-                    "https://thelevapp.co/backoffice/webservices/process_image_upload/users_customers/",
-                    optionsImageTwo
-                  )
-                  .then(
-                    async (licenseData: any) => {
-                      this.uploadedCOverImage2 = JSON.parse(licenseData.response);
-                      this.workService.hideLoading()
-                      this.subMitFormData()
-
-
-                    }, (err) => {
-                      console.log("Error");
-                      console.log(err);
-                      return;
-                    })
-              })
-          // })
-        })
-      } else if (this.phoneOfOther != '' &&
-        this.emailOfOther != '' &&
-        this.fullnameOfOther != '') {
-        this.workService.presentLoading()
-
-        localStorage.setItem('knowAnyoneFun', 'No')
-
-        localStorage.setItem('shortBio', this.shortBio)
-        localStorage.setItem('prompt1ValHead', this.prompt1ValHead)
-        localStorage.setItem('prompt2ValHead', this.prompt2ValHead)
-        localStorage.setItem('prompt3ValHead', this.prompt3ValHead)
-        localStorage.setItem('prompt1Val', this.prompt1Val)
-        localStorage.setItem('prompt2Val', this.prompt2Val)
-        localStorage.setItem('prompt3Val', this.prompt3Val)
-        localStorage.setItem('spotify', this.spotify)
-        localStorage.setItem('linkedin', this.linkedin)
-        localStorage.setItem('insta', this.insta)
-        localStorage.setItem('phoneOfOther', this.phoneOfOther)
-        localStorage.setItem('emailOfOther', this.emailOfOther)
-        localStorage.setItem('fullnameOfOther', this.fullnameOfOther)
-        localStorage.setItem('getNotiAndUpdates', this.getNotiAndUpdates.toString())
-
-
-
-        // this.storage.get('coverImg').then(coverImage => {
-        //   console.log(coverImage);
-
-        //   this.storage.get('coverImg2').then(coverImage2 => {
-        //     console.log(coverImage2);
-
-
-        this.storage.get('imgArr').then(imgArr => {
-          console.log('imgArr------------No-', imgArr);
-          this.myImgArr = JSON.parse(imgArr)
-          console.log('imgArr------------jSON NO-', this.myImgArr);
-          this.coverImage = this.myImgArr[0].img
-          this.coverImage2 = this.myImgArr[1].img
-          console.log('cover image 1-------------No-', this.coverImage);
-          console.log('cover image 2-------------No-', this.coverImage);
-
-          // this.storage.get('coverImg2').then(coverImage2 => {
-          //   console.log(coverImage2);
-
-
-
-
-
-          const fileTransfer: FileTransferObject = this.transfer.create();
-          const random = Math.floor(Math.random() * 100);
-
-          if (localStorage.getItem('img1SelectedFromCamera1') == '0') {
-            //gallery
-            this.fleName1 = ".png"
-            this.minType1 = "image/png"
-          } else {
-            //camera
-            this.fleName1 = ".jpg"
-            this.minType1 = "image/jpeg"
-          }
-
-          if (localStorage.getItem('img2SelectedFromCamera2') == '0') {
-            //gallery
-            this.fleName2 = ".png"
-            this.minType2 = "image/png"
-          } else {
-            //camera
-            this.fleName2 = ".jpg"
-            this.minType2 = "image/jpeg"
-          }
-
-
-
-
-
-          const optionsImageOne: FileUploadOptions = {
-            fileKey: "image_data",
-            fileName: "myImage_" + random + this.fleName1,
-            chunkedMode: false,
-            httpMethod: "post",
-            mimeType: this.minType1,
-            headers: {
-              // "Auth-Key": this.authToken,
-            },
-            params: {
-              image: "YPOP",
-            },
-          };
-
-
-
-          const optionsImageTwo: FileUploadOptions = {
-            fileKey: "image_data",
-            fileName: "myImage_" + random + this.fleName2,
-            chunkedMode: false,
-            httpMethod: "post",
-            mimeType: this.minType2,
-            headers: {
-              // "Auth-Key": this.authToken,
-            },
-            params: {
-              image: "YPOP",
-            },
-          };
-
-
-
-          fileTransfer
-            .upload(
-              this.coverImage,
-              "https://thelevapp.co/backoffice/webservices/process_image_upload/users_customers/",
-              optionsImageOne
-            )
-            .then(
-              async (data: any) => {
-
-                console.log('img 1 uploaded--->', data);
-
-
-                this.uploadedCOverImage = JSON.parse(data.response);
-
-                fileTransfer
-                  .upload(
-                    this.coverImage2,
-                    "https://thelevapp.co/backoffice/webservices/process_image_upload/users_customers/",
-                    optionsImageTwo
-                  )
-                  .then(
-                    async (licenseData: any) => {
-                      this.uploadedCOverImage2 = JSON.parse(licenseData.response);
-                      this.workService.hideLoading()
-                      this.subMitFormData()
-
-
-                    }, (err) => {
-                      console.log("Error");
-                      console.log(err);
-                      return;
-                    })
-              })
-          // })
-        })
+      console.log('mychk');
+
+
+      console.log(localStorage.getItem('dobDay'));
+      console.log(localStorage.getItem('dobMonth'));
+      console.log(localStorage.getItem('dobYear'));
+
+
+
+
+      var prompt1HeadIDVal = localStorage.getItem('prompt1ValHead')
+      var prompt2HeadIDVal = localStorage.getItem('prompt2ValHead')
+      var prompt3HeadIDVal = localStorage.getItem('prompt3ValHead')
+
+      console.log(localStorage.getItem('prompt1ValHead'), localStorage.getItem('prompt2ValHead'), localStorage.getItem('prompt3ValHead'));
+
+
+
+      var prompt1Val = localStorage.getItem('prompt1Val')
+      var prompt2Val = localStorage.getItem('prompt2Val')
+      var prompt3Val = localStorage.getItem('prompt3Val')
+
+
+      var myprompts = {};
+      myprompts[prompt1HeadIDVal] = prompt1Val;
+      myprompts[prompt2HeadIDVal] = prompt2Val;
+      myprompts[prompt3HeadIDVal] = prompt3Val;
+
+      console.log('my array ---->>>', myprompts)
+
+
+
+      // this.router.navigate(['requestsubmitted']);
+
+      if (this.shortBio == '') {
+        this.shortBioStatus = true;
+      }
+
+      if (this.prompt1Val == 'Choose your prompt') {
+        this.prompt1ValStatus = true;
+      }
+      if (this.prompt2Val == 'Choose your prompt') {
+        this.prompt2ValStatus = true;
+      }
+      if (this.prompt3Val == 'Choose your prompt') {
+        this.prompt3ValStatus = true;
+      }
+
+      if (this.phoneOfOther == '' && this.knowAnyoneFun != "Yes") {
+        this.phoneStatus = true;
       } else {
+        this.phoneStatus = false;
+      }
+      if (this.emailOfOther == '' && this.knowAnyoneFun != "Yes") {
+        this.emailStatus = true;
+      } else {
+        this.emailStatus = false;
+      }
+      if (this.fullnameOfOther == '' && this.knowAnyoneFun != "Yes") {
+        this.fullnameStatus = true;
+      } else {
+        this.fullnameStatus = false;
+      }
 
 
-        if (this.phoneOfOther == '') {
-          this.phoneStatus = true;
+      // if (this.spotify == '') {
+      //   this.spotifyStatus = true;
+      // }
+      // if (this.linkedin == '') {
+      //   this.linkedinStatus = true;
+      // }
+      if (this.insta == '') {
+        this.instaStatus = true;
+      }
+
+      if (this.shortBio == '') {
+        this.shortBioStatus = true;
+      }
+
+      if (
+        this.prompt1Val != 'Choose your prompt' &&
+        this.prompt2Val != 'Choose your prompt' &&
+        this.prompt3Val != 'Choose your prompt' &&
+        this.shortBio != '' &&
+        // this.spotify != '' &&
+        // this.linkedin != '' &&
+        this.insta != ''
+      ) {
+
+
+        if (this.knowAnyoneFun == "Yes") {
+          this.workService.presentLoading()
+
+
+          localStorage.setItem('shortBio', this.shortBio)
+          localStorage.setItem('prompt1ValHead', this.prompt1ValHead)
+          localStorage.setItem('prompt2ValHead', this.prompt2ValHead)
+          localStorage.setItem('prompt3ValHead', this.prompt3ValHead)
+          localStorage.setItem('prompt1Val', this.prompt1Val)
+          localStorage.setItem('prompt2Val', this.prompt2Val)
+          localStorage.setItem('prompt3Val', this.prompt3Val)
+          localStorage.setItem('spotify', this.spotify)
+          localStorage.setItem('linkedin', this.linkedin)
+          localStorage.setItem('insta', this.insta)
+          localStorage.setItem('phoneOfOther', this.phoneOfOther)
+          localStorage.setItem('emailOfOther', this.emailOfOther)
+          localStorage.setItem('fullnameOfOther', this.fullnameOfOther)
+          localStorage.setItem('getNotiAndUpdates', this.getNotiAndUpdates.toString())
+
+
+
+          this.storage.get('imgArr').then(imgArr => {
+            console.log('imgArr------------Yes-', imgArr);
+
+            this.myImgArr = JSON.parse(imgArr)
+            this.coverImage = this.myImgArr[0].img
+            this.coverImage2 = this.myImgArr[1].img
+            console.log('cover image 1-------------Yes-', this.coverImage);
+            console.log('cover image 2-------------Yes-', this.coverImage);
+
+            // this.storage.get('coverImg2').then(coverImage2 => {
+            //   console.log(coverImage2);
+
+
+
+
+            const fileTransfer: FileTransferObject = this.transfer.create();
+            const random = Math.floor(Math.random() * 100);
+
+            if (localStorage.getItem('img1SelectedFromCamera1') == '0') {
+              //gallery
+              this.fleName1 = ".png"
+              this.minType1 = "image/png"
+            } else {
+              //camera
+              this.fleName1 = ".jpg"
+              this.minType1 = "image/jpeg"
+            }
+
+            if (localStorage.getItem('img2SelectedFromCamera2') == '0') {
+              //gallery
+              this.fleName2 = ".png"
+              this.minType2 = "image/png"
+            } else {
+              //camera
+              this.fleName2 = ".jpg"
+              this.minType2 = "image/jpeg"
+            }
+
+
+
+
+
+            const optionsImageOne: FileUploadOptions = {
+              fileKey: "image_data",
+              fileName: "myImage_" + random + this.fleName1,
+              chunkedMode: false,
+              httpMethod: "post",
+              mimeType: this.minType1,
+              headers: {
+                // "Auth-Key": this.authToken,
+              },
+              params: {
+                image: "YPOP",
+              },
+            };
+
+
+
+            const optionsImageTwo: FileUploadOptions = {
+              fileKey: "image_data",
+              fileName: "myImage_" + random + this.fleName2,
+              chunkedMode: false,
+              httpMethod: "post",
+              mimeType: this.minType2,
+              headers: {
+                // "Auth-Key": this.authToken,
+              },
+              params: {
+                image: "YPOP",
+              },
+            };
+
+
+
+            fileTransfer
+              .upload(
+                this.coverImage,
+                "https://thelevapp.co/backoffice/webservices/process_image_upload/users_customers/",
+                optionsImageOne
+              )
+              .then(
+                async (data: any) => {
+                  this.uploadedCOverImage = JSON.parse(data.response);
+
+                  fileTransfer
+                    .upload(
+                      this.coverImage2,
+                      "https://thelevapp.co/backoffice/webservices/process_image_upload/users_customers/",
+                      optionsImageTwo
+                    )
+                    .then(
+                      async (licenseData: any) => {
+                        this.uploadedCOverImage2 = JSON.parse(licenseData.response);
+                        this.workService.hideLoading()
+                        this.subMitFormData()
+
+
+                      }, (err) => {
+                        console.log("Error");
+                        console.log(err);
+                        return;
+                      })
+                })
+            // })
+          })
+        } else if (this.phoneOfOther != '' &&
+          this.emailOfOther != '' &&
+          this.fullnameOfOther != '') {
+          this.workService.presentLoading()
+
+          localStorage.setItem('knowAnyoneFun', 'No')
+
+          localStorage.setItem('shortBio', this.shortBio)
+          localStorage.setItem('prompt1ValHead', this.prompt1ValHead)
+          localStorage.setItem('prompt2ValHead', this.prompt2ValHead)
+          localStorage.setItem('prompt3ValHead', this.prompt3ValHead)
+          localStorage.setItem('prompt1Val', this.prompt1Val)
+          localStorage.setItem('prompt2Val', this.prompt2Val)
+          localStorage.setItem('prompt3Val', this.prompt3Val)
+          localStorage.setItem('spotify', this.spotify)
+          localStorage.setItem('linkedin', this.linkedin)
+          localStorage.setItem('insta', this.insta)
+          localStorage.setItem('phoneOfOther', this.phoneOfOther)
+          localStorage.setItem('emailOfOther', this.emailOfOther)
+          localStorage.setItem('fullnameOfOther', this.fullnameOfOther)
+          localStorage.setItem('getNotiAndUpdates', this.getNotiAndUpdates.toString())
+
+
+
+          // this.storage.get('coverImg').then(coverImage => {
+          //   console.log(coverImage);
+
+          //   this.storage.get('coverImg2').then(coverImage2 => {
+          //     console.log(coverImage2);
+
+
+          this.storage.get('imgArr').then(imgArr => {
+            console.log('imgArr------------No-', imgArr);
+            this.myImgArr = JSON.parse(imgArr)
+            console.log('imgArr------------jSON NO-', this.myImgArr);
+            this.coverImage = this.myImgArr[0].img
+            this.coverImage2 = this.myImgArr[1].img
+            console.log('cover image 1-------------No-', this.coverImage);
+            console.log('cover image 2-------------No-', this.coverImage);
+
+            // this.storage.get('coverImg2').then(coverImage2 => {
+            //   console.log(coverImage2);
+
+
+
+
+
+            const fileTransfer: FileTransferObject = this.transfer.create();
+            const random = Math.floor(Math.random() * 100);
+
+            if (localStorage.getItem('img1SelectedFromCamera1') == '0') {
+              //gallery
+              this.fleName1 = ".png"
+              this.minType1 = "image/png"
+            } else {
+              //camera
+              this.fleName1 = ".jpg"
+              this.minType1 = "image/jpeg"
+            }
+
+            if (localStorage.getItem('img2SelectedFromCamera2') == '0') {
+              //gallery
+              this.fleName2 = ".png"
+              this.minType2 = "image/png"
+            } else {
+              //camera
+              this.fleName2 = ".jpg"
+              this.minType2 = "image/jpeg"
+            }
+
+
+
+
+
+            const optionsImageOne: FileUploadOptions = {
+              fileKey: "image_data",
+              fileName: "myImage_" + random + this.fleName1,
+              chunkedMode: false,
+              httpMethod: "post",
+              mimeType: this.minType1,
+              headers: {
+                // "Auth-Key": this.authToken,
+              },
+              params: {
+                image: "YPOP",
+              },
+            };
+
+
+
+            const optionsImageTwo: FileUploadOptions = {
+              fileKey: "image_data",
+              fileName: "myImage_" + random + this.fleName2,
+              chunkedMode: false,
+              httpMethod: "post",
+              mimeType: this.minType2,
+              headers: {
+                // "Auth-Key": this.authToken,
+              },
+              params: {
+                image: "YPOP",
+              },
+            };
+
+
+
+            fileTransfer
+              .upload(
+                this.coverImage,
+                "https://thelevapp.co/backoffice/webservices/process_image_upload/users_customers/",
+                optionsImageOne
+              )
+              .then(
+                async (data: any) => {
+
+                  console.log('img 1 uploaded--->', data);
+
+
+                  this.uploadedCOverImage = JSON.parse(data.response);
+
+                  fileTransfer
+                    .upload(
+                      this.coverImage2,
+                      "https://thelevapp.co/backoffice/webservices/process_image_upload/users_customers/",
+                      optionsImageTwo
+                    )
+                    .then(
+                      async (licenseData: any) => {
+                        this.uploadedCOverImage2 = JSON.parse(licenseData.response);
+                        this.workService.hideLoading()
+                        this.subMitFormData()
+
+
+                      }, (err) => {
+                        console.log("Error");
+                        console.log(err);
+                        return;
+                      })
+                })
+            // })
+          })
         } else {
-          this.phoneStatus = false;
-        }
-        if (this.emailOfOther == '') {
-          this.emailStatus = true;
-        } else {
-          this.emailStatus = false;
-        }
-        if (this.fullnameOfOther == '') {
-          this.fullnameStatus = true;
-        } else {
-          this.fullnameStatus = false;
+
+
+          if (this.phoneOfOther == '') {
+            this.phoneStatus = true;
+          } else {
+            this.phoneStatus = false;
+          }
+          if (this.emailOfOther == '') {
+            this.emailStatus = true;
+          } else {
+            this.emailStatus = false;
+          }
+          if (this.fullnameOfOther == '') {
+            this.fullnameStatus = true;
+          } else {
+            this.fullnameStatus = false;
+          }
+
+          // this.phoneStatus = true;
+          // this.emailStatus = true;
+          // this.fullnameStatus = true;
+
+          setTimeout(() => {
+            this.shortBioStatus = false;
+            this.prompt1ValStatus = false;
+            this.prompt2ValStatus = false;
+            this.prompt3ValStatus = false;
+            this.phoneStatus = false;
+            this.emailStatus = false;
+            this.fullnameStatus = false;
+            // this.spotifyStatus = false;
+            this.linkedinStatus = false;
+            this.instaStatus = false;
+          }, 3000);
         }
 
-        // this.phoneStatus = true;
-        // this.emailStatus = true;
-        // this.fullnameStatus = true;
-
+      } else {
+        this.workService.presentToast('Please Enter Required Field.');
         setTimeout(() => {
           this.shortBioStatus = false;
           this.prompt1ValStatus = false;
@@ -794,23 +814,9 @@ export class Yourprofile3Page implements OnInit {
         }, 3000);
       }
 
-    } else {
-      this.workService.presentToast('Please Enter Required Field.');
-      setTimeout(() => {
-        this.shortBioStatus = false;
-        this.prompt1ValStatus = false;
-        this.prompt2ValStatus = false;
-        this.prompt3ValStatus = false;
-        this.phoneStatus = false;
-        this.emailStatus = false;
-        this.fullnameStatus = false;
-        // this.spotifyStatus = false;
-        this.linkedinStatus = false;
-        this.instaStatus = false;
-      }, 3000);
+      // this.router.navigate(['requestsubmitted'])
     }
 
-    // this.router.navigate(['requestsubmitted'])
   }
 
 
@@ -988,5 +994,15 @@ export class Yourprofile3Page implements OnInit {
     if (this.insta.length < 1)
       this.insta = '@'
   }
+
+  checked(ev) {
+    console.log('value of checkbox==', ev.detail.checked);
+    this.check = ev.detail.checked
+  }
+
+  goToTermsPolicy() {
+    this.router.navigate(['termsservice'])
+  }
+
 
 }

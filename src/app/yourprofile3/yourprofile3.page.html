@@ -313,7 +313,18 @@
 
     </div>
 
+    <ion-row style="margin-top:5%;">
+      <ion-col style="display: flex;
+      align-items: center;">
+        <ion-checkbox mode="md" class="check" (ionChange)="checked($event)"></ion-checkbox>
+        <div style="color: #fff;
+        margin-left: 2%;
+        font-size:12pt;
+        margin-top: 0.6%;" (click)="goToTermsPolicy()">Please Accept Terms and Policies</div>
+      </ion-col>
 
+
+    </ion-row>
 
 
     <ion-row style="margin-top: 30px;">

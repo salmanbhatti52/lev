@@ -555,6 +555,13 @@ export class RestService {
     return this.http.post(this.baseURL + 'unblockuser/', data, { headers });
   }
 
+  repoertuser(data) {
+    let headers = {
+      'Content-Type': 'application/json',
+    };
+
+    return this.http.post(this.baseURL + 'reportUser/', data, { headers });
+  }
 
 
   update_notification_switchAPI(data) {

@@ -195,7 +195,8 @@ let OtppagewebPage = class OtppagewebPage {
                     localStorage.setItem('remainingSMS', res.data.allowed_sms);
                     localStorage.setItem('packages_id', res.data.packages_id);
                     console.log('packages_id----', res.data.packages_id);
-                    if (res.data.packages_id.toString() == '0') {
+                    //packages_id will be 1 or 0//////
+                    if (res.data.packages_id.toString() == '1') {
                         this.navCtrl.navigateRoot(['subscriptionlogin'], { replaceUrl: true });
                     }
                     else {

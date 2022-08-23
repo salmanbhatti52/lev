@@ -351,9 +351,9 @@
                   localStorage.setItem('loggedinUserID', res.data.users_customers_id);
                   localStorage.setItem('remainingSMS', res.data.allowed_sms);
                   localStorage.setItem('packages_id', res.data.packages_id);
-                  console.log('packages_id----', res.data.packages_id);
+                  console.log('packages_id----', res.data.packages_id); //packages_id will be 1 or 0//////
 
-                  if (res.data.packages_id.toString() == '0') {
+                  if (res.data.packages_id.toString() == '1') {
                     _this3.navCtrl.navigateRoot(['subscriptionlogin'], {
                       replaceUrl: true
                     });
