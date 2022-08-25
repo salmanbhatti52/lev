@@ -35,20 +35,19 @@
           background: #314f40;
           border-radius: 90px;
           padding: 5px;" (click)="presentAlert(match)"></ion-icon>
+          <div style="position:absolute; color: #fff;
+          font-size: 18px;
+          top: 20px;
+          right: 20px;" *ngIf="match.report_status=='reported'">Reported</div>
         </div>
 
 
       </ion-col>
     </ion-row>
 
-    <div style="
-        /* background-color: #302f2f; */
-        background-color: #314f40;
-        height: auto;
-        border-radius: 10px;
-        margin-top: 9px;
-      ">
-      <div style="padding: 15px 0px 0px 15px">
+    <div style=" /* background-color: #302f2f; */ background-color: #314f40; height: auto; border-radius: 10px;
+            margin-top: 9px; ">
+      <div style=" padding: 15px 0px 0px 15px">
         <ion-row>
           <ion-col>
             <ion-row>
@@ -59,7 +58,8 @@
 
             <ion-row>
               <ion-col>
-                <ion-label style="font-size: 11pt; color: white"> {{match.first_name}} {{match.last_name}}</ion-label>
+                <ion-label style="font-size: 11pt; color: white"> {{match.first_name}} {{match.last_name}}
+                </ion-label>
               </ion-col>
             </ion-row>
           </ion-col>
