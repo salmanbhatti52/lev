@@ -279,6 +279,10 @@ const routes = [
     {
         path: 'promptnew',
         loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_promptnew_promptnew_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./promptnew/promptnew.module */ 21190)).then(m => m.PromptnewPageModule)
+    },
+    {
+        path: 'deleteaccount',
+        loadChildren: () => __webpack_require__.e(/*! import() */ "src_app_deleteaccount_deleteaccount_module_ts").then(__webpack_require__.bind(__webpack_require__, /*! ./deleteaccount/deleteaccount.module */ 49355)).then(m => m.DeleteaccountPageModule)
     }
 ];
 let AppRoutingModule = class AppRoutingModule {
@@ -325,9 +329,6 @@ __webpack_require__.r(__webpack_exports__);
 
 let AppComponent = class AppComponent {
     constructor(platform, navCtrl, oneSignal, workService, restService) {
-        // if (this.platform.ready()) {
-        //   this.initializeApp()
-        //   console.log('platform Ready apComponent', localStorage.getItem('login'))
         this.platform = platform;
         this.navCtrl = navCtrl;
         this.oneSignal = oneSignal;
@@ -340,23 +341,49 @@ let AppComponent = class AppComponent {
         this.identy = '';
         this.userData = '';
         this.arr = [];
-        //   // Login code start here
-        //   if (localStorage.getItem('login') == 'isLogin') {
-        //     this.checkSubscription()
-        //     this.userData = JSON.parse(localStorage.getItem('loggedinUserData'))
-        //     console.log('usr packageee--->>>>>', this.userData.packages_id);
-        //     // var sbID = this.userData.packages_id
-        //     var sbID = localStorage.getItem('packages_id')
-        //     if (sbID == '0' || sbID == 'null' || sbID == null) {
-        //       this.navCtrl.navigateRoot(['apply'], { replaceUrl: true })
-        //     } else {
-        //       this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
-        //     }
-        //   } else {
-        //     this.navCtrl.navigateRoot('/apply')
-        //   }
-        //   //   // Login code end here
-        // }
+        var userID = localStorage.getItem('loggedinUserID');
+        let data = {
+            loginuser: 0,
+            otheruser: userID
+        };
+        this.restService.get_user_dataAPI(data).subscribe((res) => {
+            this.workService.hideLoading();
+            console.log('incomming data ===333333333 ', res);
+            if (res.status == "success") {
+                this.myUserData = res.data.user_data;
+                console.log("mu user data----", this.myUserData);
+                if (this.myUserData == null) {
+                    this.navCtrl.navigateRoot(['apply'], { replaceUrl: true });
+                }
+                else {
+                    if (this.platform.ready()) {
+                        this.initializeApp();
+                        console.log('platform Ready apComponent', localStorage.getItem('login'));
+                        // Login code start here
+                        if (localStorage.getItem('login') == 'isLogin') {
+                            this.checkSubscription();
+                            this.userData = JSON.parse(localStorage.getItem('loggedinUserData'));
+                            console.log('usr packageee--->>>>>', this.userData.packages_id);
+                            // var sbID = this.userData.packages_id
+                            var sbID = localStorage.getItem('packages_id');
+                            if (sbID == '0' || sbID == 'null' || sbID == null) {
+                                this.navCtrl.navigateRoot(['apply'], { replaceUrl: true });
+                            }
+                            else {
+                                this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true });
+                            }
+                        }
+                        else {
+                            this.navCtrl.navigateRoot('/apply');
+                        }
+                        //   // Login code end here
+                    }
+                }
+            }
+        }, err => {
+            this.workService.hideLoading();
+            this.workService.presentToast('Network error occured');
+        });
     }
     checkSubscription() {
         var userID = localStorage.getItem('loggedinUserID');
@@ -2290,6 +2317,12 @@ let RestService = class RestService {
             'Content-Type': 'application/json',
         };
         return this.http.post(this.baseURL + 'reportUser/', data, { headers });
+    }
+    deluser(data) {
+        let headers = {
+            'Content-Type': 'application/json',
+        };
+        return this.http.post(this.baseURL + 'deleteUser/', data, { headers });
     }
     update_notification_switchAPI(data) {
         let headers = {

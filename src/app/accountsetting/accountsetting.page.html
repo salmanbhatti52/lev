@@ -48,8 +48,10 @@
 
       <ion-col size="4" style="text-align: right; padding: 0px;">
 
-        <ion-toggle *ngIf="userNoti == 'Yes'" (ionChange)="getNoti($event)" [class.togglePaddClass]="togglePlatformAndroid" checked></ion-toggle>
-        <ion-toggle *ngIf="userNoti != 'Yes'" (ionChange)="getNoti($event)" [class.togglePaddClass]="togglePlatformAndroid"></ion-toggle>
+        <ion-toggle *ngIf="userNoti == 'Yes'" (ionChange)="getNoti($event)"
+          [class.togglePaddClass]="togglePlatformAndroid" checked></ion-toggle>
+        <ion-toggle *ngIf="userNoti != 'Yes'" (ionChange)="getNoti($event)"
+          [class.togglePaddClass]="togglePlatformAndroid"></ion-toggle>
 
       </ion-col>
 
@@ -91,7 +93,21 @@ border-bottom: 1px solid white;">
     width: 100%;
     border-bottom: 1px solid white;">
 
+    <ion-row (click)="deleteaccount()">
+      <ion-col size="8">
+        <p style="font-size:10pt;">Delete Account</p>
+      </ion-col>
 
+      <ion-col size="4" style="text-align: right;">
+        <img style="height: 15px;
+              width: 15px;" src="assets/imgs/right.svg">
+      </ion-col>
+
+    </ion-row>
+
+    <hr style="    margin-bottom: 12px; margin-top: 12px;
+    width: 100%;
+    border-bottom: 1px solid white;">
 
 
 

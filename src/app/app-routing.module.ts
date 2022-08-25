@@ -241,6 +241,10 @@ const routes: Routes = [
   {
     path: 'promptnew',
     loadChildren: () => import('./promptnew/promptnew.module').then( m => m.PromptnewPageModule)
+  },
+  {
+    path: 'deleteaccount',
+    loadChildren: () => import('./deleteaccount/deleteaccount.module').then( m => m.DeleteaccountPageModule)
   }
 ];
 @NgModule({

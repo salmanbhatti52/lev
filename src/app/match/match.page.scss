@@ -32,3 +32,16 @@ ion-col {
 .block{
     margin-right: 10%;
 }
+.uimage{
+    height: 330pt;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.blurimage{
+    height: 330pt;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    filter: blur(30px) !important;
+}

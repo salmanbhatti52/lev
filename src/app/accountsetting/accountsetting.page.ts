@@ -65,6 +65,9 @@ export class AccountsettingPage implements OnInit {
     this.router.navigate(['subscription'])
   }
 
+  deleteaccount() {
+    this.router.navigate(['deleteaccount'])
+  }
 
 
 

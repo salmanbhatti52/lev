@@ -563,6 +563,13 @@ export class RestService {
     return this.http.post(this.baseURL + 'reportUser/', data, { headers });
   }
 
+  deluser(data) {
+    let headers = {
+      'Content-Type': 'application/json',
+    };
+
+    return this.http.post(this.baseURL + 'deleteUser/', data, { headers });
+  }
 
   update_notification_switchAPI(data) {
     let headers = {

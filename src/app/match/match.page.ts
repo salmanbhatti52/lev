@@ -157,9 +157,12 @@ export class MatchPage implements OnInit {
       "reported_by_user_id": localStorage.getItem('loggedinUserID')
     }
     this.restService.repoertuser(data).subscribe((res: any) => {
-      console.log('block user result==', res)
+      console.log('block user result==', res);
       if (res.status == 'success') {
-        this.workService.presentToast(res.message)
+        this.ionViewWillEnter();
+        this.workService.presentToast(res.message);
+      } if (res.status == 'error') {
+        this.workService.presentToast(res.message);
       }
     })
   }
@@ -199,6 +202,12 @@ export class MatchPage implements OnInit {
     })
   }
 
+  imageclicked(match) {
+    if (match.report_status == 'reported') {
+      this.workService.presentToast('User is reported as a spam');
+    }
+
+  }
   goToMessage(match) {
     console.log(match);
     //this.router.navigate(['/tabs/tab2'])

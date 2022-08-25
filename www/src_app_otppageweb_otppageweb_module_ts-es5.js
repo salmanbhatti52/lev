@@ -352,8 +352,10 @@
                   localStorage.setItem('remainingSMS', res.data.allowed_sms);
                   localStorage.setItem('packages_id', res.data.packages_id);
                   console.log('packages_id----', res.data.packages_id); //packages_id will be 1 or 0//////
+                  // 0 for not active package
+                  // 1 for when pacakge is active
 
-                  if (res.data.packages_id.toString() == '1') {
+                  if (res.data.packages_id.toString() == '0') {
                     _this3.navCtrl.navigateRoot(['subscriptionlogin'], {
                       replaceUrl: true
                     });

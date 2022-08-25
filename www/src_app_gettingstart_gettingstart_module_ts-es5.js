@@ -1173,9 +1173,7 @@
                   var sbID = _this5.userData.packages_id;
                   localStorage.setItem('packages_id', sbID); ////is ko 1 karna ha after testing///
 
-                  alert('line 561 pe code change karna ha after testing');
-
-                  if (sbID.toString() != '0') {
+                  if (sbID.toString() != '1') {
                     _this5.navCtrl.navigateRoot(['subscriptionlogin'], {
                       replaceUrl: true
                     });

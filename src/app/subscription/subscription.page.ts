@@ -132,7 +132,8 @@ export class SubscriptionPage implements OnInit {
         this.sbID = localStorage.getItem('packages_id')
 
         if (this.sbID) {
-          if (this.sbID.toString() == '0' || this.sbID.toString() == '1') {
+          // if (this.sbID.toString() == '0' || this.sbID.toString() == '1') 
+          if (this.sbID.toString() == '0') {
             this.noSubScription = true
           } else {
             this.noSubScription = false

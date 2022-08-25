@@ -1376,10 +1376,16 @@ ion-alert.custom-alert {
   padding: 8px;
 }
 button.alert-button.alert-button-confirm {
-  color: #314f40;
+  color: #fff;
 }
 .md button.alert-button.alert-button-confirm {
   border-radius: 4px;
+}
+.alert-wrapper.sc-ion-alert-ios {
+  border-radius: 13px;
+  box-shadow: none;
+  overflow: hidden;
+  background-color: #314f40;
 }
 .ios .custom-alert button.alert-button {
   border: 0.55px solid rgba(0, 0, 0, 0.2);
@@ -1389,7 +1395,7 @@ button.alert-button.alert-button-confirm {
   border-right: 0;
   border-bottom-left-radius: 13px;
   border-top-left-radius: 13px;
-  color: #314f40;
+  color: #fff;
 }
 .ios button.alert-button.alert-button-confirm {
   border-bottom-right-radius: 13px;

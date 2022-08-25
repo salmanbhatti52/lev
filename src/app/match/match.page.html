@@ -24,17 +24,17 @@
     <ion-row>
       <ion-col>
         <div style="position:relavtive;">
-          <img (error)="handleImgError($event, match)" style="
-          height: 330pt;
-          width: 100%;
-          object-fit: cover;
-          border-radius: 10px;
-        " src="{{restService.baseUrlForImg}}{{match.profile_pic_1}}" />
+          <img (error)="handleImgError($event, match)" class="uimage"
+            src="{{restService.baseUrlForImg}}{{match.profile_pic_1}}"
+            [class.blurimage]="match.report_status=='reported'" (click)="imageclicked(match)">
           <ion-icon name="information-outline" style="position: absolute;
           color: #fff;
           font-size: 25px;
-          left: 22px;
-          top: 20px;" (click)="presentAlert(match)"></ion-icon>
+          left: 15px;
+          top: 15px;
+          background: #314f40;
+          border-radius: 90px;
+          padding: 5px;" (click)="presentAlert(match)"></ion-icon>
         </div>
 
 
