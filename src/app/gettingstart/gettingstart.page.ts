@@ -553,7 +553,7 @@ export class GettingstartPage implements OnInit {
           //error is here , please login first
           localStorage.setItem('login', 'isLogin')
           this.userData = JSON.parse(localStorage.getItem('loggedinUserData'))
-          console.log('usr packageee--->>>>>', this.userData.packages_id);
+          console.log('usr packageee--->', this.userData.packages_id);
           var sbID = this.userData.packages_id
 
           localStorage.setItem('packages_id', sbID)

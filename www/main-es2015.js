@@ -341,49 +341,28 @@ let AppComponent = class AppComponent {
         this.identy = '';
         this.userData = '';
         this.arr = [];
-        var userID = localStorage.getItem('loggedinUserID');
-        let data = {
-            loginuser: 0,
-            otheruser: userID
-        };
-        this.restService.get_user_dataAPI(data).subscribe((res) => {
-            this.workService.hideLoading();
-            console.log('incomming data ===333333333 ', res);
-            if (res.status == "success") {
-                this.myUserData = res.data.user_data;
-                console.log("mu user data----", this.myUserData);
-                if (this.myUserData == null) {
+        if (this.platform.ready()) {
+            this.initializeApp();
+            console.log('platform Ready apComponent', localStorage.getItem('login'));
+            // Login code start here
+            if (localStorage.getItem('login') == 'isLogin') {
+                this.checkSubscription();
+                this.userData = JSON.parse(localStorage.getItem('loggedinUserData'));
+                console.log('usr packageee--->>>>>', this.userData.packages_id);
+                // var sbID = this.userData.packages_id
+                var sbID = localStorage.getItem('packages_id');
+                if (sbID == '0' || sbID == 'null' || sbID == null) {
                     this.navCtrl.navigateRoot(['apply'], { replaceUrl: true });
                 }
                 else {
-                    if (this.platform.ready()) {
-                        this.initializeApp();
-                        console.log('platform Ready apComponent', localStorage.getItem('login'));
-                        // Login code start here
-                        if (localStorage.getItem('login') == 'isLogin') {
-                            this.checkSubscription();
-                            this.userData = JSON.parse(localStorage.getItem('loggedinUserData'));
-                            console.log('usr packageee--->>>>>', this.userData.packages_id);
-                            // var sbID = this.userData.packages_id
-                            var sbID = localStorage.getItem('packages_id');
-                            if (sbID == '0' || sbID == 'null' || sbID == null) {
-                                this.navCtrl.navigateRoot(['apply'], { replaceUrl: true });
-                            }
-                            else {
-                                this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true });
-                            }
-                        }
-                        else {
-                            this.navCtrl.navigateRoot('/apply');
-                        }
-                        //   // Login code end here
-                    }
+                    this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true });
                 }
             }
-        }, err => {
-            this.workService.hideLoading();
-            this.workService.presentToast('Network error occured');
-        });
+            else {
+                this.navCtrl.navigateRoot('/apply');
+            }
+            //   // Login code end here
+        }
     }
     checkSubscription() {
         var userID = localStorage.getItem('loggedinUserID');

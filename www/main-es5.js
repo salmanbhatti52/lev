@@ -824,8 +824,6 @@
 
       var _AppComponent = /*#__PURE__*/function () {
         function AppComponent(platform, navCtrl, oneSignal, workService, restService) {
-          var _this = this;
-
           _classCallCheck(this, AppComponent);
 
           this.platform = platform;
@@ -840,65 +838,38 @@
           this.identy = '';
           this.userData = '';
           this.arr = [];
-          var userID = localStorage.getItem('loggedinUserID');
-          var data = {
-            loginuser: 0,
-            otheruser: userID
-          };
-          this.restService.get_user_dataAPI(data).subscribe(function (res) {
-            _this.workService.hideLoading();
 
-            console.log('incomming data ===333333333 ', res);
+          if (this.platform.ready()) {
+            this.initializeApp();
+            console.log('platform Ready apComponent', localStorage.getItem('login')); // Login code start here
 
-            if (res.status == "success") {
-              _this.myUserData = res.data.user_data;
-              console.log("mu user data----", _this.myUserData);
+            if (localStorage.getItem('login') == 'isLogin') {
+              this.checkSubscription();
+              this.userData = JSON.parse(localStorage.getItem('loggedinUserData'));
+              console.log('usr packageee--->>>>>', this.userData.packages_id); // var sbID = this.userData.packages_id
 
-              if (_this.myUserData == null) {
-                _this.navCtrl.navigateRoot(['apply'], {
+              var sbID = localStorage.getItem('packages_id');
+
+              if (sbID == '0' || sbID == 'null' || sbID == null) {
+                this.navCtrl.navigateRoot(['apply'], {
                   replaceUrl: true
                 });
               } else {
-                if (_this.platform.ready()) {
-                  _this.initializeApp();
-
-                  console.log('platform Ready apComponent', localStorage.getItem('login')); // Login code start here
-
-                  if (localStorage.getItem('login') == 'isLogin') {
-                    _this.checkSubscription();
-
-                    _this.userData = JSON.parse(localStorage.getItem('loggedinUserData'));
-                    console.log('usr packageee--->>>>>', _this.userData.packages_id); // var sbID = this.userData.packages_id
-
-                    var sbID = localStorage.getItem('packages_id');
-
-                    if (sbID == '0' || sbID == 'null' || sbID == null) {
-                      _this.navCtrl.navigateRoot(['apply'], {
-                        replaceUrl: true
-                      });
-                    } else {
-                      _this.navCtrl.navigateRoot(['/tabs/tab1'], {
-                        replaceUrl: true
-                      });
-                    }
-                  } else {
-                    _this.navCtrl.navigateRoot('/apply');
-                  } //   // Login code end here
-
-                }
+                this.navCtrl.navigateRoot(['/tabs/tab1'], {
+                  replaceUrl: true
+                });
               }
-            }
-          }, function (err) {
-            _this.workService.hideLoading();
+            } else {
+              this.navCtrl.navigateRoot('/apply');
+            } //   // Login code end here
 
-            _this.workService.presentToast('Network error occured');
-          });
+          }
         }
 
         _createClass(AppComponent, [{
           key: "checkSubscription",
           value: function checkSubscription() {
-            var _this2 = this;
+            var _this = this;
 
             var userID = localStorage.getItem('loggedinUserID');
             var data = {
@@ -910,20 +881,20 @@
 
               if (res.status == "success") {
                 if (res.data.user_data) {
-                  _this2.workService.myUserData = res;
-                  _this2.userData = _this2.workService.myUserData.data.user_data;
-                  console.log('user dataaa app.component====', _this2.userData.packages_id);
-                  localStorage.setItem('userNotiStatus', _this2.workService.myUserData.data.user_data.notification_switch);
+                  _this.workService.myUserData = res;
+                  _this.userData = _this.workService.myUserData.data.user_data;
+                  console.log('user dataaa app.component====', _this.userData.packages_id);
+                  localStorage.setItem('userNotiStatus', _this.workService.myUserData.data.user_data.notification_switch);
 
-                  if (_this2.userData.packages_id == 0) {
-                    _this2.navCtrl.navigateRoot(['apply'], {
+                  if (_this.userData.packages_id == 0) {
+                    _this.navCtrl.navigateRoot(['apply'], {
                       replaceUrl: true
                     });
 
                     localStorage.clear();
                   }
                 } else {
-                  _this2.navCtrl.navigateRoot(['apply'], {
+                  _this.navCtrl.navigateRoot(['apply'], {
                     replaceUrl: true
                   });
 
@@ -931,16 +902,16 @@
                 }
               }
             }, function (err) {
-              _this2.workService.hideLoading();
+              _this.workService.hideLoading();
 
-              _this2.workService.presentToast('Network error occured');
+              _this.workService.presentToast('Network error occured');
             });
           }
         }, {
           key: "initializeApp",
           value: function initializeApp() {
             return (0, tslib__WEBPACK_IMPORTED_MODULE_5__.__awaiter)(this, void 0, void 0, /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
-              var _this3 = this;
+              var _this2 = this;
 
               return regeneratorRuntime.wrap(function _callee$(_context) {
                 while (1) {
@@ -948,21 +919,21 @@
                     case 0:
                       _context.next = 2;
                       return this.platform.ready().then(function () {
-                        _this3.restService.sendRequest('get_badwords', {}).subscribe(function (res) {
+                        _this2.restService.sendRequest('get_badwords', {}).subscribe(function (res) {
                           console.log('hellow ppl===', res);
                           res.data.map(function (val) {
                             console.log('map value', val.word);
 
-                            _this3.arr.push(val.word);
+                            _this2.arr.push(val.word);
 
-                            console.log('new array==', _this3.arr);
-                            _this3.restService.newarr = _this3.arr;
+                            console.log('new array==', _this2.arr);
+                            _this2.restService.newarr = _this2.arr;
                           });
                         }); // For onesignal push notification
 
 
                         // For onesignal push notification
-                        _this3.onesignalNotification();
+                        _this2.onesignalNotification();
                       });
 
                     case 2:
@@ -976,7 +947,7 @@
         }, {
           key: "onesignalNotification",
           value: function onesignalNotification() {
-            var _this4 = this;
+            var _this3 = this;
 
             console.log("app noti checkind started"); // For onesignal push notification
 
@@ -987,11 +958,11 @@
             this.oneSignal.startInit(this.oneSignalAppId, this.oneSignalFirebaseId);
             this.oneSignal.endInit();
             this.oneSignal.getIds().then(function (identity) {
-              _this4.identy = identity;
-              localStorage.setItem("oneSignaldeviceID", _this4.identy.userId);
-              console.log('userID==========>', _this4.identy.userId); // alert('id--->' + this.identy.userId)
+              _this3.identy = identity;
+              localStorage.setItem("oneSignaldeviceID", _this3.identy.userId);
+              console.log('userID==========>', _this3.identy.userId); // alert('id--->' + this.identy.userId)
 
-              _this4.pushNotification();
+              _this3.pushNotification();
             }, function (err) {
               console.log("Error");
               console.log(err);
@@ -2349,7 +2320,7 @@
         }, {
           key: "closeMatch",
           value: function closeMatch() {
-            var _this5 = this;
+            var _this4 = this;
 
             var ss = JSON.stringify({
               'users_customers_id': localStorage.getItem('loggedinUserID'),
@@ -2357,6 +2328,36 @@
             });
             this.workService.presentLoading();
             this.restService.delete_matchAPI(ss).subscribe(function (res) {
+              _this4.workService.hideLoading();
+
+              console.log('resss----', res);
+
+              if (res.status == 'success') {
+                _this4.workService.presentToast(res.message);
+
+                _this4.close();
+              } else {
+                _this4.workService.presentToast(res.message);
+              }
+            }, function (err) {
+              _this4.workService.hideLoading();
+
+              _this4.workService.presentToast('Network error occured');
+            });
+            console.log(ss); //
+          }
+        }, {
+          key: "openChat",
+          value: function openChat(event) {
+            var _this5 = this;
+
+            console.log("event---", event);
+            var ss = JSON.stringify({
+              'users_customers_id': localStorage.getItem('loggedinUserID'),
+              'other_users_customers_id': localStorage.getItem('other_users_customers_id')
+            });
+            this.workService.presentLoading();
+            this.restService.remove_matchAPI(ss).subscribe(function (res) {
               _this5.workService.hideLoading();
 
               console.log('resss----', res);
@@ -2372,36 +2373,6 @@
               _this5.workService.hideLoading();
 
               _this5.workService.presentToast('Network error occured');
-            });
-            console.log(ss); //
-          }
-        }, {
-          key: "openChat",
-          value: function openChat(event) {
-            var _this6 = this;
-
-            console.log("event---", event);
-            var ss = JSON.stringify({
-              'users_customers_id': localStorage.getItem('loggedinUserID'),
-              'other_users_customers_id': localStorage.getItem('other_users_customers_id')
-            });
-            this.workService.presentLoading();
-            this.restService.remove_matchAPI(ss).subscribe(function (res) {
-              _this6.workService.hideLoading();
-
-              console.log('resss----', res);
-
-              if (res.status == 'success') {
-                _this6.workService.presentToast(res.message);
-
-                _this6.close();
-              } else {
-                _this6.workService.presentToast(res.message);
-              }
-            }, function (err) {
-              _this6.workService.hideLoading();
-
-              _this6.workService.presentToast('Network error occured');
             });
             console.log(ss);
           }
@@ -4825,7 +4796,7 @@
         _createClass(RestService, [{
           key: "removebadwords",
           value: function removebadwords(string) {
-            var _this7 = this;
+            var _this6 = this;
 
             var strtoarray = string.split(' ');
             console.log('strtoarray=', strtoarray);
@@ -4843,7 +4814,7 @@
                 string = newStringValue.replaceAll(',', ' ');
                 console.log('replace afreter==', string);
 
-                _this7.basicAlert('you are not allowed to use this word');
+                _this6.basicAlert('you are not allowed to use this word');
               } else {
                 console.log("Pak saf word ");
               }

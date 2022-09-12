@@ -271,12 +271,14 @@ let SubscriptionloginPage = class SubscriptionloginPage {
             this.iap
                 .buy(this.selectedSubscritionID)
                 .then((data) => {
-                console.log(data);
+                console.log('in app purchase data coming======', data);
+                alert(data);
                 this.userSubscriptionRes = data;
                 return this.iap
                     .consume(data.productType, data.receipt, data.signature)
                     .then((res) => {
                     console.log(data);
+                    // this.iap.getReceipt()
                     this.successSubscri();
                     console.log(res, 'purchased');
                     // alert('transactionResponse ios' + this.transactionResponse)

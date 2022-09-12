@@ -1372,6 +1372,19 @@ ion-content {
 ion-alert.custom-alert {
   --backdrop-opacity: 0.7;
 }
+.alert-head.sc-ion-alert-ios {
+  padding-left: 16px !important;
+  padding-right: 16px !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
+  text-align: center;
+}
+.alert-message.sc-ion-alert-ios:empty {
+  padding-left: 0;
+  padding-right: 0;
+  padding-top: 0;
+  padding-bottom: 2px !important;
+}
 .custom-alert .alert-button-group {
   padding: 8px;
 }
@@ -1396,6 +1409,10 @@ button.alert-button.alert-button-confirm {
   border-bottom-left-radius: 13px;
   border-top-left-radius: 13px;
   color: #fff;
+}
+.alert-button.sc-ion-alert-ios:last-child {
+  border-right: 0;
+  font-weight: normal;
 }
 .ios button.alert-button.alert-button-confirm {
   border-bottom-right-radius: 13px;

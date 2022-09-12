@@ -411,10 +411,11 @@
 
             if (this.platform.is('ios')) {
               this.iap.buy(this.selectedSubscritionID).then(function (data) {
-                console.log(data);
+                console.log('in app purchase data coming======', data);
+                alert(data);
                 _this2.userSubscriptionRes = data;
                 return _this2.iap.consume(data.productType, data.receipt, data.signature).then(function (res) {
-                  console.log(data);
+                  console.log(data); // this.iap.getReceipt()
 
                   _this2.successSubscri();
 
