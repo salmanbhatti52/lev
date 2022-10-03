@@ -41,13 +41,8 @@ export class Tab3Page {
 
 
   ionViewWillEnter() {
-
-
     console.log('ionviewwillenter');
-
-
     this.workService.presentLoading()
-
     var userID = localStorage.getItem('loggedinUserID')
     let data = {
       loginuser: 0,
@@ -57,16 +52,10 @@ export class Tab3Page {
       this.workService.hideLoading()
       console.log('incomming data ===333333333 ', res);
       if (res.status == "success") {
-
         this.workService.myUserData = res
         this.userData = this.workService.myUserData.data.user_data
-
         localStorage.setItem('userNotiStatus', this.workService.myUserData.data.user_data.notification_switch)
-
-
       }
-
-
     }, err => {
       this.workService.hideLoading()
       this.workService.presentToast('Network error occured')

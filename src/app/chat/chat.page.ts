@@ -48,6 +48,7 @@ export class ChatPage implements OnInit {
   remainingSMS = 0
 
   otherUSerAutoReply: any = ''
+  userData: any;
 
   constructor(
     private navCtrl: NavController,
@@ -489,5 +490,34 @@ export class ChatPage implements OnInit {
         this.workService.hideLoading()
         this.workService.presentToast('Network error occured')
       });
+  }
+
+
+  
+
+
+
+
+  gotootherProfile() {
+    console.log('ionviewwillenter');
+    this.workService.presentLoading()
+    let data = {
+      loginuser: 0,
+      otheruser: parseInt(this.senderUserID)
+    }
+    this.restService.get_user_dataAPI(data).subscribe((res: any) => {
+      this.workService.hideLoading()
+      console.log('incomming data ===333333333 ', res);
+      if (res.status == "success") {
+        this.workService.myUserData = res
+        this.userData = this.workService.myUserData.data.user_data
+        localStorage.setItem('userNotiStatus', this.workService.myUserData.data.user_data.notification_switch)
+
+        this.router.navigate(['viewprofileother'])  
+      }
+    }, err => {
+      this.workService.hideLoading()
+      this.workService.presentToast('Network error occured')
+    })
   }
 }

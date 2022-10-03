@@ -37,20 +37,20 @@ export class AppComponent {
 
       // Login code start here
 
-      if (localStorage.getItem('login') == 'isLogin') {
-        this.checkSubscription()
-        this.userData = JSON.parse(localStorage.getItem('loggedinUserData'))
-        console.log('usr packageee--->>>>>', this.userData.packages_id);
-        // var sbID = this.userData.packages_id
-        var sbID = localStorage.getItem('packages_id')
-        if (sbID == '0' || sbID == 'null' || sbID == null) {
-          this.navCtrl.navigateRoot(['apply'], { replaceUrl: true })
-        } else {
-          this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
-        }
-      } else {
-        this.navCtrl.navigateRoot('/apply')
-      }
+      // if (localStorage.getItem('login') == 'isLogin') {
+      //   this.checkSubscription()
+      //   this.userData = JSON.parse(localStorage.getItem('loggedinUserData'))
+      //   console.log('usr packageee--->>>>>', this.userData.packages_id);
+      //   // var sbID = this.userData.packages_id
+      //   var sbID = localStorage.getItem('packages_id')
+      //   if (sbID == '0' || sbID == 'null' || sbID == null) {
+      //     this.navCtrl.navigateRoot(['apply'], { replaceUrl: true })
+      //   } else {
+      //     this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
+      //   }
+      // } else {
+      //   this.navCtrl.navigateRoot('/apply')
+      // }
 
       //   // Login code end here
 

@@ -4,13 +4,13 @@ import { Router } from '@angular/router';
 import { RestService } from '../rest.service';
 import { WorkService } from '../work.service';
 
-@Component({
-  selector: 'app-viewprofile',
-  templateUrl: './viewprofile.page.html',
-  styleUrls: ['./viewprofile.page.scss'],
-})
-export class ViewprofilePage implements OnInit {
 
+@Component({
+  selector: 'app-viewprofileother',
+  templateUrl: './viewprofileother.page.html',
+  styleUrls: ['./viewprofileother.page.scss'],
+})
+export class ViewprofileotherPage implements OnInit {
 
   userData: any = ''
 
@@ -118,7 +118,9 @@ export class ViewprofilePage implements OnInit {
   }
 
 
-
+  goToEditProfile() {
+    this.router.navigate(['editprofile'])
+  }
 
 
   handleImgError(ev: any, item: any, url) {
@@ -129,3 +131,4 @@ export class ViewprofilePage implements OnInit {
   }
 
 }
+

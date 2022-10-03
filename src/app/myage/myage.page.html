@@ -16,19 +16,31 @@
 
   <div style="padding: 0px 20px 20px 20px;" class="margin-top-fixed">
 
-    <ion-text>Your Height</ion-text>
+    
 
     <div style="margin-top: 4px;">
 
       <ion-row style="padding: 0px;">
-        <ion-col style="text-align: center; padding: 0px;"><label>{{height1}}<span
+
+        <ion-col style=" padding: 0px;">
+          <ion-text>Your Height</ion-text>
+        </ion-col>
+
+        <ion-col style=" padding: 0px;"><label>{{height1}}<span
               *ngIf="height1">'</span>{{height2}}</label> </ion-col>
       </ion-row>
 
+      <p  style="font-size: 11pt;">Feets</p>
 
-      <ion-range min="4" max="7" step="0.1" style="margin-top: 17px;" (ionChange)="onSliderChanged($event)"
-        [(ngModel)]="height">
+      <ion-range min="4" max="7" step="1" style="margin-top: 17px;" (ionChange)="onSliderChangedFeet($event)"
+        [(ngModel)]="height1">
       </ion-range>
+
+      <p  style="font-size: 11pt;">inches</p>
+
+      <ion-range min="0" max="11" step="1" style="margin-top: 17px;" (ionChange)="onSliderChangedInch($event)"
+      [(ngModel)]="height2">
+    </ion-range>
 
 
       <!-- <float-range [_ngModel]="item.value"></float-range> -->

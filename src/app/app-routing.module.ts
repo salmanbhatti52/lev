@@ -245,6 +245,10 @@ const routes: Routes = [
   {
     path: 'deleteaccount',
     loadChildren: () => import('./deleteaccount/deleteaccount.module').then( m => m.DeleteaccountPageModule)
+  },
+  {
+    path: 'viewprofileother',
+    loadChildren: () => import('./viewprofileother/viewprofileother.module').then( m => m.ViewprofileotherPageModule)
   }
 ];
 @NgModule({

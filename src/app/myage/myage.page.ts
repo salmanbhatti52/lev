@@ -58,23 +58,28 @@ export class MyagePage implements OnInit {
   }
 
 
-  onSliderChanged(event) {
+  onSliderChangedFeet(event) {
+    console.log('age--------', event.detail.value * 100 / 100)
+    this.height = event.detail.value.toFixed(6)
+    console.log('my height-->>', this.height.substring(0, 2));
+    console.log('my height22222-->>', this.height.substring(2, 4))
+    this.height1 = event.detail.value
 
-    console.log('age', event)
-    // console.log(this.price.lower)
-    // console.log(this.price.upper);
+    if(this.height2 ){
+
+    }else[
+      this.height2 = "0" 
+    ]
 
 
-    this.height = event.detail.value.toFixed(1)
+  }
 
-    console.log('my height-->>', this.height.substring(0, 1));
-
-    console.log('my height-->>', this.height.substring(2, 3));
-
-
-
-    this.height1 = this.height.substring(0, 1)
-    this.height2 = this.height.substring(2, 3)
+  onSliderChangedInch(event) {
+    console.log('age--------', event.detail.value * 100 / 100)
+    this.height = event.detail.value.toFixed(6)
+    console.log('my height-->>', this.height.substring(0, 2));
+    console.log('my height22222-->>', this.height.substring(2, 4))
+    this.height2 = event.detail.value
 
 
   }

@@ -41,33 +41,19 @@ export class Tab2Page {
 
   ngOnInit() { }
   ionViewWillEnter() {
-
     console.log('ionviewwillenter');
-
-
-
-
     var userID = localStorage.getItem('loggedinUserID')
     let data = {
       loginuser: 0,
       otheruser: userID
     }
     this.restService.get_user_dataAPI(data).subscribe((res: any) => {
-
       console.log('incomming data === ', res);
       if (res.status == "success") {
-
         localStorage.setItem('remainingSMS', res.data.user_data.allowed_sms)
-
         console.log('smssssss-------------------', res.data.user_data.allowed_sms);
-
-
         localStorage.setItem('userNotiStatus', this.workService.myUserData.data.user_data.notification_switch)
-
-
       }
-
-
     }, err => {
       this.workService.hideLoading()
       this.workService.presentToast('Network error occured')

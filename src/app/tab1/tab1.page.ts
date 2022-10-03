@@ -33,7 +33,7 @@ export class Tab1Page {
     // public iab: InAppBrowser
   ) {
 
-    // localStorage.setItem('loggedinUserID', '20')
+    localStorage.setItem('loggedinUserID', '43')
 
 
     this.subscription = this.platform.backButton.subscribeWithPriority(10, () => {
@@ -162,4 +162,10 @@ export class Tab1Page {
 
 
   }
+
+  goToFAQ(){
+    this.router.navigate(['faq'])
+  }
+   
+  
 }
