@@ -54,6 +54,7 @@ export class DeleteaccountPage implements OnInit {
       this.rest.deluser(data).subscribe((res: any) => {
         console.log('report user result==', res);
         if (res.status == 'success') {
+          alert(res.message)
           this.basicmsg.presentToast(res.message);
           this.navCtrl.navigateRoot('tabs/tab1')
         } if (res.status == 'error') {

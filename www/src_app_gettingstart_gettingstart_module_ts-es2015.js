@@ -483,11 +483,11 @@ let GettingstartPage = class GettingstartPage {
                     //error is here , please login first
                     localStorage.setItem('login', 'isLogin');
                     this.userData = JSON.parse(localStorage.getItem('loggedinUserData'));
-                    console.log('usr packageee--->>>>>', this.userData.packages_id);
+                    console.log('usr packageee--->', this.userData.packages_id);
                     var sbID = this.userData.packages_id;
                     localStorage.setItem('packages_id', sbID);
                     ////is ko 1 karna ha after testing///
-                    if (sbID.toString() != '1') {
+                    if (sbID.toString() != '0') {
                         this.navCtrl.navigateRoot(['subscriptionlogin'], { replaceUrl: true });
                     }
                     else {

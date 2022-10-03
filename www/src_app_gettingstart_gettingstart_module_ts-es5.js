@@ -1169,11 +1169,11 @@
                   //error is here , please login first
                   localStorage.setItem('login', 'isLogin');
                   _this5.userData = JSON.parse(localStorage.getItem('loggedinUserData'));
-                  console.log('usr packageee--->>>>>', _this5.userData.packages_id);
+                  console.log('usr packageee--->', _this5.userData.packages_id);
                   var sbID = _this5.userData.packages_id;
                   localStorage.setItem('packages_id', sbID); ////is ko 1 karna ha after testing///
 
-                  if (sbID.toString() != '1') {
+                  if (sbID.toString() != '0') {
                     _this5.navCtrl.navigateRoot(['subscriptionlogin'], {
                       replaceUrl: true
                     });
