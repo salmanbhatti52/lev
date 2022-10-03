@@ -35,7 +35,7 @@
 
 
   <div *ngIf="noSubScription" class="divbg">
-    <ion-text style="font-size: 10pt; margin-left: 18px;">You have not purchased any subsctiption yet</ion-text>
+    <ion-text style="font-size: 10pt; margin-left: 18px;">You have not purchased any subscription yet</ion-text>
   </div>
 
 
@@ -92,10 +92,18 @@
 
   <ion-row style="margin-top: 20px;">
     <ion-col style="margin-left: 25px;">
-      <ion-text style="font-size: 12pt;">Select an option to resubscribe</ion-text>
-      <br>
+      <div *ngIf="noSubScription" class="divbg">
+        <ion-text style="font-size: 12pt;">Select an option to resubscribe</ion-text>
+      </div>
+      
+      <div *ngIf="!noSubScription" class="divbg">
+        <ion-text style="font-size: 12pt;">Select an option to subscribe</ion-text>
+      </div>
+      <!--
+        <br>
 
       <ion-text style="font-size: 8pt;">If you resubscribe, your new subscription will begin on Jun 30, 2021.</ion-text>
+      -->
     </ion-col>
   </ion-row>
 
