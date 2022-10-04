@@ -265,9 +265,9 @@
             this.prompt3Head = this.userPrompts[2].prompt_name;
             this.prompt3Data = this.userPrompts[2].comments;
             console.log('rrrrrrrrrr------', this.workService.myUserData.data.user_data.height);
-            this.userHeight = parseFloat(this.workService.myUserData.data.user_data.height).toFixed(1);
+            this.userHeight = parseFloat(this.workService.myUserData.data.user_data.height).toFixed(2);
             this.height1 = this.userHeight.substring(0, 1);
-            this.height2 = this.userHeight.substring(2, 3); // this.restService.get_user_dataAPI(5).subscribe((res: any) => {
+            this.height2 = this.userHeight.substring(2, 4); // this.restService.get_user_dataAPI(5).subscribe((res: any) => {
             //   this.workService.hideLoading()
             //   console.log('incomming data === ', res);
             //   if (res.status == "success") {
@@ -289,15 +289,7 @@
         }, {
           key: "goBack",
           value: function goBack() {
-            //this.location.back()
-            this.router.navigate(['tabs/tab3'], {
-              replaceUrl: true
-            });
-          }
-        }, {
-          key: "goToEditProfile",
-          value: function goToEditProfile() {
-            this.router.navigate(['editprofile']);
+            this.location.back(); // this.router.navigate(['tabs/tab3'], { replaceUrl: true })
           }
         }, {
           key: "handleImgError",
@@ -345,7 +337,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "p {\n  display: block;\n  -webkit-margin-before: 0em;\n          margin-block-start: 0em;\n  -webkit-margin-after: 0em;\n          margin-block-end: 0em;\n  -webkit-margin-start: 0px;\n          margin-inline-start: 0px;\n  -webkit-margin-end: 0px;\n          margin-inline-end: 0px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInZpZXdwcm9maWxlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGNBQUE7RUFDQSwwQkFBQTtVQUFBLHVCQUFBO0VBQ0EseUJBQUE7VUFBQSxxQkFBQTtFQUNBLHlCQUFBO1VBQUEsd0JBQUE7RUFDQSx1QkFBQTtVQUFBLHNCQUFBO0FBQ0oiLCJmaWxlIjoidmlld3Byb2ZpbGUucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsicCB7XHJcbiAgICBkaXNwbGF5OiBibG9jaztcclxuICAgIG1hcmdpbi1ibG9jay1zdGFydDogMGVtO1xyXG4gICAgbWFyZ2luLWJsb2NrLWVuZDogMGVtO1xyXG4gICAgbWFyZ2luLWlubGluZS1zdGFydDogMHB4O1xyXG4gICAgbWFyZ2luLWlubGluZS1lbmQ6IDBweDtcclxufSJdfQ== */";
+      __webpack_exports__["default"] = "p {\n  display: block;\n  -webkit-margin-before: 0em;\n          margin-block-start: 0em;\n  -webkit-margin-after: 0em;\n          margin-block-end: 0em;\n  -webkit-margin-start: 0px;\n          margin-inline-start: 0px;\n  -webkit-margin-end: 0px;\n          margin-inline-end: 0px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInZpZXdwcm9maWxlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLGNBQUE7RUFDQSwwQkFBQTtVQUFBLHVCQUFBO0VBQ0EseUJBQUE7VUFBQSxxQkFBQTtFQUNBLHlCQUFBO1VBQUEsd0JBQUE7RUFDQSx1QkFBQTtVQUFBLHNCQUFBO0FBQ0oiLCJmaWxlIjoidmlld3Byb2ZpbGUucGFnZS5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsicCB7XG4gICAgZGlzcGxheTogYmxvY2s7XG4gICAgbWFyZ2luLWJsb2NrLXN0YXJ0OiAwZW07XG4gICAgbWFyZ2luLWJsb2NrLWVuZDogMGVtO1xuICAgIG1hcmdpbi1pbmxpbmUtc3RhcnQ6IDBweDtcbiAgICBtYXJnaW4taW5saW5lLWVuZDogMHB4O1xufSJdfQ== */";
       /***/
     },
 

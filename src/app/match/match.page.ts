@@ -458,10 +458,10 @@ export class MatchPage implements OnInit {
 
   vhangeHeight(val) {
 
-    this.userHeight = parseFloat(val).toFixed(1)
+    this.userHeight = parseFloat(val).toFixed(2)
 
     this.height1 = this.userHeight.substring(0, 1)
-    this.height2 = this.userHeight.substring(2, 3)
+    this.height2 = this.userHeight.substring(2, 4)
 
     this.newHeight = this.height1 + "'" + this.height2
 

@@ -107,7 +107,10 @@ export class Yourprofile3Page implements OnInit {
   ionViewWillEnter() {
 
 
-    console.log('img1SelectedFromCamera1', localStorage.getItem('img1SelectedFromCamera1'));
+   
+
+
+    console.log('lookingForSelectedID-------------',  localStorage.getItem('lookingForSelectedID'));
     console.log('img2SelectedFromCamera1', localStorage.getItem('img2SelectedFromCamera2'));
 
     console.log('schooollllllll', localStorage.getItem('schoolsArray'));
@@ -890,13 +893,13 @@ export class Yourprofile3Page implements OnInit {
 
 
       "system_kosher_id": localStorage.getItem('kosherID'),
-      "system_ethinicity_id": JSON.parse(localStorage.getItem('ethnicityArr')),
+      "system_ethinicity": JSON.parse(localStorage.getItem('ethnicityArr')),
 
       "additional_comments": "Comment"
 
     })
 
-    console.log('my Stringy----', data)
+    console.log('my Stringy----aliiiiiiiiiiiii', data)
 
     // alert('my Stringy----' + data)
 

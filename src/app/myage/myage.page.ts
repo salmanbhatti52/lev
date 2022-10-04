@@ -41,6 +41,7 @@ export class MyagePage implements OnInit {
   }
 
   goBack() {
+    this.height = this.height1 + "." + this.height2
     localStorage.setItem('height', this.height)
     console.log(localStorage.getItem('height'));
 
@@ -51,9 +52,18 @@ export class MyagePage implements OnInit {
   ionViewWillEnter() {
     this.height = parseFloat(localStorage.getItem('height'))
     console.log('height====', this.height, localStorage.getItem('height'));
+    console.log('my height-->>', localStorage.getItem('height').substring(0, 1));
+    console.log('my height22222-->>', localStorage.getItem('height').substring(2, 4))
 
+    console.log('-----------------------------------------------')
     if (localStorage.getItem('height') == '' || isNaN(parseFloat(localStorage.getItem('height'))) || localStorage.getItem('height') == null || localStorage.getItem('height') == "N'N" || localStorage.getItem('height') == "Enter Height") {
       this.height = '0'
+      this.height1 = '0'
+      this.height2 = '0'
+    }else{
+    
+      this.height1 = localStorage.getItem('height').substring(0, 1)
+      this.height2 = localStorage.getItem('height').substring(2, 4)
     }
   }
 
@@ -61,15 +71,15 @@ export class MyagePage implements OnInit {
   onSliderChangedFeet(event) {
     console.log('age--------', event.detail.value * 100 / 100)
     this.height = event.detail.value.toFixed(6)
-    console.log('my height-->>', this.height.substring(0, 2));
-    console.log('my height22222-->>', this.height.substring(2, 4))
-    this.height1 = event.detail.value
+     this.height1 = event.detail.value
 
     if(this.height2 ){
 
-    }else[
+    }else{
       this.height2 = "0" 
-    ]
+    }
+     
+    
 
 
   }
@@ -77,9 +87,7 @@ export class MyagePage implements OnInit {
   onSliderChangedInch(event) {
     console.log('age--------', event.detail.value * 100 / 100)
     this.height = event.detail.value.toFixed(6)
-    console.log('my height-->>', this.height.substring(0, 2));
-    console.log('my height22222-->>', this.height.substring(2, 4))
-    this.height2 = event.detail.value
+   this.height2 = event.detail.value
 
 
   }

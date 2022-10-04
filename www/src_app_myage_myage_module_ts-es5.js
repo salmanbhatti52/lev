@@ -235,6 +235,7 @@
         }, {
           key: "goBack",
           value: function goBack() {
+            this.height = this.height1 + "." + this.height2;
             localStorage.setItem('height', this.height);
             console.log(localStorage.getItem('height'));
             this.location.back();
@@ -244,22 +245,36 @@
           value: function ionViewWillEnter() {
             this.height = parseFloat(localStorage.getItem('height'));
             console.log('height====', this.height, localStorage.getItem('height'));
+            console.log('my height-->>', localStorage.getItem('height').substring(0, 1));
+            console.log('my height22222-->>', localStorage.getItem('height').substring(2, 4));
+            console.log('-----------------------------------------------');
 
             if (localStorage.getItem('height') == '' || isNaN(parseFloat(localStorage.getItem('height'))) || localStorage.getItem('height') == null || localStorage.getItem('height') == "N'N" || localStorage.getItem('height') == "Enter Height") {
               this.height = '0';
+              this.height1 = '0';
+              this.height2 = '0';
+            } else {
+              this.height1 = localStorage.getItem('height').substring(0, 1);
+              this.height2 = localStorage.getItem('height').substring(2, 4);
             }
           }
         }, {
-          key: "onSliderChanged",
-          value: function onSliderChanged(event) {
-            console.log('age', event); // console.log(this.price.lower)
-            // console.log(this.price.upper);
+          key: "onSliderChangedFeet",
+          value: function onSliderChangedFeet(event) {
+            console.log('age--------', event.detail.value * 100 / 100);
+            this.height = event.detail.value.toFixed(6);
+            this.height1 = event.detail.value;
 
-            this.height = event.detail.value.toFixed(1);
-            console.log('my height-->>', this.height.substring(0, 1));
-            console.log('my height-->>', this.height.substring(2, 3));
-            this.height1 = this.height.substring(0, 1);
-            this.height2 = this.height.substring(2, 3);
+            if (this.height2) {} else {
+              this.height2 = "0";
+            }
+          }
+        }, {
+          key: "onSliderChangedInch",
+          value: function onSliderChangedInch(event) {
+            console.log('age--------', event.detail.value * 100 / 100);
+            this.height = event.detail.value.toFixed(6);
+            this.height2 = event.detail.value;
           }
         }]);
 
@@ -294,7 +309,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "ion-range {\n  --bar-background: gray;\n  --knob-background: white;\n  --bar-background-active: gray;\n}\n\n.btn {\n  background: #ffffff 0% 0% no-repeat padding-box;\n  color: black;\n  font-size: 14pt;\n  box-shadow: 0px 4px 10px #0000001f;\n  border-radius: 10px;\n  opacity: 1;\n  padding-top: 16px;\n  padding-bottom: 16px;\n  width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm15YWdlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHNCQUFBO0VBQ0Esd0JBQUE7RUFDQSw2QkFBQTtBQUNKOztBQUdBO0VBQ0ksK0NBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtFQUNBLGtDQUFBO0VBQ0EsbUJBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxvQkFBQTtFQUNBLFdBQUE7QUFBSiIsImZpbGUiOiJteWFnZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tcmFuZ2Uge1xyXG4gICAgLS1iYXItYmFja2dyb3VuZDogZ3JheTtcclxuICAgIC0ta25vYi1iYWNrZ3JvdW5kOiB3aGl0ZTtcclxuICAgIC0tYmFyLWJhY2tncm91bmQtYWN0aXZlOiBncmF5O1xyXG59XHJcblxyXG5cclxuLmJ0biB7XHJcbiAgICBiYWNrZ3JvdW5kOiAjZmZmZmZmIDAlIDAlIG5vLXJlcGVhdCBwYWRkaW5nLWJveDtcclxuICAgIGNvbG9yOiBibGFjaztcclxuICAgIGZvbnQtc2l6ZTogMTRwdDtcclxuICAgIGJveC1zaGFkb3c6IDBweCA0cHggMTBweCAjMDAwMDAwMWY7XHJcbiAgICBib3JkZXItcmFkaXVzOiAxMHB4O1xyXG4gICAgb3BhY2l0eTogMTtcclxuICAgIHBhZGRpbmctdG9wOiAxNnB4O1xyXG4gICAgcGFkZGluZy1ib3R0b206IDE2cHg7XHJcbiAgICB3aWR0aDogMTAwJTtcclxufSJdfQ== */";
+      __webpack_exports__["default"] = "ion-range {\n  --bar-background: gray;\n  --knob-background: white;\n  --bar-background-active: gray;\n}\n\n.btn {\n  background: #ffffff 0% 0% no-repeat padding-box;\n  color: black;\n  font-size: 14pt;\n  box-shadow: 0px 4px 10px #0000001f;\n  border-radius: 10px;\n  opacity: 1;\n  padding-top: 16px;\n  padding-bottom: 16px;\n  width: 100%;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm15YWdlLnBhZ2Uuc2NzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtFQUNJLHNCQUFBO0VBQ0Esd0JBQUE7RUFDQSw2QkFBQTtBQUNKOztBQUdBO0VBQ0ksK0NBQUE7RUFDQSxZQUFBO0VBQ0EsZUFBQTtFQUNBLGtDQUFBO0VBQ0EsbUJBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxvQkFBQTtFQUNBLFdBQUE7QUFBSiIsImZpbGUiOiJteWFnZS5wYWdlLnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJpb24tcmFuZ2Uge1xuICAgIC0tYmFyLWJhY2tncm91bmQ6IGdyYXk7XG4gICAgLS1rbm9iLWJhY2tncm91bmQ6IHdoaXRlO1xuICAgIC0tYmFyLWJhY2tncm91bmQtYWN0aXZlOiBncmF5O1xufVxuXG5cbi5idG4ge1xuICAgIGJhY2tncm91bmQ6ICNmZmZmZmYgMCUgMCUgbm8tcmVwZWF0IHBhZGRpbmctYm94O1xuICAgIGNvbG9yOiBibGFjaztcbiAgICBmb250LXNpemU6IDE0cHQ7XG4gICAgYm94LXNoYWRvdzogMHB4IDRweCAxMHB4ICMwMDAwMDAxZjtcbiAgICBib3JkZXItcmFkaXVzOiAxMHB4O1xuICAgIG9wYWNpdHk6IDE7XG4gICAgcGFkZGluZy10b3A6IDE2cHg7XG4gICAgcGFkZGluZy1ib3R0b206IDE2cHg7XG4gICAgd2lkdGg6IDEwMCU7XG59Il19 */";
       /***/
     },
 
@@ -312,7 +327,7 @@
       /* harmony default export */
 
 
-      __webpack_exports__["default"] = "<ion-content>\n\n\n\n  <ion-row class=\"top-margin-head-40\">\n    <ion-col size=\"2\" style=\"text-align: center;\">\n      <img (click)=\"goBack()\" style=\"height: 20px;\n      width: 20px;\" src=\"assets/imgs/left.svg\">\n    </ion-col>\n    <ion-col size=\"8\" style=\"text-align: center;\">\n    </ion-col>\n    <ion-col size=\"2\">\n    </ion-col>\n  </ion-row>\n\n\n  <div style=\"padding: 0px 20px 20px 20px;\" class=\"margin-top-fixed\">\n\n    <ion-text>Your Height</ion-text>\n\n    <div style=\"margin-top: 4px;\">\n\n      <ion-row style=\"padding: 0px;\">\n        <ion-col style=\"text-align: center; padding: 0px;\"><label>{{height1}}<span\n              *ngIf=\"height1\">'</span>{{height2}}</label> </ion-col>\n      </ion-row>\n\n\n      <ion-range min=\"4\" max=\"7\" step=\"0.1\" style=\"margin-top: 17px;\" (ionChange)=\"onSliderChanged($event)\"\n        [(ngModel)]=\"height\">\n      </ion-range>\n\n\n      <!-- <float-range [_ngModel]=\"item.value\"></float-range> -->\n\n    </div>\n\n\n  </div>\n\n\n\n  <ion-row style=\"width: 100%;  bottom: 3px; padding: 20px\">\n    <ion-col style=\"text-align: center\">\n      <button (click)=\"goBack()\" class=\"btn\">Save</button>\n    </ion-col>\n  </ion-row>\n\n</ion-content>";
+      __webpack_exports__["default"] = "<ion-content>\n\n\n\n  <ion-row class=\"top-margin-head-40\">\n    <ion-col size=\"2\" style=\"text-align: center;\">\n      <img (click)=\"goBack()\" style=\"height: 20px;\n      width: 20px;\" src=\"assets/imgs/left.svg\">\n    </ion-col>\n    <ion-col size=\"8\" style=\"text-align: center;\">\n    </ion-col>\n    <ion-col size=\"2\">\n    </ion-col>\n  </ion-row>\n\n\n  <div style=\"padding: 0px 20px 20px 20px;\" class=\"margin-top-fixed\">\n\n    \n\n    <div style=\"margin-top: 4px;\">\n\n      <ion-row style=\"padding: 0px;\">\n\n        <ion-col style=\" padding: 0px;\">\n          <ion-text>Your Height</ion-text>\n        </ion-col>\n\n        <ion-col style=\" padding: 0px;\"><label>{{height1}}<span\n              *ngIf=\"height1\">'</span>{{height2}}</label> </ion-col>\n      </ion-row>\n\n      <p  style=\"font-size: 11pt;\">Feets</p>\n\n      <ion-range min=\"4\" max=\"7\" step=\"1\" style=\"margin-top: 17px;\" (ionChange)=\"onSliderChangedFeet($event)\"\n        [(ngModel)]=\"height1\">\n      </ion-range>\n\n      <p  style=\"font-size: 11pt;\">inches</p>\n\n      <ion-range min=\"0\" max=\"11\" step=\"1\" style=\"margin-top: 17px;\" (ionChange)=\"onSliderChangedInch($event)\"\n      [(ngModel)]=\"height2\">\n    </ion-range>\n\n\n      <!-- <float-range [_ngModel]=\"item.value\"></float-range> -->\n\n    </div>\n\n\n  </div>\n\n\n\n  <ion-row style=\"width: 100%;  bottom: 3px; padding: 20px\">\n    <ion-col style=\"text-align: center\">\n      <button (click)=\"goBack()\" class=\"btn\">Save</button>\n    </ion-col>\n  </ion-row>\n\n</ion-content>";
       /***/
     }
   }]);

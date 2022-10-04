@@ -1014,7 +1014,7 @@ export class Yourprofile2Page implements OnInit {
 
 
     this.height1 = this.height.substring(0, 1)
-    this.height2 = this.height.substring(2, 3)
+    this.height2 = this.height.substring(2, 4)
 
     this.usercalculatedHeight = this.height1 + "'" + this.height2
 
@@ -1210,7 +1210,7 @@ export class Yourprofile2Page implements OnInit {
 
   goToProfile3() {
     // this.router.navigate(['requestsubmitted'])
-    // this.router.pnavigate(['yourprofile3'])
+    // this.router.navigate(['yourprofile3'])
 
   }
 

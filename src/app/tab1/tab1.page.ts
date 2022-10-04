@@ -33,7 +33,10 @@ export class Tab1Page {
     // public iab: InAppBrowser
   ) {
 
-    localStorage.setItem('loggedinUserID', '43')
+    // najam
+    // localStorage.setItem('loggedinUserID', '213') 
+    //mughees
+    // localStorage.setItem('loggedinUserID', '239')
 
 
     this.subscription = this.platform.backButton.subscribeWithPriority(10, () => {

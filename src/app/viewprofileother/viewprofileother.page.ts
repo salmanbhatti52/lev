@@ -66,10 +66,10 @@ export class ViewprofileotherPage implements OnInit {
     console.log('rrrrrrrrrr------', this.workService.myUserData.data.user_data.height);
 
 
-    this.userHeight = parseFloat(this.workService.myUserData.data.user_data.height).toFixed(1)
+    this.userHeight = parseFloat(this.workService.myUserData.data.user_data.height).toFixed(2)
 
     this.height1 = this.userHeight.substring(0,1)
-    this.height2 = this.userHeight.substring(2,3)
+    this.height2 = this.userHeight.substring(2,4)
 
 
 
