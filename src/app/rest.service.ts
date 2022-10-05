@@ -656,6 +656,17 @@ export class RestService {
   }
 
 
+  getFAQ() {
+    let headers = {
+      'Content-Type': 'application/json',
+    };
+
+  
+    return this.http.post(this.baseURL + 'get_faqs', { headers });
+    
+  }
+
+
 
 
 
@@ -665,8 +676,6 @@ export class RestService {
     };
 
     console.log('rest data -----', this.baseURL + 'update_profile' + userID + data);
-
-
 
     return this.http.post(this.baseURL + 'update_profile/' + userID, data, { headers });
   }

@@ -128,4 +128,10 @@ export class ViewprofilePage implements OnInit {
     source.src = imgSrc;
   }
 
+
+  goToEditProfile() {
+    this.router.navigate(['editprofile'])
+  }
+
+
 }

@@ -592,4 +592,13 @@ export class SubscriptionloginPage implements OnInit {
 
   }
 
+  goToInsideWithoutSubscription(){
+    console.log('helloo');
+    localStorage.setItem('packages_id', '88')
+    this.router.navigate(['tabs/tab1'], { replaceUrl: true })
+
+
+    
+  }
+
 }

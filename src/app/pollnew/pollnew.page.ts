@@ -34,6 +34,7 @@ export class PollnewPage implements OnInit {
   commnent: any = '';
   commentStatus = false
   noMoreQuestion = false
+  subscriptionIDFree: string;
 
   constructor(public router: Router,
     public location: Location,
@@ -44,7 +45,7 @@ export class PollnewPage implements OnInit {
 
   ionViewWillEnter() {
 
-
+this.subscriptionIDFree =   localStorage.getItem('packages_id')
 
 
     var stringy = JSON.stringify({
@@ -231,10 +232,10 @@ export class PollnewPage implements OnInit {
       return val
     }
 
+  }
 
-
-
-
+  goToMembership() {
+    this.router.navigate(['subscription'])
   }
 }
 

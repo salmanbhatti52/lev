@@ -17,30 +17,25 @@
 
   <div style="padding: 0px 20px 20px 20px;" class="margin-top-fixed">
 
-    <div>
+    <div *ngFor="let faq of faqArr">
 
       <ion-row>
         <ion-col>
-          <ion-label style="font-size: 12pt;">Who Is Eligible To Apply?</ion-label>
+          <ion-label style="font-size: 12pt;">{{faq.question}}</ion-label>
         </ion-col>
       </ion-row>
 
 
-      <ion-row>
+       <ion-row>
         <ion-col>
-          <ion-text style="font-size: 8pt;">Although, LEV is culturally Jewish, anyone between the ages of 21-50 can
-            enjoy it.
-            As we continue to grow
-            our database, we hope to expand on this. We are growing and are currently only reviewing applicants who are
-            from
-            or are living in California, New York, Florida, Texas and Illinois. Sign up for our newsletter to be
-            notified
-            about updates.</ion-text>
+          <ion-text style="font-size: 8pt;">{{faq.answer}}</ion-text>
         </ion-col>
       </ion-row>
 
+    </div>
 
-      <ion-row>
+
+      <!-- <ion-row>
         <ion-col>
           <ion-label style="font-size: 12pt;">What Is The Application Process Look Like?</ion-label>
         </ion-col>
@@ -59,21 +54,21 @@
       </ion-row>
 
 
-      <!-- <ion-row>
+     <ion-row>
         <ion-col>
           <ion-label style="font-size: 12pt;">Are There Any Other Requirements? What Makes You Different?</ion-label>
         </ion-col>
-      </ion-row> -->
+      </ion-row> 
 
 
-      <!-- <ion-row>
+     <ion-row>
         <ion-col>
           <ion-text style="font-size: 8pt;">We want to create a space where people are making thoughtful selections. We
             value quality over quantity. Please don’t apply or accept a match if you aren’t willing to adhere to our
             community rules. We will be releasing further information regarding our features as we approach our launch
             date.</ion-text>
         </ion-col>
-      </ion-row> -->
+      </ion-row> 
 
       <ion-row>
         <ion-col>
@@ -104,10 +99,10 @@
             then information will be exchanged.</ion-text>
         </ion-col>
       </ion-row>
+ -->
 
 
-
-    </div>
+   
 
 
 

@@ -24,6 +24,7 @@ export class Tab1Page {
 
   divPopupShow = false
   mobile: any;
+  subscriptionIDFree: string;
 
 
   constructor(public router: Router,
@@ -54,6 +55,10 @@ export class Tab1Page {
 
   }
 
+  ionViewWillEnter(){
+    this.subscriptionIDFree =   localStorage.getItem('packages_id')
+
+  }
 
   ionViewDidLeave() {
     this.subscription.unsubscribe();
@@ -107,7 +112,12 @@ export class Tab1Page {
           this.router.navigate(['pollnew'])
 
         } else {
-          this.router.navigate(['tabs/match'])
+          if(this.subscriptionIDFree == '88'){
+            this.router.navigate(['pollnew'])
+          }else{
+            this.router.navigate(['tabs/match'])
+          }
+       
         }
       } else {
         this.router.navigate(['pollnew'])

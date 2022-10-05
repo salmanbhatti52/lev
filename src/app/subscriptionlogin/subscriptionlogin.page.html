@@ -91,7 +91,7 @@
 
 
   <ion-row style="margin-top: 20px;">
-    <ion-col style="margin-left: 25px;">
+    <ion-col >
       <div *ngIf="noSubScription" class="divbg">
         <ion-text style="font-size: 12pt;">Select an option to resubscribe</ion-text>
       </div>
@@ -104,6 +104,13 @@
 
       <ion-text style="font-size: 8pt;">If you resubscribe, your new subscription will begin on Jun 30, 2021.</ion-text>
       -->
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row style="margin-top: 20px; margin-left: 20px; margin-right: 20px;">
+    <ion-col style="text-align: center;">
+      <button (click)="goToInsideWithoutSubscription()" style="margin-bottom: 12px;" class="btn">Skip</button>
     </ion-col>
   </ion-row>
 

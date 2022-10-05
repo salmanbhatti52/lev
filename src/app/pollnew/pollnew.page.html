@@ -113,8 +113,15 @@
           </ion-row> -->
 
         </div>
+        <ion-row *ngIf="subscriptionIDFree == '88'" style="margin-top: 20px; margin-left: 20px; margin-right: 20px;">
+          <ion-col style="text-align: center;">
+            <button (click)="goToMembership()" style="margin-bottom: 12px;" class="btn">Subscribe to view Matches</button>
+          </ion-col>
+        </ion-row>
 
       </ion-col>
     </ion-row>
+
+   
   </div>
 </ion-content>
