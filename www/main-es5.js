@@ -5204,6 +5204,16 @@
             });
           }
         }, {
+          key: "getFAQ",
+          value: function getFAQ() {
+            var headers = {
+              'Content-Type': 'application/json'
+            };
+            return this.http.post(this.baseURL + 'get_faqs', {
+              headers: headers
+            });
+          }
+        }, {
           key: "updateUserDataAPI",
           value: function updateUserDataAPI(data, userID) {
             var headers = {

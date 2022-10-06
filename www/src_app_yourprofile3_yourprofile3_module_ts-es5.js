@@ -1002,7 +1002,7 @@
               "friend_email": localStorage.getItem('emailOfOther'),
               "onesignal_id": oneSignalID,
               "system_kosher_id": localStorage.getItem('kosherID'),
-              "system_ethinicity_id": JSON.parse(localStorage.getItem('ethnicityArr')),
+              "system_ethinicity": JSON.parse(localStorage.getItem('ethnicityArr')),
               "additional_comments": "Comment"
             });
             console.log('my Stringy----aliiiiiiiiiiiii', data); // alert('my Stringy----' + data)

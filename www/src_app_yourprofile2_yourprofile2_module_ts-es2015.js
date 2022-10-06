@@ -788,7 +788,7 @@ let Yourprofile2Page = class Yourprofile2Page {
             this.showPleaseSelectEthnicity = true;
         }
         this.height1 = this.height.substring(0, 1);
-        this.height2 = this.height.substring(2, 3);
+        this.height2 = this.height.substring(2, 4);
         this.usercalculatedHeight = this.height1 + "'" + this.height2;
         if (this.coverImg == null || this.coverImg == 'null') {
             this.coverImg = '';
@@ -927,7 +927,7 @@ let Yourprofile2Page = class Yourprofile2Page {
     }
     goToProfile3() {
         // this.router.navigate(['requestsubmitted'])
-        this.router.navigate(['yourprofile3']);
+        // this.router.navigate(['yourprofile3'])
     }
     // schollChange(event) {
     //   console.log(event.detail.value);

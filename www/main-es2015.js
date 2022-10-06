@@ -2361,6 +2361,12 @@ let RestService = class RestService {
         };
         return this.http.post(this.baseURL + 'check_phone_auth/', data, { headers });
     }
+    getFAQ() {
+        let headers = {
+            'Content-Type': 'application/json',
+        };
+        return this.http.post(this.baseURL + 'get_faqs', { headers });
+    }
     updateUserDataAPI(data, userID) {
         let headers = {
             'Content-Type': 'application/json',

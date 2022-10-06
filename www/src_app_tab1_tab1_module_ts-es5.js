@@ -239,7 +239,7 @@
           // najam
           // localStorage.setItem('loggedinUserID', '213') 
           //mughees
-          // localStorage.setItem('loggedinUserID', '213')
+          // localStorage.setItem('loggedinUserID', '239')
           this.router = router;
           this.platform = platform;
           this.restService = restService;
@@ -264,6 +264,11 @@
         }
 
         _createClass(Tab1Page, [{
+          key: "ionViewWillEnter",
+          value: function ionViewWillEnter() {
+            this.subscriptionIDFree = localStorage.getItem('packages_id');
+          }
+        }, {
           key: "ionViewDidLeave",
           value: function ionViewDidLeave() {
             this.subscription.unsubscribe();
@@ -306,7 +311,11 @@
                 if (_this.totalMatches == 0) {
                   _this.router.navigate(['pollnew']);
                 } else {
-                  _this.router.navigate(['tabs/match']);
+                  if (_this.subscriptionIDFree == '88') {
+                    _this.router.navigate(['pollnew']);
+                  } else {
+                    _this.router.navigate(['tabs/match']);
+                  }
                 }
               } else {
                 _this.router.navigate(['pollnew']);

@@ -117,7 +117,7 @@ let Tab1Page = class Tab1Page {
         // najam
         // localStorage.setItem('loggedinUserID', '213') 
         //mughees
-        // localStorage.setItem('loggedinUserID', '213')
+        // localStorage.setItem('loggedinUserID', '239')
         this.router = router;
         this.platform = platform;
         this.restService = restService;
@@ -137,6 +137,9 @@ let Tab1Page = class Tab1Page {
         if (this.platform.is('ios')) {
             this.mobile = 'ios';
         }
+    }
+    ionViewWillEnter() {
+        this.subscriptionIDFree = localStorage.getItem('packages_id');
     }
     ionViewDidLeave() {
         this.subscription.unsubscribe();
@@ -170,7 +173,12 @@ let Tab1Page = class Tab1Page {
                     this.router.navigate(['pollnew']);
                 }
                 else {
-                    this.router.navigate(['tabs/match']);
+                    if (this.subscriptionIDFree == '88') {
+                        this.router.navigate(['pollnew']);
+                    }
+                    else {
+                        this.router.navigate(['tabs/match']);
+                    }
                 }
             }
             else {
