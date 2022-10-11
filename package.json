@@ -36,6 +36,7 @@
     "@ionic/storage": "^2.3.1",
     "cordova-android": "9.1.0",
     "cordova-browser": "6.0.0",
+    "cordova-ios": "6.2.0",
     "firebase": "^7.0 || ^8.0",
     "google-maps": "^4.3.3",
     "onesignal-cordova-plugin": "^2.11.3",
@@ -131,7 +132,8 @@
     },
     "platforms": [
       "browser",
-      "android"
+      "android",
+      "ios"
     ]
   }
 }
