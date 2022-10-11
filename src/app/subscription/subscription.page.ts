@@ -515,7 +515,8 @@ export class SubscriptionPage implements OnInit {
         this.workService.hideLoading()
 
         if (data.status == 'success') {
-          localStorage.removeItem('packages_id')
+          // localStorage.removeItem('packages_id')
+          localStorage.setItem('packages_id', '88')
           this.workService.presentToast(data.message)
           this.navCtrl.navigateRoot(['subscriptionlogin'], { replaceUrl: true })
 

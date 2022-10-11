@@ -58,7 +58,7 @@ export class Tab3Page {
       }
     }, err => {
       this.workService.hideLoading()
-      this.workService.presentToast('Network error occured')
+      this.workService.presentToast('Some error occured')
     })
   }
 

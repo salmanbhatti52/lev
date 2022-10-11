@@ -251,8 +251,7 @@
           this.platform = platform;
           this.toastController = toastController;
           this.iap = iap;
-          this.subArray = ''; /////////////////////////////////
-
+          this.subArray = '';
           this.europe = false;
           this.subscriptionDataArray = [];
           this.subscriptionChoosed = '';
@@ -290,20 +289,17 @@
             this.restService.getSubScriptionDetailsAPI(stringy).subscribe(function (res) {
               _this.workService.hideLoading();
 
-              console.log('incomming data----', res);
-
               if (res.status == "success") {
-                console.log(res.data);
-                console.log('user dataaaa', res);
                 _this.subArray = res.data;
-                console.log('subArray=========', _this.subArray);
                 _this.userData = JSON.parse(localStorage.getItem('loggedinUserData'));
-                console.log('usr packageee--->>>>>', localStorage.getItem('packages_id'));
+                console.log('id---', _this.subArray[2].packages_id);
+                console.log('subArray----', _this.subArray);
                 _this.sbID = localStorage.getItem('packages_id');
+                console.log('id--sss-', _this.sbID);
 
                 if (_this.sbID) {
                   // if (this.sbID.toString() == '0' || this.sbID.toString() == '1') 
-                  if (_this.sbID.toString() == '0') {
+                  if (_this.sbID.toString() == '0' || _this.sbID.toString() == '88') {
                     _this.noSubScription = true;
                   } else {
                     _this.noSubScription = false;
@@ -317,7 +313,6 @@
                     _this.platformSUB = "IOS";
 
                     for (var i = 0; i < _this.subArray.length; i++) {
-                      console.log('appid----', _this.subArray[i].ios_product_id);
                       var sbElement = {
                         productID: _this.subArray[i].ios_product_id
                       };
@@ -325,16 +320,12 @@
                       _this.productIdArr.push(sbElement);
                     }
 
-                    console.log('array----0 ios_product_id', _this.subArray[0].ios_product_id);
-                    console.log('array----1 ios_product_id', _this.subArray[1].ios_product_id); // console.log('array----2 ios_product_id', this.subArray[2].ios_product_id)
-
                     _this.subscriptionID1 = _this.subArray[0].ios_product_id;
                     _this.subscriptionID2 = _this.subArray[1].ios_product_id; // this.subscriptionID3 = this.subArray[2].ios_product_id
                   } else if (_this.platform.is('android')) {
                     _this.platformSUB = "Android";
 
                     for (var i = 0; i < _this.subArray.length; i++) {
-                      console.log('appid----', _this.subArray[i].android_product_id);
                       var sbElement = {
                         productID: _this.subArray[i].android_product_id
                       };
@@ -342,29 +333,15 @@
                       _this.productIdArr.push(sbElement);
                     }
 
-                    console.log('array----0 android_product_id', _this.subArray[0].android_product_id);
-                    console.log('array----1 android_product_id', _this.subArray[1].android_product_id); // console.log('array----2 android_product_id', this.subArray[2].android_product_id)
-
                     _this.subscriptionID1 = _this.subArray[0].android_product_id;
                     _this.subscriptionID2 = _this.subArray[1].android_product_id; // this.subscriptionID3 = this.subArray[2].android_product_id
                   }
 
-                  console.log('appid---- this.productIdArr.push(sbElement)', _this.productIdArr);
-
                   for (var i = 0; i < _this.subArray.length; i++) {
-                    console.log('appid---- this.productIdArr[i].productID', _this.productIdArr[i].productID);
-                    var nn = [1, 1, 1, 1]; // nn.push([
-                    //   this.productIdArr[i].productID
-                    // ])
+                    var nn = [1, 1, 1, 1];
 
-                    _this.iap.getProducts([_this.productIdArr[i].productID]).then(function (products) {
-                      console.log('active product getProducts--->', products);
-                    })["catch"](function (err) {
-                      console.log('error billing---getProducts>', err);
-                    });
+                    _this.iap.getProducts([_this.productIdArr[i].productID]).then(function (products) {})["catch"](function (err) {});
                   }
-
-                  console.log('appid---- nnnnnnnnnnnnnnnnn', nn);
                 });
               }
             }, function (err) {
@@ -383,27 +360,20 @@
           value: function purchaseSubscription() {
             var _this2 = this;
 
-            console.log(this.selectedSubscritionID, 'want to purchase'); // alert(this.selectedSubscritionID + 'want to purchase')
-
             if (this.platform.is('android')) {
               this.iap.subscribe(this.selectedSubscritionID).then(function (data) {
-                console.log(data);
                 _this2.userSubscriptionRes = data;
                 return _this2.iap.consume(data.productType, data.receipt, data.signature).then(function (res) {
                   _this2.successSubscri();
 
                   _this2.transactionResponse = res; // alert('transactionResponse' + this.transactionResponse)
                 }, function (err) {
-                  console.log(err);
-
                   _this2.workService.presentToast('Some Error Occured'); // alert('Some Error Occured' + err)
 
 
                   alert('Some Error Occured');
                 });
               })["catch"](function (err) {
-                console.log(err, 'error');
-
                 _this2.workService.presentToast('Some Error Occured'); // alert('Some Error Occured' + err)
 
 
@@ -413,18 +383,12 @@
 
             if (this.platform.is('ios')) {
               this.iap.buy(this.selectedSubscritionID).then(function (data) {
-                console.log(data);
                 _this2.userSubscriptionRes = data;
                 return _this2.iap.consume(data.productType, data.receipt, data.signature).then(function (res) {
-                  console.log(data);
+                  _this2.successSubscri(); // alert('transactionResponse ios' + this.transactionResponse)
 
-                  _this2.successSubscri();
-
-                  console.log(res, 'purchased'); // alert('transactionResponse ios' + this.transactionResponse)
                 });
               })["catch"](function (err) {
-                console.log(err, 'error');
-
                 _this2.workService.presentToast('Some Error Occured'); // alert('Some Error Occured' + err)
 
 
@@ -452,10 +416,7 @@
               "codes": "0",
               "coupon_amount": "0"
             });
-            console.log('subData to send---->>>', subData);
             this.restService.saveSubscriptiondataAPI(subData).subscribe(function (data) {
-              console.log(data);
-
               if (data.status == 'success') {
                 localStorage.setItem('packages_id', _this3.packages_id);
 
@@ -510,8 +471,6 @@
               var ss = JSON.stringify({});
               this.workService.presentLoading();
               this.restService.get_coupon_dataAPI(this.copun).subscribe(function (res) {
-                console.log(res);
-
                 _this4.workService.hideLoading();
 
                 if (res.status == 'success') {
@@ -552,7 +511,6 @@
           value: function subSelect(sub) {
             var _this5 = this;
 
-            console.log(sub);
             this.amount = sub.amount;
             this.android_product_id = sub.android_product_id;
             this.duration = sub.duration;
@@ -583,18 +541,14 @@
             var _this6 = this;
 
             this.iap.restorePurchases().then(function (data) {
-              console.log('ip restore purchase------', data);
               _this6.restorePurchasesArray = data;
-            })["catch"](function (err) {
-              console.log(err, 'error');
-            });
+            })["catch"](function (err) {});
           }
         }, {
           key: "giveOneMonthFreeSubscription",
           value: function giveOneMonthFreeSubscription() {
             var _this7 = this;
 
-            console.log('freePkg=----_', this.freePkg);
             var subData = JSON.stringify({
               "users_customers_id": localStorage.getItem('loggedinUserID'),
               "transaction_id": "Free",
@@ -610,10 +564,7 @@
               "codes": "0",
               "coupon_amount": "0"
             });
-            console.log('subData to send---->>>', subData);
             this.restService.saveSubscriptiondataAPI(subData).subscribe(function (data) {
-              console.log(data);
-
               if (data.status == 'success') {
                 localStorage.setItem('packages_id', _this7.freePkg.packages_id);
 
@@ -635,11 +586,8 @@
           value: function cancelMembership() {
             var _this8 = this;
 
-            console.log('cancel');
             this.workService.presentLoading();
             this.restService.cancelSubscription(localStorage.getItem('loggedinUserID')).subscribe(function (data) {
-              console.log(data);
-
               _this8.workService.hideLoading();
 
               if (data.status == 'success') {
