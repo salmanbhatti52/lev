@@ -13,6 +13,8 @@ export class Tab3Page {
 
 
   userData: any = ''
+  userpkgincoming: any;
+  subscriptionIDFree: string;
 
 
   constructor(public router: Router,
@@ -55,6 +57,19 @@ export class Tab3Page {
         this.workService.myUserData = res
         this.userData = this.workService.myUserData.data.user_data
         localStorage.setItem('userNotiStatus', this.workService.myUserData.data.user_data.notification_switch)
+
+        this.userpkgincoming = res.data.user_data.packages_id
+
+        if(this.userpkgincoming == '0'){
+          console.log('88888888');
+          
+          localStorage.setItem('packages_id','88')
+          this.subscriptionIDFree =   localStorage.getItem('packages_id')
+        }else{
+          console.log('iiiiii');
+          localStorage.setItem('packages_id',this.userpkgincoming)
+          this.subscriptionIDFree =   localStorage.getItem('packages_id')
+        }
       }
     }, err => {
       this.workService.hideLoading()

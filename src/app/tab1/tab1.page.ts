@@ -25,6 +25,7 @@ export class Tab1Page {
   divPopupShow = false
   mobile: any;
   subscriptionIDFree: string;
+  userpkgincoming: any;
 
 
   constructor(public router: Router,
@@ -37,7 +38,7 @@ export class Tab1Page {
     // najam
     // localStorage.setItem('loggedinUserID', '213') 
     //mughees
-     localStorage.setItem('loggedinUserID', '239')
+    // localStorage.setItem('loggedinUserID', '240')
 
 
     this.subscription = this.platform.backButton.subscribeWithPriority(10, () => {
@@ -56,7 +57,40 @@ export class Tab1Page {
   }
 
   ionViewWillEnter(){
-    this.subscriptionIDFree =   localStorage.getItem('packages_id')
+
+
+    console.log('ionviewwillenter');
+    this.workService.presentLoading()
+    var userID = localStorage.getItem('loggedinUserID')
+    let data = {
+      loginuser: 0,
+      otheruser: userID
+    }
+    this.restService.get_user_dataAPI(data).subscribe((res: any) => {
+      this.workService.hideLoading()
+      console.log('incomming data ===333333333 ', res);
+      if (res.status == "success") {
+        this.userpkgincoming = res.data.user_data.packages_id
+
+        if(this.userpkgincoming == '0'){
+          console.log('88888888');
+          
+          localStorage.setItem('packages_id','88')
+          this.subscriptionIDFree =   localStorage.getItem('packages_id')
+        }else{
+          console.log('iiiiii');
+          localStorage.setItem('packages_id',this.userpkgincoming)
+          this.subscriptionIDFree =   localStorage.getItem('packages_id')
+        }
+      }
+    }, err => {
+      this.workService.hideLoading()
+      this.workService.presentToast('Some error occured')
+    })
+
+
+    
+   
 
   }
 
@@ -88,48 +122,36 @@ export class Tab1Page {
 
 
     this.workService.presentLoading()
-
-
     var data = JSON.stringify({
       "users_customers_id": localStorage.getItem('loggedinUserID'),
       // "users_customers_id": 15
 
     })
     console.log('data-----', data);
-
-
     this.restService.getBestMatchesAPI(data).subscribe((res: any) => {
-
       this.workService.hideLoading()
       console.log('data-----', res);
-
       if (res.status == 'success') {
         this.matches = res.data
         this.totalMatches = this.matches.length
-
         if (this.totalMatches == 0) {
-
           this.router.navigate(['pollnew'])
-
         } else {
           if(this.subscriptionIDFree == '88'){
             this.router.navigate(['pollnew'])
           }else{
             this.router.navigate(['tabs/match'])
           }
-       
         }
       } else {
         this.router.navigate(['pollnew'])
       }
-
-
-
-
     }, err => {
       this.workService.hideLoading()
-      this.workService.presentToast('Network error occured')
+      this.workService.presentToast('Some error occured')
     })
+
+
 
   }
 

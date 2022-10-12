@@ -206,14 +206,19 @@ export class EditprofilePage implements OnInit {
     localStorage.setItem('prompt3ValHead', this.userPrompts[2].system_prompt_id)
 
 
-    console.log('rrrrrrrrrr------', this.workService.myUserData.data.user_data.height);
+    console.log('rrrrrrrrrr------222', this.workService.myUserData.data.user_data.height);
 
 
-    this.userHeight = parseFloat(this.workService.myUserData.data.user_data.height).toFixed(1)
+    this.userHeight = parseFloat(this.workService.myUserData.data.user_data.height).toFixed(2)
 
 
     this.height1 = this.userHeight.substring(0, 1)
-    this.height2 = this.userHeight.substring(2, 3)
+    this.height2 = this.userHeight.substring(2, 4)
+
+    console.log('h1---',this.height1);
+
+    console.log('h2---',this.height2);
+    
 
     this.ageFromDOB(this.workService.myUserData.data.user_data.date_of_birth)
 
@@ -285,7 +290,7 @@ export class EditprofilePage implements OnInit {
 
 
     this.height1 = this.userHeight.substring(0, 1)
-    this.height2 = this.userHeight.substring(2, 3)
+    this.height2 = this.userHeight.substring(2, 4)
 
     console.log('prompt1Headprompt1Headprompt1Headprompt1Head', this.prompt1Head);
 

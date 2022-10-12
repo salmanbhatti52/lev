@@ -146,10 +146,10 @@ export class OtherprofilePage implements OnInit {
 
 
 
-        this.userHeight = parseFloat(this.userData.height).toFixed(1)
+        this.userHeight = parseFloat(this.userData.height).toFixed(2)
 
         this.height1 = this.userHeight.substring(0, 1)
-        this.height2 = this.userHeight.substring(2, 3)
+        this.height2 = this.userHeight.substring(2, 4)
 
 
 
