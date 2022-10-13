@@ -558,7 +558,7 @@ export class GettingstartPage implements OnInit {
 
           localStorage.setItem('packages_id', sbID)
           ////is ko 1 karna ha after testing///
-          if (sbID.toString() == '0') {
+          if (sbID.toString() == '1') {
             this.navCtrl.navigateRoot(['subscriptionlogin'], { replaceUrl: true })
           } else {
             this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
