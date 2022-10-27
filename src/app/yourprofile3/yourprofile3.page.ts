@@ -443,30 +443,37 @@ export class Yourprofile3Page implements OnInit {
 
       if (this.shortBio == '') {
         this.shortBioStatus = true;
+        this.workService.presentToast('Enter your bio.')
       }
 
       if (this.prompt1Val == 'Choose your prompt') {
         this.prompt1ValStatus = true;
+        this.workService.presentToast('Enter 1st Prompt.')
       }
       if (this.prompt2Val == 'Choose your prompt') {
         this.prompt2ValStatus = true;
+        this.workService.presentToast('Enter 2nd Prompt.')
       }
       if (this.prompt3Val == 'Choose your prompt') {
         this.prompt3ValStatus = true;
+        this.workService.presentToast('Enter 3rd Prompt.')
       }
 
       if (this.phoneOfOther == '' && this.knowAnyoneFun != "Yes") {
         this.phoneStatus = true;
+        this.workService.presentToast('Enter other person phone number.')
       } else {
         this.phoneStatus = false;
       }
       if (this.emailOfOther == '' && this.knowAnyoneFun != "Yes") {
         this.emailStatus = true;
+        this.workService.presentToast('Enter other person email.')
       } else {
         this.emailStatus = false;
       }
       if (this.fullnameOfOther == '' && this.knowAnyoneFun != "Yes") {
         this.fullnameStatus = true;
+        this.workService.presentToast('Enter other person name.')
       } else {
         this.fullnameStatus = false;
       }
@@ -480,10 +487,12 @@ export class Yourprofile3Page implements OnInit {
       // }
       if (this.insta == '') {
         this.instaStatus = true;
+        this.workService.presentToast('Enter instagram.')
       }
 
       if (this.shortBio == '') {
         this.shortBioStatus = true;
+        this.workService.presentToast('Enter your bio.')
       }
 
       if (

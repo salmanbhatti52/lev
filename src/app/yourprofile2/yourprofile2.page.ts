@@ -668,10 +668,12 @@ export class Yourprofile2Page implements OnInit {
 
     if (this.phone == '') {
       this.phoneNumStatus = true
+      this.workService.presentToast('Enter Phone Number.')
     }
 
     if (this.height == 'Enter Height') {
       this.heightStatus = true
+      this.workService.presentToast('Enter your Height.')
     }
 
     // if (this.workplace == '') {
@@ -680,10 +682,12 @@ export class Yourprofile2Page implements OnInit {
 
     if (this.schoolsArray.length == 0) {
       this.schoolStatus = true
+      this.workService.presentToast('Enter School.')
     }
 
     if (this.career == '') {
       this.careerStatus = true
+      this.workService.presentToast('Enter your Career.')
     }
 
 
@@ -695,34 +699,41 @@ export class Yourprofile2Page implements OnInit {
 
     } else {
       this.careerStatus = true
+      this.workService.presentToast('Enter your Career.')
     }
 
 
 
     if (this.selectedNat == 'Please Select') {
       this.nationalityStatus = true
+      this.workService.presentToast('Select your nationality.')
     }
 
     if (this.edu == 'Please Select') {
       this.eduStatus = true
+      this.workService.presentToast('Select your education.')
     }
 
     if (this.whatyoudo) {
 
     } else {
       this.whatyoudoStatus = true
+      this.workService.presentToast('Enter what you do.')
     }
 
     if (this.gender == 'Please Select') {
       this.genderStatus = true
+      this.workService.presentToast('Select gender.')
     }
 
     if (this.lookingFor == 'Please Select') {
       this.lookingForStatus = true
+      this.workService.presentToast('Select what you looking for.')
     }
 
     if (this.meritalStatus == 'Please Select') {
       this.meritalStatusStatus = true
+      this.workService.presentToast('Select marital status.')
     }
 
     if (this.affiliation == 'Please Select') {
@@ -731,16 +742,19 @@ export class Yourprofile2Page implements OnInit {
 
     if (this.personalityType == 'Please Select') {
       this.personalityTypeStatus = true
+      this.workService.presentToast('Select personality type.')
     }
 
 
     if (this.relocate == 'Please Select') {
       this.relocateStatus = true
+      this.workService.presentToast('Select you want to relocate?')
     }
 
 
     if (this.religion == 'Please Select') {
       this.religionStatus = true
+      this.workService.presentToast('Select religion.')
     }
 
 
@@ -750,16 +764,19 @@ export class Yourprofile2Page implements OnInit {
     if (this.ethnicityArray) {
       if (this.ethnicityArray.length < 1) {
         this.ethnicity = 'Please Select'
+        
       } else {
         this.ethnicity = 'Added'
       }
     } else {
       this.showPleaseSelectEthnicity = true
+      this.workService.presentToast('Select Ethnicity.')
     }
 
 
     if (this.ethnicity == 'Please Select') {
       this.ethnicityStatus = true
+      this.workService.presentToast('Select Ethnicity.')
     } else {
       this.ethnicityStatus = false
     }
@@ -772,23 +789,25 @@ export class Yourprofile2Page implements OnInit {
 
 
     if (this.coverImg == '' || this.coverImg == 'assets/imgs/chose_img.svg') {
-      this.workService.presentToast('Please upload your image')
+      this.workService.presentToast('Please upload your 1st image')
     }
 
     if (this.coverImg2 == '' || this.coverImg2 == 'assets/imgs/chose_img.svg') {
-      this.workService.presentToast('Please upload your image')
+      this.workService.presentToast('Please upload your 2nd image')
     }
 
     if (this.phone) {
 
     } else {
       this.phoneNumStatus = true
+      this.workService.presentToast('Enter Phone number.')
     }
 
     if (this.height) {
 
     } else {
       this.heightStatus = true
+      this.workService.presentToast('Enter height.')
     }
 
     // if (this.workplace) {
@@ -799,12 +818,14 @@ export class Yourprofile2Page implements OnInit {
 
     if (this.schoolsArray.length == 0) {
       this.schoolStatus = true
+      this.workService.presentToast('Enter School.')
     }
 
     if (this.career) {
 
     } else {
       this.careerStatus = true
+      this.workService.presentToast('Enter Career.')
     }
 
 
@@ -813,6 +834,7 @@ export class Yourprofile2Page implements OnInit {
 
     if (this.kosher == 'Please Select') {
       this.kosherStatus = true
+      this.workService.presentToast('Select Kosher.')
     }
 
     var data = JSON.stringify({
@@ -1027,7 +1049,7 @@ export class Yourprofile2Page implements OnInit {
     if (this.phone == null || this.phone == 'null') {
       this.phone = ''
     }
-    if (this.height == null || this.height == 'null' || this.height == "'" || this.usercalculatedHeight == "E't" || this.usercalculatedHeight == "'" || this.usercalculatedHeight == "N'N") {
+    if (this.height == null || this.height == 'null' || this.height == "E'te" || this.height == "'" || this.usercalculatedHeight == "E't" || this.usercalculatedHeight == "E'te" || this.usercalculatedHeight == "'" || this.usercalculatedHeight == "N'N") {
       this.height = 'Enter Height'
       this.height1 = 'Enter'
       this.height2 = 'Height'

@@ -168,7 +168,7 @@ export class Youprofile1Page implements OnInit {
   }
 
   Continue() {
-    console.log('length of number==', this.dobMonth.length);
+    // console.log('length of number==', this.dobMonth.length);
 
 
     localStorage.setItem('dobDay', this.dobDay)
@@ -236,10 +236,12 @@ export class Youprofile1Page implements OnInit {
 
     if (this.fname == '') {
       this.fnameStatus = true
+      this.workService.presentToast('Enter First Name.')
     }
 
     if (this.lname == '') {
       this.lnameStatus = true
+      this.workService.presentToast('Enter Last Name.')
     }
 
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -252,10 +254,12 @@ export class Youprofile1Page implements OnInit {
 
     if (this.email == '') {
       this.emailStatus = true
+      this.workService.presentToast('Enter Valid Email.')
     }
 
     if (this.dobDay == '' || this.dobMonth == '' || this.dobYear == '') {
       this.dobStatus = true
+      this.workService.presentToast('Enter Date of Birth.')
     }
     // if (this.instaHandle == '') {
     //   this.instaHandleStatus = true
@@ -263,10 +267,12 @@ export class Youprofile1Page implements OnInit {
 
     if (this.lives == '' || this.lives == 'null') {
       this.livesStatus = true
+      this.workService.presentToast('Enter Lives.')
     }
 
     if (this.from == '' || this.from == 'null') {
       this.fromStatus = true
+      this.workService.presentToast('Enter From.')
     }
 
     setInterval(() => {

@@ -114,7 +114,7 @@ export class SubscriptionPage implements OnInit {
       this.subArray = res.data
       this.userData = JSON.parse(localStorage.getItem('loggedinUserData'))
 
-      console.log('id---',this.subArray[2].packages_id);
+      console.log('this.userData---', this.userData);
       console.log('subArray----',this.subArray);
 
         this.sbID = localStorage.getItem('packages_id')

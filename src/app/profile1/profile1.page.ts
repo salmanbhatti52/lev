@@ -119,10 +119,12 @@ export class Profile1Page implements OnInit {
 
     if (this.fname == '') {
       this.fnameStatus = true
+      this.workService.presentToast('Enter First Name.')
     }
 
     if (this.lname == '') {
       this.lnameStatus = true
+      this.workService.presentToast('Enter Last Name.')
     }
 
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -135,14 +137,17 @@ export class Profile1Page implements OnInit {
 
     if (this.email == '') {
       this.emailStatus = true
+      this.workService.presentToast('Enter Valid Email.')
     }
 
     if (this.pass1 == '') {
       this.pass1Status = true
+      this.workService.presentToast('Enter Password.')
     }
 
     if (this.pass2 == '') {
       this.pass2Status = true
+      this.workService.presentToast('Enter Password.')
     }
 
 
@@ -235,6 +240,7 @@ export class Profile1Page implements OnInit {
         this.pass2Status = true
         this.pass1Status = true
         this.pass2Status = true
+        this.workService.presentToast('Enter all required information please.')
         setInterval(() => {
           this.pass1Status = false
           this.pass2Status = false
