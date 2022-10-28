@@ -104,10 +104,14 @@ export class LoginotpPage implements OnInit {
     console.log('usr packageee--->>>>>', this.userData.packages_id);
 
     var sbID = this.userData.packages_id
-    if (sbID.toString() == '0') {
-      this.navCtrl.navigateRoot(['subscription'], { replaceUrl: true })
+    if ( this.userData.packages_id == 0) {
+      console.log('subscription');
+      
+      this.navCtrl.navigateRoot(['subscriptionlogin'], { replaceUrl: true })
     } else {
+      console.log('tab1');
       this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
+      
     }
 
 

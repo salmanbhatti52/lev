@@ -82,7 +82,9 @@ export class AppComponent {
 
 
 
-          if (this.userData.packages_id == 0) {
+          // if (this.userData.packages_id == 0) {
+            var sbID = localStorage.getItem('packages_id')
+        if (sbID == '0' || sbID == 'null' || sbID == null) {
             this.navCtrl.navigateRoot(['apply'], { replaceUrl: true })
             localStorage.clear()
           }
