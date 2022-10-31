@@ -488,7 +488,7 @@ export class ChatPage implements OnInit {
         this.scrollDown()
       }, err => {
         this.workService.hideLoading()
-        this.workService.presentToast('Network error occured')
+        this.workService.presentToast('Some error occured')
       });
   }
 

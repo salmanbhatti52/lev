@@ -36,6 +36,9 @@ export class ApplyPage implements OnInit {
   }
 
   ngOnInit() {
+    var dateTime = new Date();
+    console.log('dateee timeeee',dateTime);
+    
   }
 
   goTogettingstart() {
