@@ -13,6 +13,10 @@
     "cordova-plugin-appavailability": {
       "PACKAGE_NAME": "com.lev.apps"
     },
+    "cordova-plugin-camera": {
+      "ANDROID_SUPPORT_V4_VERSION": "27.+",
+      "PACKAGE_NAME": "com.lev.apps"
+    },
     "cordova-plugin-detect-screenshot": {
       "PACKAGE_NAME": "com.lev.apps"
     },
@@ -51,6 +55,9 @@
       "PACKAGE_NAME": "com.lev.apps"
     },
     "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "com.lev.apps"
+    },
+    "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.lev.apps"
     },
     "onesignal-cordova-plugin": {
