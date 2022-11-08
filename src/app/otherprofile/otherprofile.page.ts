@@ -423,7 +423,7 @@ export class OtherprofilePage implements OnInit {
 
       }, err => {
         this.workService.hideLoading()
-        this.workService.presentToast('Network error occured')
+        this.workService.presentToast('Some error occured')
       })
 
     } else {
@@ -447,14 +447,14 @@ export class OtherprofilePage implements OnInit {
       this.sendMessage(promptUserReply)
     }, err => {
       this.workService.hideLoading()
-      this.workService.presentToast('Network error occured')
+      this.workService.presentToast('Some error occured')
     })
   }
   sendMessage(promptUserReply) {
 
 
     var data = JSON.stringify({
-      request_type: "sendMessage",
+      request_type: "sendMessagePrompts",
       sender_users_customers_id: localStorage.getItem('loggedinUserID'),
       // sender_users_customers_id: 15,
       reciever_users_customers_id: this.otherUserID,
