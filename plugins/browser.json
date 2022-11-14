@@ -47,15 +47,12 @@
     "cordova-plugin-androidx-adapter": {
       "PACKAGE_NAME": "com.lev.apps"
     },
-    "cordova-plugin-file-transfer": {
-      "PACKAGE_NAME": "com.lev.apps"
-    },
+    
     "cordova-plugin-inapppurchase": {
       "PACKAGE_NAME": "com.lev.apps"
     },
-    "onesignal-cordova-plugin": {
-      "PACKAGE_NAME": "com.lev.apps"
-    },
+   
+    
     "cordova-plugin-purchase": {
       "PACKAGE_NAME": "com.lev.apps"
     }

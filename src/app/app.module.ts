@@ -32,7 +32,7 @@ import { AppAvailability } from '@ionic-native/app-availability/ngx';
 import { IonicStorageModule } from '@ionic/storage';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 
-import { File } from '@ionic-native/file/ngx';
+// import { File } from '@ionic-native/file/ngx';
 
 
 import firebaseConfig from './firebase'
@@ -69,7 +69,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
     FormsModule,
     ReactiveFormsModule,
-    
+
 
   ],
   providers: [
@@ -82,7 +82,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AppAvailability,
     FileTransfer,
     FileTransferObject,
-    File,
+    // File,
     Camera,
     {
       provide: RouteReuseStrategy,
