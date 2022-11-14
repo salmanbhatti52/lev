@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:806016614387:android:d4f862f17be351a2735c86",
         "android_client_info": {
-          "package_name": "com.lev.apps"
+          "package_name": "com.lev.apps1"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "806016614387-ateh1q7buavceio28te75a1kh5fd7g1n.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.lev.apps",
+            "package_name": "com.lev.apps1",
             "certificate_hash": "2f8fc894683fa4e57bda1583aa26470eba7e09de"
           }
         },
