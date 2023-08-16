@@ -266,24 +266,24 @@ export class SubscriptionloginPage implements OnInit {
               },
               (err) => {
                 console.log(err);
-                this.workService.presentToast(
-                  'Some Error Occured'
-                );
+                // this.workService.presentToast(
+                //   'Some Error Occured in consume func'
+                // );
 
                 // alert('Some Error Occured' + err)
-                alert('Some Error Occured')
+                alert('Some Error Occured in consume func')
 
               }
             );
         })
         .catch((err) => {
           console.log(err, 'error');
-          this.workService.presentToast(
-            'Some Error Occured'
-          );
+          // this.workService.presentToast(
+          //   'Some Error Occured'
+          // );
 
           // alert('Some Error Occured' + err)
-          alert('Some Error Occured')
+          alert('Some Error Occured in catch func')
         });
     }
     if (this.platform.is('ios')) {
@@ -466,30 +466,34 @@ export class SubscriptionloginPage implements OnInit {
     this.packages_id = sub.packages_id
     this.status = sub.status
 
+    if (this.amount == 0) {
+      this.router.navigate(['tabs/match'])
+    } else {
+      this.platform.ready().then(() => {
+
+        if (this.platform.is('ios')) {
+
+          this.platformSUB = "IOS"
 
 
-    this.platform.ready().then(() => {
+          this.selectedSubscritionID = sub.ios_product_id;
+          this.subscriptionIdToSend = sub.packages_id;
 
-      if (this.platform.is('ios')) {
+          this.purchaseSubscription();
 
-        this.platformSUB = "IOS"
+        } else if (this.platform.is('android')) {
+          this.platformSUB = "Android"
+          this.selectedSubscritionID = sub.android_product_id;
+          this.subscriptionIdToSend = sub.packages_id;
+
+          this.purchaseSubscription();
+
+        }
+
+      })
+    }
 
 
-        this.selectedSubscritionID = sub.ios_product_id;
-        this.subscriptionIdToSend = sub.packages_id;
-
-        this.purchaseSubscription();
-
-      } else if (this.platform.is('android')) {
-        this.platformSUB = "Android"
-        this.selectedSubscritionID = sub.android_product_id;
-        this.subscriptionIdToSend = sub.packages_id;
-
-        this.purchaseSubscription();
-
-      }
-
-    })
   }
 
 
@@ -592,13 +596,13 @@ export class SubscriptionloginPage implements OnInit {
 
   }
 
-  goToInsideWithoutSubscription(){
+  goToInsideWithoutSubscription() {
     console.log('helloo');
     localStorage.setItem('packages_id', '88')
     this.router.navigate(['tabs/tab1'], { replaceUrl: true })
 
 
-    
+
   }
 
 }

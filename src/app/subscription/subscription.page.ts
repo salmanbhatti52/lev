@@ -26,7 +26,7 @@ export class SubscriptionPage implements OnInit {
 
   subArray: any = ''
 
- 
+
 
   europe = false;
   getData: any;
@@ -109,17 +109,17 @@ export class SubscriptionPage implements OnInit {
 
     this.restService.getSubScriptionDetailsAPI(stringy).subscribe((res: any) => {
       this.workService.hideLoading()
-    
-      if (res.status == "success") {
-      this.subArray = res.data
-      this.userData = JSON.parse(localStorage.getItem('loggedinUserData'))
 
-      console.log('this.userData---', this.userData);
-      console.log('subArray----',this.subArray);
+      if (res.status == "success") {
+        this.subArray = res.data
+        this.userData = JSON.parse(localStorage.getItem('loggedinUserData'))
+
+        console.log('this.userData---', this.userData);
+        console.log('subArray----', this.subArray);
 
         this.sbID = localStorage.getItem('packages_id')
 
-        console.log('id--sss-',this.sbID);
+        console.log('id--sss-', this.sbID);
 
         if (this.sbID) {
           // if (this.sbID.toString() == '0' || this.sbID.toString() == '1') 
@@ -149,7 +149,7 @@ export class SubscriptionPage implements OnInit {
 
 
             }
-         
+
             this.subscriptionID1 = this.subArray[0].ios_product_id
             this.subscriptionID2 = this.subArray[1].ios_product_id
             // this.subscriptionID3 = this.subArray[2].ios_product_id
@@ -176,7 +176,7 @@ export class SubscriptionPage implements OnInit {
 
 
           for (var i = 0; i < this.subArray.length; i++) {
-          
+
             var nn = [1, 1, 1, 1]
 
             this.iap
@@ -213,12 +213,12 @@ export class SubscriptionPage implements OnInit {
 
   purchaseSubscription() {
 
-  
+
     if (this.platform.is('android')) {
       this.iap
         .subscribe(this.selectedSubscritionID)
         .then((data: any) => {
-        
+
           this.userSubscriptionRes = data;
           return this.iap
             .consume(data.productType, data.receipt, data.signature)
@@ -229,7 +229,7 @@ export class SubscriptionPage implements OnInit {
                 // alert('transactionResponse' + this.transactionResponse)
               },
               (err) => {
-          
+
                 this.workService.presentToast(
                   'Some Error Occured'
                 );
@@ -241,7 +241,7 @@ export class SubscriptionPage implements OnInit {
             );
         })
         .catch((err) => {
-       
+
           this.workService.presentToast(
             'Some Error Occured'
           );
@@ -254,20 +254,20 @@ export class SubscriptionPage implements OnInit {
       this.iap
         .buy(this.selectedSubscritionID)
         .then((data: any) => {
-       
+
           this.userSubscriptionRes = data;
           return this.iap
             .consume(data.productType, data.receipt, data.signature)
             .then((res) => {
-          
+
               this.successSubscri();
-          
+
               // alert('transactionResponse ios' + this.transactionResponse)
 
             });
         })
         .catch((err) => {
-         
+
           this.workService.presentToast(
             'Some Error Occured'
           );
@@ -305,7 +305,7 @@ export class SubscriptionPage implements OnInit {
 
     this.restService.saveSubscriptiondataAPI(subData)
       .subscribe((data: any) => {
-      
+
 
         if (data.status == 'success') {
           localStorage.setItem('packages_id', this.packages_id)
@@ -366,7 +366,7 @@ export class SubscriptionPage implements OnInit {
       this.workService.presentLoading()
 
       this.restService.get_coupon_dataAPI(this.copun).subscribe((res: any) => {
-      
+
         this.workService.hideLoading()
 
         if (res.status == 'success') {
@@ -408,7 +408,7 @@ export class SubscriptionPage implements OnInit {
   }
 
   subSelect(sub) {
-   
+
     this.amount = sub.amount
     this.android_product_id = sub.android_product_id
     this.duration = sub.duration
@@ -418,30 +418,34 @@ export class SubscriptionPage implements OnInit {
     this.packages_id = sub.packages_id
     this.status = sub.status
 
+    if (this.amount == 0) {
+      this.router.navigate(['tabs/match'], { replaceUrl: true })
+    } else {
 
 
-    this.platform.ready().then(() => {
+      this.platform.ready().then(() => {
 
-      if (this.platform.is('ios')) {
+        if (this.platform.is('ios')) {
 
-        this.platformSUB = "IOS"
+          this.platformSUB = "IOS"
 
 
-        this.selectedSubscritionID = sub.ios_product_id;
-        this.subscriptionIdToSend = sub.packages_id;
+          this.selectedSubscritionID = sub.ios_product_id;
+          this.subscriptionIdToSend = sub.packages_id;
 
-        this.purchaseSubscription();
+          this.purchaseSubscription();
 
-      } else if (this.platform.is('android')) {
-        this.platformSUB = "Android"
-        this.selectedSubscritionID = sub.android_product_id;
-        this.subscriptionIdToSend = sub.packages_id;
+        } else if (this.platform.is('android')) {
+          this.platformSUB = "Android"
+          this.selectedSubscritionID = sub.android_product_id;
+          this.subscriptionIdToSend = sub.packages_id;
 
-        this.purchaseSubscription();
+          this.purchaseSubscription();
 
-      }
+        }
 
-    })
+      })
+    }
   }
 
 
@@ -450,12 +454,12 @@ export class SubscriptionPage implements OnInit {
     this.iap
       .restorePurchases()
       .then((data) => {
-    
+
         this.restorePurchasesArray = data;
 
       })
       .catch((err) => {
-       
+
       });
   }
 
@@ -485,7 +489,7 @@ export class SubscriptionPage implements OnInit {
 
     this.restService.saveSubscriptiondataAPI(subData)
       .subscribe((data: any) => {
-   
+
         if (data.status == 'success') {
           localStorage.setItem('packages_id', this.freePkg.packages_id)
           this.router.navigate(['tabs/tab1'], { replaceUrl: true })
@@ -506,12 +510,12 @@ export class SubscriptionPage implements OnInit {
 
 
   cancelMembership() {
-   this.workService.presentLoading()
+    this.workService.presentLoading()
 
 
     this.restService.cancelSubscription(localStorage.getItem('loggedinUserID'))
       .subscribe((data: any) => {
-     
+
         this.workService.hideLoading()
 
         if (data.status == 'success') {
