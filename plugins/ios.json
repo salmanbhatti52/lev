@@ -25,8 +25,12 @@
     "cordova-plugin-device": {
       "PACKAGE_NAME": "com.lev.apps"
     },
-   
-    
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.lev.apps"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "com.lev.apps"
+    },
     "cordova-plugin-geolocation": {
       "GPS_REQUIRED": "true",
       "PACKAGE_NAME": "com.lev.apps"
@@ -58,14 +62,13 @@
     },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.lev.apps"
+    },
+    "onesignal-cordova-plugin": {
+      "PACKAGE_NAME": "com.lev.apps"
     }
-   
   },
   "dependent_plugins": {
     "cordova-plugin-add-swift-support": {
-      "PACKAGE_NAME": "com.lev.apps"
-    },
-    "cordova-plugin-file": {
       "PACKAGE_NAME": "com.lev.apps"
     }
   }
