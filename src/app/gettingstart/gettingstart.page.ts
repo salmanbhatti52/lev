@@ -557,12 +557,15 @@ export class GettingstartPage implements OnInit {
           var sbID = this.userData.packages_id
 
           localStorage.setItem('packages_id', sbID)
+          this.navCtrl.navigateRoot(['subscriptionlogin'], { replaceUrl: true })
           ////is ko 1 karna ha after testing///
-          if (sbID.toString() == '0') {
-            this.navCtrl.navigateRoot(['subscriptionlogin'], { replaceUrl: true })
-          } else {
-            this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
-          }
+
+          ///latest comment code 27-1-24
+          // if (sbID.toString() == '1') {
+          //   this.navCtrl.navigateRoot(['subscriptionlogin'], { replaceUrl: true })
+          // } else {
+          //   this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
+          // }
         }
 
 
