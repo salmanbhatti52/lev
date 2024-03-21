@@ -10,7 +10,7 @@ import { WorkService } from '../work.service';
   styleUrls: ['./matchdelete.page.scss'],
 })
 export class MatchdeletePage implements OnInit {
-
+  closedUserIDs = [];
   constructor(public location: Location,
     public modalCtrl: ModalController,
     public workService: WorkService,
@@ -54,6 +54,14 @@ export class MatchdeletePage implements OnInit {
 
 
       if (res.status == 'success') {
+
+        if (!this.workService.closedUserIds.includes(localStorage.getItem('other_users_customers_id'))) {
+          this.workService.closedUserIds.push(localStorage.getItem('other_users_customers_id'));
+        }
+        console.log(this.workService.closedUserIds);
+        const closedUserIdsString = JSON.stringify(this.workService.closedUserIds);
+        localStorage.setItem('closematches', closedUserIdsString)
+
         this.workService.presentToast(res.message)
         this.close()
 

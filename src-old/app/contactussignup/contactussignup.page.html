@@ -1,0 +1,78 @@
+<ion-content>
+
+
+
+  <ion-row class="top-margin-head-40">
+    <ion-col size="2" style="text-align: center;">
+      <img (click)="goBack()" style="height: 20px;
+      width: 20px;" src="assets/imgs/left.svg">
+
+    </ion-col>
+
+    <ion-col size="8" style="text-align: center;">
+      <ion-text>Contact Us</ion-text>
+
+    </ion-col>
+
+    <ion-col size="2" style="text-align: center;">
+
+    </ion-col>
+  </ion-row>
+
+
+
+  <div style="padding-left: 20px; padding-right: 20px; padding-top: 0px; padding-bottom: 20px;"
+    class="margin-top-fixed">
+
+    <ion-row>
+      <ion-col>
+        <ion-text [class.redClass]="nameStatus">Name</ion-text>
+
+
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: -9px;">
+      <ion-col>
+        <ion-input [(ngModel)]="name" class="inp" autocapitalize="word" (ionChange)="changeFunction($event)">
+        </ion-input>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col>
+        <ion-text [class.redClass]="emailStatus">Email</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: -9px;">
+      <ion-col>
+        <ion-input class="inp" [(ngModel)]="email"></ion-input>
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row>
+      <ion-col>
+        <ion-text [class.redClass]="descStatus">Description</ion-text>
+      </ion-col>
+    </ion-row>
+    <ion-row style="margin-top: -7px;">
+      <ion-col>
+        <ion-textarea class="inp" autocapitalize="word" [(ngModel)]="desc" style="height: 182px; margin: 0px;"
+          (ionChange)="changeFunction1($event)">
+        </ion-textarea>
+      </ion-col>
+    </ion-row>
+
+
+  </div>
+
+
+  <ion-row class="bottombtn">
+    <ion-col>
+      <button class="btn" (click)="send()">Send</button>
+    </ion-col>
+  </ion-row>
+
+
+</ion-content>

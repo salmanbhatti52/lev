@@ -51,7 +51,7 @@ export class MatchPage implements OnInit {
   ]
   otherUserID: any;
   block_status: string;
-
+  clickCount = 0;
   constructor(public router: Router,
     public signupService: SignupService,
     public platform: Platform,
@@ -311,7 +311,8 @@ export class MatchPage implements OnInit {
     this.selectedIndexToDelete = index
 
     localStorage.setItem('other_users_customers_id', this.selectedUserID)
-    this.openMapModel()
+
+    this.handleClick();
     // if (this.matches.length > 1) {
 
     // }
@@ -320,6 +321,32 @@ export class MatchPage implements OnInit {
     // console.log(this.matches);
     // this.totalMatches = this.matches.length
 
+  }
+  async handleClick() {
+    this.clickCount++;
+
+    // Show alert on the 1st click, and then every 6 clicks thereafter
+    if (this.clickCount === 1 || (this.clickCount - 1) % 6 === 0) {
+      await this.showAlert();
+    }
+  }
+  async showAlert() {
+    const alert = await this.alertcontroller.create({
+      cssClass: 'custom-alertclass',
+      header: 'Matches',
+      message: 'You have a certain number of matches at a time and exchange a number of matches at a time',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            // Call your function here
+            this.openMapModel()
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   closeMatch() {
@@ -386,7 +413,13 @@ export class MatchPage implements OnInit {
   }
 
   ionViewWillEnter() {
+    const endDate = new Date();
+    endDate.setMonth(endDate.getMonth() + 3); // 3 months from now
+    console.log('end date:', endDate);
 
+    const dayBefore = new Date(endDate);
+    dayBefore.setDate(endDate.getDate() - 1); // 1 day be
+    console.log('dayBefore:', dayBefore);
     // localStorage.setItem('loggedinUserID', '71')
 
 

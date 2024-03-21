@@ -9,10 +9,10 @@ import { WorkService } from '../work.service';
 
 
 import { InAppPurchase } from '@ionic-native/in-app-purchase/ngx';
-import { NavController, Platform, ToastController } from '@ionic/angular';
+import { AlertController, NavController, Platform, ToastController } from '@ionic/angular';
 import { InAppPurchase2 } from '@ionic-native/in-app-purchase-2/ngx';
-
-
+// import { InAppPurchase2 } from '@awesome-cordova-plugins/in-app-purchase-2/ngx';
+import * as moment from 'moment';
 
 
 @Component({
@@ -83,6 +83,8 @@ export class SubscriptionloginPage implements OnInit {
   productIdArr = []
 
   freePkg: any = ''
+  users_packages_txns: any;
+  subcriptionEnddate: any;
 
 
   constructor(public location: Location,
@@ -93,7 +95,8 @@ export class SubscriptionloginPage implements OnInit {
     private navCtrl: NavController,
     private platform: Platform,
     private toastController: ToastController,
-    private iap: InAppPurchase) {
+    private iap: InAppPurchase,
+    public alertController: AlertController) {
 
 
   }
@@ -234,9 +237,43 @@ export class SubscriptionloginPage implements OnInit {
       this.workService.presentToast('Network error occured')
     })
 
+    this.checkpckgExpire();
   }
 
+  checkpckgExpire() {
+    var userID = localStorage.getItem('loggedinUserID')
+    let data = {
+      loginuser: 0,
+      otheruser: userID
+    }
+    this.restService.get_user_dataAPI(data).subscribe(async (res: any) => {
+      this.workService.hideLoading()
+      console.log('incomming data ===333333333 ', res);
+      if (res.status == "success") {
+        this.users_packages_txns = res.data.users_packages_txns
+        const lastSubsEndDate = this.users_packages_txns[this.users_packages_txns.length - 1].subs_end_date;
 
+        // Parse the date string and format it
+        this.subcriptionEnddate = moment(lastSubsEndDate).format('MMMM D, YYYY');
+
+        const endDate = new Date(lastSubsEndDate);
+        const currentDate = new Date();
+        if (currentDate > endDate) {
+          // If current date is greater, show an alert
+          const alert = await this.alertController.create({
+            header: 'Subscription Alert',
+            message: 'Your subscription has expired!',
+            buttons: ['OK']
+          });
+
+          await alert.present();
+        }
+      }
+    }, err => {
+      this.workService.hideLoading()
+      this.workService.presentToast('Some error occured')
+    })
+  }
 
 
   changeFunction(ev) {
@@ -319,22 +356,41 @@ export class SubscriptionloginPage implements OnInit {
 
   successSubscri() {
 
+    if (this.amount == 0) {
+      var subData = JSON.stringify({
+        "users_customers_id": localStorage.getItem('loggedinUserID'),
+        "transaction_id": 0,
+        "device_id": "NotAvaiable",
+        "packages_id": this.packages_id,
+        "product_id": 0,
+        "amount": this.amount,
+        "duration": this.duration,
+        "duration_type": this.duration_type,
+        "product_name": this.name,
+        "platform": this.platformSUB,
+        "coupon_codes_id": "0",
+        "codes": "0",
+        "coupon_amount": "0"
+      })
+    } else {
+      var subData = JSON.stringify({
+        "users_customers_id": localStorage.getItem('loggedinUserID'),
+        "transaction_id": this.userSubscriptionRes.transactionId,
+        "device_id": "NotAvaiable",
+        "packages_id": this.packages_id,
+        "product_id": this.subscriptionIdToSend,
+        "amount": this.amount,
+        "duration": this.duration,
+        "duration_type": this.duration_type,
+        "product_name": this.name,
+        "platform": this.platformSUB,
+        "coupon_codes_id": "0",
+        "codes": "0",
+        "coupon_amount": "0"
+      })
+    }
 
-    var subData = JSON.stringify({
-      "users_customers_id": localStorage.getItem('loggedinUserID'),
-      "transaction_id": this.userSubscriptionRes.transactionId,
-      "device_id": "NotAvaiable",
-      "packages_id": this.packages_id,
-      "product_id": this.subscriptionIdToSend,
-      "amount": this.amount,
-      "duration": this.duration,
-      "duration_type": this.duration_type,
-      "product_name": this.name,
-      "platform": this.platformSUB,
-      "coupon_codes_id": "0",
-      "codes": "0",
-      "coupon_amount": "0"
-    })
+
 
 
 
@@ -467,7 +523,7 @@ export class SubscriptionloginPage implements OnInit {
     this.status = sub.status
 
     if (this.amount == 0) {
-      this.router.navigate(['tabs/match'])
+      this.successSubscri()
     } else {
       this.platform.ready().then(() => {
 

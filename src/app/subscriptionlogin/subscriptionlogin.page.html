@@ -35,14 +35,14 @@
 
 
   <div *ngIf="noSubScription" class="divbg">
-    <ion-text style="font-size: 10pt; margin-left: 18px;">You have not purchased any subscription yet</ion-text>
+    <ion-text style="font-size: 10pt; margin-left: 18px;">You have not purchased a subscription yet</ion-text>
   </div>
 
 
 
   <div *ngIf="!noSubScription" class="divbg">
 
-    <div *ngFor="let sub of subArray">
+    <div *ngFor="let sub of subArray" (click)="goTo()">
       <div *ngIf="sub.packages_id == sbID">
         <ion-text style="font-size: 10pt; margin-left: 18px;">$ {{sub.amount}}</ion-text>
         <br>
@@ -51,6 +51,12 @@
     </div>
   </div>
 
+  <div style="margin-top: 2px;
+  padding: 10px;
+  box-shadow: 0px 4px 10px #0000001f;
+  opacity: 1;" *ngIf="!noSubScription">
+    <ion-text style="font-size: 13px;"> Your subscription will expire on {{subcriptionEnddate}}</ion-text>
+  </div>
   <!-- <ion-row *ngIf="!noSubScription" style="
                   margin-left: 20px;
                   margin-top: 13px;

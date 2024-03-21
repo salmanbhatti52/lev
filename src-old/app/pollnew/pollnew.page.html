@@ -1,0 +1,127 @@
+<ion-content style="--background: #314f40">
+  <div class="v-center-s" style="padding: 20px">
+    <ion-row style="background: black; padding-top: 20px; padding-bottom: 20px">
+      <img (click)="goBack()" style="position: absolute; height: 15px; width: 15px; right: 35px"
+        src="assets/imgs/close.svg" />
+
+      <ion-col style="text-align: center; margin-top: 25px">
+        <img style="    width: 300px;
+        height: 190px;" src="assets/imgs/logo.svg" />
+
+        <div style="
+            padding: 10px;
+            /* border: 1px solid white; */
+            height: max-content;
+            margin: 0px 0px 0px 0px;">
+
+
+          <div *ngIf="noMoreQuestion">
+            <ion-row>
+              <ion-col style="text-align: center">
+                <label style="font-size: 15pt">No more poll questions to show</label>
+              </ion-col>
+            </ion-row>
+
+
+          </div>
+
+          <div *ngIf="!noMoreQuestion">
+
+            <ion-row>
+              <ion-col style="text-align: center">
+                <label style="font-size: 12pt">{{currentQuestion}}</label>
+              </ion-col>
+            </ion-row>
+
+            <!-- <ion-row>
+              <ion-col style="text-align: center">
+                <ion-text style="font-size: 8pt">{{currentQuestionDesc}} </ion-text>
+              </ion-col>
+            </ion-row> -->
+
+            <ion-row style="margin: 10px 14px 0px 14px">
+              <ion-col style="text-align: left;">
+                <!-- <ion-input [class.redBorder]="commentStatus" class="inp" autocapitalize="word" placeholder="Add a comment"
+                  [(ngModel)]="commnent">
+                </ion-input> -->
+                <div (click)="goToSubscription(currentQuestionOption1ID)" style="    display: flex;
+                position: relative;
+                align-items: center;">
+
+                  <label style="    position: absolute;
+                  font-size: 13pt;
+                  z-index: 9999;
+                  left: 24px;
+                  color: white;
+                  font-weight: 600;
+                  overflow: hidden;
+                  /* height: 50px; */
+                  width: 70%;">{{ subSttFun(currentQuestionOption1) }}</label>
+
+                  <ion-label style="    position: absolute;
+                          z-index: 9999;
+                          right: 13px;
+                          font-weight: 600;
+                          font-size: 20px;">{{percentage1 | number : '1.0-0'}} %</ion-label>
+
+
+
+                  <ion-progress-bar class="progress1" value={{percentage1percent}}></ion-progress-bar>
+
+                </div>
+
+                <div (click)="goToSubscription(currentQuestionOption2ID)" style="display: flex;
+                position: relative;
+                align-items: center;
+                margin-top: 17px;">
+                  <label style="    position: absolute;
+                  font-size: 13pt;
+                  z-index: 9999;
+                  left: 24px;
+                  color: white;
+                  font-weight: 600;
+                  overflow: hidden;
+                  /* height: 50px; */
+                  width: 70%;">{{ subSttFun(currentQuestionOption2) }}</label>
+
+                  <ion-label style="    position: absolute;
+                  z-index: 9999;
+                  right: 13px;
+                  font-weight: 600;
+                  font-size: 20px;">{{percentage2 | number : '1.0-0'}} %</ion-label>
+
+                  <ion-progress-bar class="progress1" value={{percentage2percent}}></ion-progress-bar>
+
+                </div>
+              </ion-col>
+            </ion-row>
+
+          </div>
+        </div>
+
+
+        <div *ngIf="!noMoreQuestion">
+
+
+
+          <!-- <ion-row style="margin: 10px 14px 0px 14px">
+            <ion-col>
+              <button (click)="goToSubscription()" class="btn" style="width: 100%">
+                Submit
+              </button>
+            </ion-col>
+          </ion-row> -->
+
+        </div>
+        <ion-row *ngIf="subscriptionIDFree == '88'" style="margin-top: 20px; margin-left: 20px; margin-right: 20px;">
+          <ion-col style="text-align: center;">
+            <button (click)="goToMembership()" style="margin-bottom: 12px;" class="btn">Subscribe to view Matches</button>
+          </ion-col>
+        </ion-row>
+
+      </ion-col>
+    </ion-row>
+
+   
+  </div>
+</ion-content>

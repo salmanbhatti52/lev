@@ -27,6 +27,7 @@ export class WorkService {
   comingForm: any = ''
 
   userMobileNum: any = ''
+  closedUserIds = [];
 
   constructor(public loadingController: LoadingController,
     public toastController: ToastController,

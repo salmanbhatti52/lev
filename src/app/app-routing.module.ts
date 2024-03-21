@@ -249,7 +249,11 @@ const routes: Routes = [
   {
     path: 'viewprofileother',
     loadChildren: () => import('./viewprofileother/viewprofileother.module').then( m => m.ViewprofileotherPageModule)
+  },  {
+    path: 'userpreferencesmodal',
+    loadChildren: () => import('./userpreferencesmodal/userpreferencesmodal.module').then( m => m.UserpreferencesmodalPageModule)
   }
+
 ];
 @NgModule({
   imports: [

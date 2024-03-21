@@ -10,8 +10,8 @@ import { WorkService } from '../work.service';
 
 import { InAppPurchase } from '@ionic-native/in-app-purchase/ngx';
 import { NavController, Platform, ToastController } from '@ionic/angular';
-import { InAppPurchase2 } from '@ionic-native/in-app-purchase-2/ngx';
-
+// import { InAppPurchase2 } from '@ionic-native/in-app-purchase-2/ngx';
+// import { InAppPurchase2 } from '@awesome-cordova-plugins/in-app-purchase-2/ngx';
 
 
 @Component({
@@ -123,7 +123,7 @@ export class SmspkgPage implements OnInit {
         console.log('usr packageee--->>>>>', this.userData);
 
         this.sbID = this.userData.packages_id
-        if (this.sbID.toString() == '0' ||  this.sbID.toString() == 'null') {
+        if (this.sbID.toString() == '0' || this.sbID.toString() == 'null') {
           this.noSubScription = true
         } else {
           this.noSubScription = false

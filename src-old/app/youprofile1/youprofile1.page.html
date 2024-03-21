@@ -1,0 +1,179 @@
+<ion-content>
+
+  <ion-row class="top-margin-head-40">
+    <ion-col size="3" style="padding-left: 10px;">
+      <img (click)="goBack()" style="width: 20px;
+    height: 20px;" src="assets/imgs/left.svg">
+    </ion-col>
+    <ion-col size="6" style="text-align: center; padding-top: 0px;">
+      <ion-label style="font-size: 14pt;">Your Profile</ion-label>
+    </ion-col>
+    <ion-col size="3">
+
+    </ion-col>
+  </ion-row>
+
+
+  <div style="padding: 0px 20px 20px 20px;" class="margin-top-fixed">
+
+
+    <ion-row style="margin-top: 20px;">
+      <ion-col style="text-align: -webkit-right;">
+        <div class="numberDiv1"><label>1</label></div>
+      </ion-col>
+
+      <ion-col style="text-align: -webkit-center;">
+        <div class="numberDiv2"><label>2</label></div>
+      </ion-col>
+
+      <ion-col>
+        <div class="numberDiv3"><label>3</label></div>
+      </ion-col>
+    </ion-row>
+
+
+
+
+    <ion-row style="margin-top: 20px;">
+      <ion-col>
+        <ion-label style="font-size: 9pt;">Your Details</ion-label> <br>
+        <ion-text style="font-size: 7pt;">Your data will be stored in accordance with the terms in our privacy policy.
+        </ion-text>
+
+      </ion-col>
+    </ion-row>
+
+
+    <div style="border: 2px solid #707070; border-radius: 10px; margin-top: 20px;">
+
+      <div class="inp-top-radius" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text [class.redclass]="fnameStatus" style="font-size: 7pt;">First name *</ion-text>
+        <ion-input style="height: 26px;
+      font-size: 9pt;" placeholder="Enter first name" [(ngModel)]="fname" autocapitalize=words
+          (ionChange)="changename($event)"></ion-input>
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 7pt;" [class.redclass]="lnameStatus">Last name *</ion-text>
+        <ion-input style="height: 26px;
+      font-size: 9pt;" placeholder="Enter last name" [(ngModel)]="lname" autocapitalize=words
+          (ionChange)="changelname($event)"></ion-input>
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 7pt;" [class.redclass]="emailStatus">Email *</ion-text>
+        <ion-input style="height: 26px;
+      font-size: 9pt;" placeholder="Enter email" [(ngModel)]="email" (ionChange)="changeemail($event)"></ion-input>
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 7pt;" [class.redclass]="dobStatus">Date of birth *</ion-text>
+
+        <ion-row>
+          <ion-col>
+            <ion-input type="tel" style="height: 26px;
+            font-size: 9pt;" placeholder="Day" [(ngModel)]="dobDay" (ionChange)="checkDay()" (ionBlur)="checkMinDay()"
+              maxlength="2"></ion-input>
+          </ion-col>
+
+          <ion-col>
+            <ion-input type="tel" style="height: 26px;
+            font-size: 9pt;" placeholder="Month" [(ngModel)]="dobMonth" (ionChange)="checkMonth()"
+              (ionBlur)="checkMinMonth()" max="12" maxlength="2"></ion-input>
+          </ion-col>
+
+          <ion-col>
+            <ion-input type="tel" style="height: 26px;
+            font-size: 9pt;" placeholder="Year" [(ngModel)]="dobYear" (ionChange)="checkYear()"
+              (ionBlur)="minYearCehck()" maxlength="4"></ion-input>
+          </ion-col>
+        </ion-row>
+
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+      <div (click)="myInstaClick()" class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 7pt;" [class.redclass]="instaHandleStatus">Instagram handle</ion-text>
+        <ion-input style="height: 26px;
+              font-size: 9pt;" placeholder="@insta" [(ngModel)]="instaHandle" (ionChange)="changeevent($event)">
+        </ion-input>
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 7pt;" [class.redclass]="livesStatus">Lives *</ion-text>
+        <ion-input autocapitalize=words style="height: 26px;
+      font-size: 9pt;" placeholder="Enter Location" [(ngModel)]="lives" (ionInput)="updateSearchResultsEvent($event)"
+          (ionChange)="changeevent2($event)">
+        </ion-input>
+
+
+        <ion-list [hidden]="listishidden">
+          <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)" style="    --background: black;
+          color: white;">
+            {{ item.description }}
+          </ion-item>
+        </ion-list>
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+
+
+      <div class="inp-bottom-radius" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 7pt;" [class.redclass]="fromStatus">From *</ion-text>
+        <ion-input autocapitalize=words style="height: 26px;
+      font-size: 9pt;" placeholder="Enter Location" [(ngModel)]="from"
+          (ionInput)="updateSearchResultsEventFrom($event)" (ionChange)="changeevent3($event)">
+        </ion-input>
+
+
+        <ion-list [hidden]="listishiddenFrom">
+          <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResultFrom(item)" style="    --background: black;
+          color: white;">
+            {{ item.description }}
+          </ion-item>
+        </ion-list>
+      </div>
+    </div>
+
+
+
+    <ion-row style="margin-top: 30px;">
+      <ion-col style="text-align: center;">
+        <button (click)="Continue()" style="margin-bottom: 12px;" class="btn">Continue</button>
+      </ion-col>
+    </ion-row>
+
+  </div>
+
+
+
+
+</ion-content>

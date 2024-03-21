@@ -1,0 +1,397 @@
+<ion-content>
+
+  <ion-row class="top-margin-head-40">
+    <ion-col size="2" style="text-align: center;">
+      <img (click)="goBack()" style="height: 20px; width:20px;" src="assets/imgs/left.svg">
+    </ion-col>
+    <ion-col size="6" style="text-align: center; padding-top: 0px;">
+
+    </ion-col>
+    <ion-col size="4" style="text-align: center;">
+      <p (click)="done()" style="font-size: 14pt;">Done</p>
+    </ion-col>
+  </ion-row>
+
+
+
+  <ion-row class="margin-top-fixed">
+    <ion-col style="text-align: left;">
+      <p style="margin-left: 14px;
+      font-size: 14pt;">{{first_name}} {{last_name}}</p>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row style="margin-top: 10px;">
+    <ion-col style="text-align: center;">
+      <img *ngIf="!base64ImageCover" (error)="handleImgError($event, item)" style="    height: 110pt;
+      width: 110pt;
+      object-fit: cover;" src="{{restService.baseUrlForImg}}{{profile_pic_1}}">
+      <img *ngIf="base64ImageCover" (error)="handleImgError($event, item)" style="    height: 110pt;
+        width: 110pt;
+        object-fit: cover;" src="{{profile_pic_1}}">
+    </ion-col>
+
+    <ion-col style="text-align: center;">
+      <img *ngIf="!base64ImageCover2" (error)="handleImgError($event, item)" style="    height: 110pt;
+      width: 110pt;
+      object-fit: cover;" src="{{restService.baseUrlForImg}}{{profile_pic_2}}">
+      <img *ngIf="base64ImageCover2" (error)="handleImgError($event, item)" style="    height: 110pt;
+       width: 110pt;
+       object-fit: cover;" src="{{profile_pic_2}}">
+    </ion-col>
+  </ion-row>
+
+
+
+  <ion-row style="margin-top: 10px;">
+    <ion-col style="text-align: center;">
+      <ion-text (click)="showPopup(0)">Edit</ion-text>
+    </ion-col>
+
+    <ion-col style="text-align: center;">
+      <ion-text (click)="showPopup(1)">Edit</ion-text>
+    </ion-col>
+
+  </ion-row>
+
+
+  <div style="padding: 25px;">
+    <p style="font-size:14pt;">My Profile Prompt Answers</p>
+
+    <div (click)="goToPrompt1()" style="margin-top: 18px;
+    border-radius: 5px;
+    border: 2px solid #707070;
+    padding: 15px;">
+
+      <img style="position: absolute;
+                  height: 20px;
+                  width: 20px;
+                  padding: 2px;
+                 
+                  right: 36px;" src="assets/imgs/close.svg">
+
+      <ion-text style="font-size: 9pt;">
+        {{prompt1Head}}
+      </ion-text>
+      <br>
+      <ion-text style="font-size: 9pt;">
+        {{prompt1Data}}
+      </ion-text>
+
+    </div>
+
+
+
+
+
+
+
+    <div (click)="goToPrompt2()" style="margin-top: 18px;
+    border-radius: 5px;
+    border: 2px solid #707070;
+    padding: 15px;">
+
+
+      <img style="position: absolute;
+                    height: 20px;
+                    width: 20px;
+                    padding: 2px;
+                  
+                    right: 36px;" src="assets/imgs/close.svg">
+
+      <ion-text style="font-size: 9pt;">
+        {{prompt2Head}}
+      </ion-text>
+      <br>
+      <ion-text style="font-size: 9pt;">
+        {{prompt2Data}}
+      </ion-text>
+
+    </div>
+
+
+
+
+    <div (click)="goToPrompt3()" style="margin-top: 18px;
+    border-radius: 5px;
+    border: 2px solid #707070;
+    padding: 15px;">
+
+
+      <img style="position: absolute;
+                    height: 20px;
+                    width: 20px;
+                    padding: 2px;
+                   
+                    right: 36px;" src="assets/imgs/close.svg">
+
+      <ion-text style="font-size: 9pt;">
+        {{prompt3Head}}
+      </ion-text>
+      <br>
+      <ion-text style="font-size: 9pt;">
+        {{prompt3Data}}
+      </ion-text>
+
+    </div>
+
+
+
+
+
+    <p style="font-size:14pt;">Short Bio</p>
+
+    <div style="margin-top: 18px;
+    border-radius: 5px;
+    border: 2px solid #707070;
+    padding: 15px;">
+
+
+      <img style="position: absolute;
+                    height: 20px;
+                    width: 20px;
+                    padding: 2px;
+                    right: 36px;" src="assets/imgs/close.svg">
+
+
+      <ion-input *ngIf="shortBioDisabled" style="height: 26px;
+               font-size: 9pt;" placeholder="Your short bio here" [(ngModel)]="short_bio" disabled>
+      </ion-input>
+
+      <ion-input *ngIf="!shortBioDisabled" style="height: 26px;
+      font-size: 9pt;" placeholder="Your short bio here" [(ngModel)]="short_bio" (ionChange)="changeFunction($event)">
+      </ion-input>
+
+
+      <!-- <ion-text style="font-size: 9pt;">{{userData.}}
+      </ion-text> -->
+
+    </div>
+
+
+    <ion-row>
+      <ion-col style="text-align: right;">
+        <ion-text (click)="enableShortBio()">Edit</ion-text>
+      </ion-col>
+    </ion-row>
+
+
+
+    <p style="font-size:14pt;">Personal Details</p>
+
+
+
+
+    <div style="border: 2px solid #707070; border-radius: 10px; margin-top: 6px;">
+
+      <div class="inp inp-top-radius" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 7pt;" [class.redclass]="dobStatus">Date of birth</ion-text>
+
+        <ion-row>
+          <ion-col>
+            <ion-input type="tel" style="height: 26px;
+            font-size: 9pt;" placeholder="Day" [(ngModel)]="dobDay" (ionChange)="checkDay()" (ionBlur)="chkMinDay()"
+              maxlength="2"></ion-input>
+          </ion-col>
+
+          <ion-col>
+            <ion-input type="tel" style="height: 26px;
+            font-size: 9pt;" placeholder="Month" [(ngModel)]="dobMonth" (ionChange)="checkMonth()"
+              (ionBlur)="chkMinMonth()" max="12" maxlength="2"></ion-input>
+          </ion-col>
+
+          <ion-col>
+            <ion-input type="tel" style="height: 26px;
+            font-size: 9pt;" placeholder="Year" [(ngModel)]="dobYear" (ionChange)="checkYear()"
+              (ionBlur)="minYearCehck()" maxlength="4"></ion-input>
+          </ion-col>
+        </ion-row>
+
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+      <div (click)="goToMyheight()" class="inp-bottom-radius"
+        style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="heightStatus">Height</ion-text> <br>
+
+        <ion-text style="font-size: 9pt;">{{height1}}'{{height2}}</ion-text>
+
+
+        <!-- <ion-input type="tel" style="height: 26px;
+    font-size: 9pt;
+    color:#ffffff;" placeholder="60 inches" [(ngModel)]="height" disabled (click)="goToMyheight()"></ion-input> -->
+
+      </div>
+
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 7pt;" [class.redclass]="locationStatus">Location</ion-text> <br>
+
+
+        <ion-input autocapitalize=words style="height: 26px;
+        font-size: 9pt;" placeholder="Your Location Here..." [(ngModel)]="lives"
+          (ionInput)="updateSearchResultsEvent($event)" (ionChange)="changeFunction1($event)"></ion-input>
+
+        <ion-list [hidden]="listishidden">
+          <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)" style="
+          color: gray">
+            {{ item.description }}
+          </ion-item>
+        </ion-list>
+      </div>
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+
+
+      <div (click)="goToStatus()" class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 7pt;" [class.redclass]="statusStatus">Status</ion-text> <br>
+
+        <ion-row>
+          <ion-col size="10">
+            <ion-text style="font-size: 9pt; color: #ffffff; ">{{system_maritalstatus_name}}</ion-text>
+          </ion-col>
+        </ion-row>
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+      <div (click)="goToReligion()" class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 7pt;" [class.redclass]="religionStatus">Religion</ion-text> <br>
+
+        <ion-row>
+          <ion-col size="10">
+            <ion-text style="font-size: 9pt; color: #ffffff; ">{{system_religions_name}}</ion-text>
+          </ion-col>
+        </ion-row>
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+
+
+      <div class="inp-bottom-radius" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="schoolStatus">School *</ion-text> <br>
+        <!-- <ion-input autocapitalize=words style="height: 26px;
+        font-size: 9pt;" placeholder="Enter Here" [(ngModel)]="school"></ion-input> -->
+        <div style="    max-height: 68px;
+        overflow: scroll;">
+
+          <ion-chip style="max-width: 99%;
+        overflow: auto;" *ngFor="let school of schoolsArray; let i = index">
+            <ion-label style="max-width: 90%;">{{school.name}}</ion-label>
+            <ion-icon (click)="deleteSchool(i)" style="color: white;" name="close-circle"></ion-icon>
+          </ion-chip>
+        </div>
+        <ion-input style="
+       font-size: 9pt;" placeholder="Enter Here" [(ngModel)]="school" (keyup.enter)="schoolAded()"
+          (ionChange)="onInput($event)" (ionChange)="changeFunction2($event)"></ion-input>
+
+
+      </div>
+
+    </div>
+
+
+    <ion-list style="    max-height: 210px;
+    overflow: scroll;" *ngIf="listishiddenSchool">
+      <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResultSchool(item)" style="
+            color: gray">
+        {{item.name}}
+      </ion-item>
+    </ion-list>
+
+
+
+    <!-- <p style="font-size:14pt;">Auto Response</p>
+
+    <div style="margin-top: 18px;
+    border-radius: 5px;
+    border: 2px solid #707070;
+    padding: 15px;">
+
+
+
+
+      <ion-input style="height: 26px;
+      font-size: 9pt;" placeholder="Your auto response" [(ngModel)]="autoresp">
+      </ion-input>
+
+
+     
+
+    </div> -->
+
+
+  </div>
+
+
+</ion-content>
+
+
+
+
+
+
+<div [hidden]="popupHidden" style="    height: 100%;
+width: 100%;
+background-color: rgb(0 0 0 / 68%);
+position: absolute;">
+
+  <div style="left: 10%;
+  position: absolute;
+  top: 40%;
+  width: 80%;
+  height: 147px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;">
+
+    <ion-row>
+      <ion-col style="padding-top: 10 px; padding-right: 10px;
+  text-align: right;">
+        <img style="    height: 10px;
+        width: 10px;
+        margin-right: 4px;
+        margin-top: 8px;" src="assets/imgs/closeblack.svg" (click)="hidePopup()">
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row style="margin-top: -4px;">
+      <ion-col (click)="CameraSelected()" style="
+    text-align: center;">
+        <img style="height: 50px;
+      width: 50px;" src="assets/imgs/camera.svg">
+        <p style="color: black;">Camera</p>
+
+      </ion-col>
+      <ion-col (click)="GalerySelected()" style="
+    text-align: center;">
+        <img style="height: 50px;
+      width: 50px;" src="assets/imgs/galleryblack.svg">
+        <p style="color: black;">Gallery</p>
+
+      </ion-col>
+    </ion-row>
+
+  </div>
+
+</div>

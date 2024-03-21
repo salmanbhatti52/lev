@@ -1,11 +1,13 @@
+import { SubscriptionChange } from './../../../plugins/onesignal-cordova-plugin/www/Subscription';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Platform } from '@ionic/angular';
+import { AlertController, ModalController, Platform } from '@ionic/angular';
 import { RestService } from '../rest.service';
 import { WorkService } from '../work.service';
 
 // import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
-
+import { UserpreferencesmodalPage } from '../userpreferencesmodal/userpreferencesmodal.page';
+import { UserpreferencesmodalPageModule } from '../userpreferencesmodal/userpreferencesmodal.module';
 
 @Component({
   selector: 'app-tab1',
@@ -26,12 +28,21 @@ export class Tab1Page {
   mobile: any;
   subscriptionIDFree: string;
   userpkgincoming: any;
-
+  users_packages_txns: any;
+  preferencesdata = [];
+  data = [
+    { label: "Kosher", value: "Not Kosher" },
+    { label: "Looking For", value: "Female" },
+    { label: "Marital Status", value: "Single" },
+    { label: "Personality Type", value: "Introvert" }
+  ];
 
   constructor(public router: Router,
     public platform: Platform,
     public restService: RestService,
     public workService: WorkService,
+    public alertController: AlertController,
+    private modalController: ModalController
     // public iab: InAppBrowser
   ) {
 
@@ -56,31 +67,48 @@ export class Tab1Page {
 
   }
 
-  ionViewWillEnter(){
+  ionViewWillEnter() {
 
 
     console.log('ionviewwillenter');
-    this.workService.presentLoading()
+    // this.workService.presentLoading()
     var userID = localStorage.getItem('loggedinUserID')
     let data = {
       loginuser: 0,
       otheruser: userID
     }
-    this.restService.get_user_dataAPI(data).subscribe((res: any) => {
-      this.workService.hideLoading()
+    this.restService.get_user_dataAPI(data).subscribe(async (res: any) => {
+      // this.workService.hideLoading()
       console.log('incomming data ===333333333 ', res);
       if (res.status == "success") {
+        this.openPreferences(res.data.user_data)
         this.userpkgincoming = res.data.user_data.packages_id
 
-        if(this.userpkgincoming == '0'){
+        if (this.userpkgincoming == '0') {
           console.log('88888888');
-          
-          localStorage.setItem('packages_id','88')
-          this.subscriptionIDFree =   localStorage.getItem('packages_id')
-        }else{
+
+          localStorage.setItem('packages_id', '88')
+          this.subscriptionIDFree = localStorage.getItem('packages_id')
+        } else {
           console.log('iiiiii');
-          localStorage.setItem('packages_id',this.userpkgincoming)
-          this.subscriptionIDFree =   localStorage.getItem('packages_id')
+          localStorage.setItem('packages_id', this.userpkgincoming)
+          this.subscriptionIDFree = localStorage.getItem('packages_id')
+        }
+
+        this.users_packages_txns = res.data.users_packages_txns
+        const lastSubsEndDate = this.users_packages_txns[this.users_packages_txns.length - 1].subs_end_date;
+        const endDate = new Date(lastSubsEndDate);
+        const currentDate = new Date();
+        if (currentDate > endDate) {
+          // If current date is greater, show an alert
+          // const alert = await this.alertController.create({
+          //   header: 'Subscription Alert',
+          //   message: 'Your subscription has expired!',
+          //   buttons: ['OK']
+          // });
+
+          // await alert.present();
+          this.SubscriptionExpirenoti()
         }
       }
     }, err => {
@@ -89,9 +117,49 @@ export class Tab1Page {
     })
 
 
-    
-   
 
+
+
+  }
+
+  async openPreferences(userdata) {
+    const isModalShown = localStorage.getItem('isUserDetailsModalShown');
+    if (!isModalShown) {
+      const modal = await this.modalController.create({
+        component: UserpreferencesmodalPage,
+        componentProps: { data: userdata }
+      });
+      await modal.present();
+
+      // After showing the modal, set a flag in local storage
+      localStorage.setItem('isUserDetailsModalShown', 'true');
+
+    }
+  }
+  SubscriptionExpirenoti() {
+    var ss = JSON.stringify({
+      "user_id": localStorage.getItem('loggedinUserID'),
+      "msgTitle": "Subscription Alert",
+      "msg": "Your subscription has expired!"
+    })
+    this.restService.sendnotification(ss).subscribe((res: any) => {
+      this.workService.hideLoading()
+
+      console.log('resss----', res);
+
+
+      if (res.status == 'success') {
+
+
+      } else {
+        this.workService.presentToast(res.message)
+      }
+
+
+    }, err => {
+      this.workService.hideLoading()
+      this.workService.presentToast('Network error occured')
+    })
   }
 
   ionViewDidLeave() {
@@ -135,15 +203,18 @@ export class Tab1Page {
         this.matches = res.data
         this.totalMatches = this.matches.length
         if (this.totalMatches == 0) {
+
           this.router.navigate(['pollnew'])
         } else {
-          if(this.subscriptionIDFree == '88'){
+          if (this.subscriptionIDFree == '88') {
+
             this.router.navigate(['pollnew'])
-          }else{
+          } else {
             this.router.navigate(['tabs/match'])
           }
         }
       } else {
+
         this.router.navigate(['pollnew'])
       }
     }, err => {
@@ -198,9 +269,9 @@ export class Tab1Page {
 
   }
 
-  goToFAQ(){
+  goToFAQ() {
     this.router.navigate(['faq'])
   }
-   
-  
+
+
 }

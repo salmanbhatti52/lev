@@ -1,0 +1,65 @@
+<ion-content style="--background: #0c293d">
+  <div class="v-center-s" style="padding: 20px">
+    <ion-row style="background: black; padding-top: 20px; padding-bottom: 20px">
+      <img (click)="goBack()" style="position: absolute; height: 15px; width: 15px; right: 35px"
+        src="assets/imgs/close.svg" />
+
+      <ion-col style="text-align: center; margin-top: 25px">
+        <img style="    width: 300px;
+        height: 190px;" src="assets/imgs/logo.svg" />
+
+        <div style="
+            padding: 10px;
+            border: 1px solid white;
+            height: max-content;
+            margin: 20px 20px 0px 20px;">
+
+
+          <div *ngIf="noMoreQuestion" (click)="goToAppy()">
+            <ion-row>
+              <ion-col style="text-align: center">
+                <label style="font-size: 15pt">No more poll questions to show</label>
+              </ion-col>
+            </ion-row>
+          </div>
+
+          <div *ngIf="!noMoreQuestion">
+            <ion-row>
+              <ion-col style="text-align: center">
+                <label style="font-size: 12pt">{{currentQuestion}}</label>
+              </ion-col>
+            </ion-row>
+
+            <ion-row>
+              <ion-col style="text-align: center">
+                <ion-text style="font-size: 8pt">{{currentQuestionDesc}} </ion-text>
+              </ion-col>
+            </ion-row>
+          </div>
+        </div>
+
+
+        <div *ngIf="!noMoreQuestion">
+
+          <ion-row style="margin: 10px 14px 0px 14px">
+            <ion-col style="text-align: left;">
+              <ion-input [class.redBorder]="commentStatus" class="inp" autocapitalize="word" placeholder="Add a comment"
+                [(ngModel)]="commnent" (ionChange)="changeFunction($event)">
+              </ion-input>
+            </ion-col>
+          </ion-row>
+
+          <ion-row style="margin: 10px 14px 0px 14px">
+            <ion-col>
+              <button (click)="goToSubscription()" class="btn" style="width: 100%">
+                Submit
+              </button>
+            </ion-col>
+          </ion-row>
+
+        </div>
+
+      </ion-col>
+    </ion-row>
+  </div>
+</ion-content>

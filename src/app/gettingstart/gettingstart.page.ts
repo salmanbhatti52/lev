@@ -26,7 +26,7 @@ import {
 
 
 import { createTextMaskInputElement } from 'text-mask-core';
-
+// import OneSignal from 'onesignal-cordova-plugin';
 firebase.initializeApp(firebaseConfig);
 
 @Component({
@@ -68,6 +68,7 @@ export class GettingstartPage implements OnInit {
   completePhoneNum: any = ''
 
   userData: any = ''
+  uid: any;
 
   constructor(public router: Router,
     public restService: RestService,
@@ -110,6 +111,7 @@ export class GettingstartPage implements OnInit {
 
 
   }
+
 
   goToOTP() {
 

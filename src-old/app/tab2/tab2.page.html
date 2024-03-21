@@ -1,0 +1,64 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="header">
+    <div class="header-inner">
+      <div class="title">
+        <h1 class="heading">Messages</h1>
+      </div>
+
+    </div>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="getChatList($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+  <div class="container">
+    <div class="lists">
+      <ng-container *ngIf="!noChatlistFlag">
+        <div (click)="viewChat(chats)" *ngFor="let chats of allChats; let i = index" class="listItem">
+          <div class="avatar" style="    border-radius: 50%;
+          height: 65px;
+          margin-top: 0px;
+          width: 65px;">
+            <!-- <img  class="avatarImage" src="/assets/img.jpg" alt="" /> -->
+            <ion-skeleton-text style="    height: 65px;
+            width: 65px;" *ngIf="chats.profileImage==''" style="height: 100%" class="skeleton_tumbs" animated>
+            </ion-skeleton-text>
+            <img (error)="handleImgError($event, match)" style="height: 65px;
+            width: 65px;" *ngIf="chats.profileImage!=''" class="avatarImage" src="{{chats.profileImage}}" alt="" />
+          </div>
+          <div class="content">
+            <ion-text class="time">{{chats.msg_time}}</ion-text>
+            <ion-text class="userName">{{chats.name}}</ion-text>
+            <ion-text class="message" *ngIf="chats.msgType == 'text'"> <br>
+              <span>{{chats.message.substring(0,30)}}</span>
+              <span *ngIf="chats.message.length > 30">...</span>
+            </ion-text>
+            <ion-text class="message" *ngIf="chats.msgType == 'attachment'">
+              <span><img style="width: 23px; position: absolute; top: 27px; left: 10px" src="/assets/imgs/gallery.png"
+                  (error)="handleImgError($event, match)" /></span>
+              <br> <span style="position: relative; left: 27px; top: 4px">
+                Image</span>
+            </ion-text>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="noChatlistFlag">
+        <div class="noSreachFound">
+          <div style="text-align: center;">
+            <p>No chat found</p>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+  </div>
+</ion-content>
+<!-- <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab-button>
+    <div class="addEvent">
+      <ion-icon class="addIcon" name="add"></ion-icon>
+      <p>Message</p>
+    </div>
+  </ion-fab-button>
+</ion-fab> -->

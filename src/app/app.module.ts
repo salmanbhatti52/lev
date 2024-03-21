@@ -39,14 +39,15 @@ import firebaseConfig from './firebase'
 
 import { InAppPurchase } from '@ionic-native/in-app-purchase/ngx';
 import { OneSignal } from '@ionic-native/onesignal/ngx';
+// import { OneSignal } from '@awesome-cordova-plugins/onesignal/ngx';
 import { InAppPurchase2 } from '@ionic-native/in-app-purchase-2/ngx';
-
+// import { InAppPurchase2 } from '@awesome-cordova-plugins/in-app-purchase-2/ngx';
 
 import { AngularFireModule } from '@angular/fire';
 import { MatchdeletePageModule } from './matchdelete/matchdelete.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+// import { OneSignalPlugin } from 'onesignal-cordova-plugin';
 @NgModule({
   declarations: [AppComponent],
   entryComponents: [],
@@ -76,6 +77,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     InAppPurchase,
     InAppPurchase2,
     OneSignal,
+    // OneSignalPlugin,
     Geolocation,
     NativeGeocoder,
     InAppBrowser,

@@ -110,7 +110,51 @@ ion-content {
 
   --background: #000000;
 }
+.my-custom-alert .alert-wrapper {
+  background-color: #fff !important; /* Example: Change background color */
+  color: #000 !important;
+  font-family: "Poppins-Medium" !important; 
+}
 
+.my-custom-alert .alert-button {
+  color:#314f40 !important; /* Example: Change button text color */
+}
+.my-custom-alert .alert-message.sc-ion-alert-ios{
+  padding-top: 5px !important;
+  padding-bottom: 5px !important;
+}
+
+//alert csss for match page///
+.custom-alertclass .alert-wrapper.sc-ion-alert-md {
+  background:#314f40 !important;
+  font-family: "Poppin-reg" !important;
+  border-radius: 10px !important;
+}
+.custom-alertclass .alert-head.sc-ion-alert-md {
+  padding-top: 15px !important;
+  padding-bottom: 5px !important;
+  text-align: start; 
+}
+.custom-alertclass .alert-title.sc-ion-alert-md, .alert-title.sc-ion-alert-ios{
+  color: #ffffff !important;
+  font-size: 20px;
+  font-weight: 500;
+  font-family: "Poppin-reg" !important;
+}
+.custom-alertclass .alert-message.sc-ion-alert-md , .alert-message.sc-ion-alert-ios{
+  padding-bottom: 0px !important;
+  color: #ffffff;
+  font-size: 14px !important;
+}
+.custom-alertclass .alert-button-group.sc-ion-alert-md{
+  padding-top: 4px !important;
+  padding-bottom: 4px !important;
+}
+.custom-alertclass .alert-button.sc-ion-alert-md ,.alert-button.sc-ion-alert-ios {
+  color: #fff !important;
+  font-family: "Poppin-reg" !important;
+  border-top: 0px !important;
+}
 //-----------------------------------------------
 ////alertmodal/////
 ion-alert.custom-alert {
@@ -120,8 +164,8 @@ ion-alert.custom-alert {
 .alert-head.sc-ion-alert-ios {
   padding-left: 16px !important;
   padding-right: 16px !important;
-  padding-top: 0px !important;
-    padding-bottom: 0px !important;
+  padding-top: 1px !important;
+    padding-bottom: 3px !important;
   text-align: center;
 }
 .alert-message.sc-ion-alert-ios:empty {
@@ -138,7 +182,10 @@ button.alert-button.alert-button-confirm {
   // background-color: #314f40;
   color: #fff;
 }
-
+.custom-alert button.alert-button.alert-button-confirm {
+  // background-color: #314f40;
+  color: #314f40 !important;
+}
 .md button.alert-button.alert-button-confirm {
   border-radius: 4px;
 }

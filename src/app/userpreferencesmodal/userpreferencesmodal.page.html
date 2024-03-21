@@ -1,0 +1,47 @@
+<ion-content>
+  <div style="z-index: 99999; width: 100%; background: black;">
+    <ion-row style="margin-top: 20px">
+      <ion-col size="2" style="text-align: center"></ion-col>
+      <ion-col size="8" style="text-align: center; padding-top: 0px">
+        <ion-text style="font-size: 15pt">Preferences </ion-text>
+      </ion-col>
+      <ion-col size="2">
+        <img style="    height: 15px;
+        width: 15px;" src="assets/imgs/close.svg" (click)="dismissModal()" />
+      </ion-col>
+    </ion-row>
+
+  </div>
+  <div class="wrapper">
+    <h2>Interested In</h2>
+    <p>{{data.system_looking_for_name}}</p>
+    <h2> Kosher</h2>
+    <p>{{data.system_kosher_name}}</p>
+    <h2> Martial Status</h2>
+    <p>{{data.system_maritalstatus_name}}</p>
+    <h2> Religion</h2>
+    <p>{{data.system_religions_name}}</p>
+
+    <h2>Ethnicity</h2>
+    <p *ngFor="let item of userpreferencesethinicity">{{item.system_ethinicity_name}}</p>
+
+    <div class="divbg">
+      <ion-text style="font-size: 12pt;">If you want to update your preferences click on below button</ion-text>
+    </div>
+  </div>
+  <ion-row style="    margin-top: 0px;
+        margin-bottom: 0px;">
+    <ion-col style="text-align: center;">
+      <button (click)="goTo()" style="    width: 59%;
+          background: none;
+          margin: 0px 0px 5px 0px;
+          font-size: 16px;
+          border: 2px solid white;
+          border-radius: 48px;
+          height: 48px;
+          padding: 15px 16px 16px 16px;
+          margin-top: 20%;">Update &nbsp; Preferences</button>
+    </ion-col>
+  </ion-row>
+
+</ion-content>

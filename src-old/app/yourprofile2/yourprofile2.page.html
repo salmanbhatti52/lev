@@ -1,0 +1,720 @@
+<ion-content>
+
+  <ion-row class="top-margin-head-40">
+    <ion-col size="3" style="padding-left: 10px;">
+      <img (click)="goBack()" style="width: 20px;
+    height: 20px;" src="assets/imgs/left.svg">
+    </ion-col>
+    <ion-col size="6" style="text-align: center; padding-top: 0px;">
+      <ion-label style="font-size: 14pt;">Your Profile</ion-label>
+    </ion-col>
+    <ion-col size="3">
+
+    </ion-col>
+  </ion-row>
+
+
+  <div style="padding: 0px 20px 20px 20px;" class="margin-top-fixed">
+
+
+    <ion-row style="margin-top: 20px;">
+      <ion-col style="text-align: -webkit-right;">
+        <div (click)="goToProfile1()" class="numberDiv1"><label>1</label></div>
+      </ion-col>
+
+      <ion-col style="text-align: -webkit-center;">
+        <div class="numberDiv2"><label>2</label></div>
+      </ion-col>
+
+      <ion-col>
+        <div class="numberDiv3" (click)="goToProfile3()"><label>3</label></div>
+      </ion-col>
+    </ion-row>
+
+
+
+
+    <ion-row style="margin-top: 10px;">
+      <ion-col>
+        <ion-text style="font-size: 9pt;">Upload two clear photos so we can confirm your identity. Please note that all
+          information gathered will not be displayed on your public profile but will rather help us collect data on your
+          preferences and source the best matches.
+        </ion-text>
+
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row style="margin-top: 0px;">
+      <ion-col>
+        <ion-label style="font-size: 9pt;">Upload A Recent Photos * </ion-label>
+
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row style="margin-top: 0px;">
+      <ion-col style="text-align: -webkit-center;">
+
+        <!-- <div style="border-radius: 50%;
+        height: 150px;
+        width: 150px;
+        border: 2px dashed white;" (click)="showPopup(1)" *ngIf="base64ImageCover ==''">
+
+
+          <button style="background: none;
+        margin-top: 56px;
+        font-size: 10px;
+        border: 2px solid white;
+        border-radius: 27px;
+        height: 35px;
+        width: 100px;">
+
+            <ion-row>
+              <ion-col size="3" style="padding: 0px;">
+                <img style="width: 15px;
+            height: 15px;" src="assets/imgs/gallery.svg">
+              </ion-col>
+              <ion-col size="9" style="padding: 0px;">
+                <p style="    display: block;
+                margin-block-start: 4px;
+                margin-block-end: 0em;
+                margin-inline-start: 0px;
+                margin-inline-end: 0px;
+                font-size: 9px;">Choose Image</p>
+              </ion-col>
+            </ion-row>
+
+          </button>
+
+        </div> -->
+
+
+        <!-- <img (click)="showPopup()" *ngIf="base64ImageCover !=''"
+          [src]="sanatizeBase64ImageFromCameraCover(base64ImageCover)" style=" height: 150px;
+          width: 150px;
+        object-fit: cover;
+        border-radius: 50%;"> -->
+
+
+
+
+        <ion-slides #mySlider pager="true" [options]="slideOpts" style=" border: 2px dashed  white;   border-radius: 0%;
+        height: 250px;
+        width: 250px;
+        object-fit: cover;" pager="true">
+          <ion-slide (click)="slideClick($event)" *ngFor="let flag of imgArr let i = index" style="width: 250px;
+          height: 250px;">
+            <img src="{{flag.img}}" style="    width: 249px;
+            height: 249px;">
+          </ion-slide>
+        </ion-slides>
+
+      </ion-col>
+    </ion-row>
+
+    <!-- <ion-row>
+      <ion-col style="text-align: -webkit-right;">
+
+        <div (click)="showPopup(1)" style="height: 20px;
+        width: 20px;
+        border: 2px solid white;
+        border-radius: 14px;"></div>
+
+      </ion-col>
+
+      <ion-col (click)="showPopup(2)" style="text-align: -webkit-left;">
+        <div style="height: 20px;
+        width: 20px;
+        border: 2px solid white;
+        border-radius: 14px;"></div>
+      </ion-col>
+    </ion-row> -->
+
+
+
+
+
+    <ion-row style="margin-top: 0px;">
+      <ion-col>
+        <ion-label style="font-size: 9pt;">Personal Details *</ion-label>
+
+      </ion-col>
+    </ion-row>
+
+    <ion-row style="margin-top: 0px;">
+      <ion-col>
+        <ion-text style="font-size: 9pt;">Your data will be stored in accordance with the terms in our privacy policy.
+        </ion-text>
+
+      </ion-col>
+    </ion-row>
+
+
+
+
+
+    <div style="border: 2px solid #707070; border-radius: 10px; margin-top: 6px;">
+
+      <div class="inp-top-radius" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="phoneNumStatus">Cell phone number *</ion-text>
+        <ion-input type="tel" style="height: 26px;
+      font-size: 9pt;" placeholder="Enter phone number" [(ngModel)]="phone"></ion-input>
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="nationalityStatus">Nationality *</ion-text> <br>
+
+        <ion-row (click)="showNationality()">
+          <ion-col size="10">
+            <ion-text style="font-size: 9pt;color: #ffffff; ">{{selectedNat}}</ion-text>
+          </ion-col>
+
+          <ion-col size="2" style="text-align: right;">
+            <img style="width: 16px;
+            height: 16px;" src="assets/imgs/down-arrow.svg">
+          </ion-col>
+        </ion-row>
+
+        <div [hidden]="nationalityshow" style="height: 100px;
+        overflow: auto;">
+
+          <h6 (click)="nationalitySelected(nat)" *ngFor="let nat of flagsList">{{nat.name}}</h6>
+
+        </div>
+
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="genderStatus">How do you identify yourself? *</ion-text>
+        <br>
+
+        <ion-row (click)="goTogender()">
+          <ion-col size="10">
+            <ion-text style="font-size: 9pt; color: #ffffff; ">{{gender}}</ion-text>
+          </ion-col>
+
+          <ion-col size="2" style="text-align: right;">
+            <img style="width: 16px;
+            height: 16px;" src="assets/imgs/down-arrow.svg">
+          </ion-col>
+        </ion-row>
+
+
+
+
+      </div>
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+
+
+      <div (click)="goToEthnicity()" class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="ethnicityStatus">Ethnicity *</ion-text>
+        <br>
+
+        <ion-row>
+          <ion-col size="10">
+            <ion-text *ngIf="showPleaseSelectEthnicity" style="font-size: 9pt; color: #ffffff; ">Please Select
+            </ion-text>
+
+            <div style="    max-height: auto;
+            overflow: scroll;">
+
+              <ion-chip style="     max-width: max-content;
+              overflow: auto;
+              background: #444444;" *ngFor="let eth of ethnicityArray; let i = index">
+                <ion-label style="max-width: max-content;">{{eth.name}}</ion-label>
+              </ion-chip>
+            </div>
+          </ion-col>
+
+          <ion-col size="2" style="text-align: right;">
+            <img style="width: 16px;
+            height: 16px;" src="assets/imgs/down-arrow.svg">
+          </ion-col>
+        </ion-row>
+
+
+
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="lookingForStatus">What are you looking for? *</ion-text>
+        <br>
+
+        <ion-row (click)="goToLookingfor()">
+          <ion-col size="10">
+            <ion-text style="font-size: 9pt; color: #ffffff; ">{{lookingFor}}</ion-text>
+          </ion-col>
+
+          <ion-col size="2" style="text-align: right;">
+            <img style="width: 16px;
+            height: 16px;" src="assets/imgs/down-arrow.svg">
+          </ion-col>
+        </ion-row>
+
+
+
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+      <div (click)="goToMyheight()" class="inp-bottom-radius"
+        style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="heightStatus">Height *</ion-text> <br>
+
+        <ion-text style="font-size: 9pt;">{{usercalculatedHeight}}</ion-text>
+
+
+        <!-- <ion-input type="tel" style="height: 26px;
+      font-size: 9pt;
+      color:#ffffff;" placeholder="60 inches" [(ngModel)]="height" disabled (click)="goToMyheight()"></ion-input> -->
+
+      </div>
+
+    </div>
+
+
+    <ion-row style="margin-top: 6px;">
+      <ion-col>
+        <ion-label style="font-size: 9pt;">Your Work*</ion-label>
+      </ion-col>
+    </ion-row>
+
+
+
+    <div style="border: 2px solid #707070; border-radius: 10px; margin-top: 6px;">
+
+      <div class="inp-top-radius" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="workplaceStatus">Where do you work?</ion-text>
+        <ion-input autocapitalize=words style="height: 26px;
+      font-size: 9pt;" placeholder="Enter Your Work Place" [(ngModel)]="workplace"
+          (ionChange)="changeFunction($event)"></ion-input>
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="whatyoudoStatus">What do you do? *</ion-text> <br>
+
+        <ion-row (click)="showWorkPlace()">
+          <ion-col size="12" style="padding: 0px;">
+            <!-- <ion-text style="font-size: 9pt; color: #ffffff; ">{{whatyoudo}}</ion-text> -->
+
+            <ion-input autocapitalize=words style="height: 26px;
+            font-size: 9pt;" placeholder="Enter your Job" [(ngModel)]="whatyoudo"
+              (ionChange)="changeFunction2($event)"></ion-input>
+
+
+
+          </ion-col>
+
+          <!-- <ion-col size="2" style="text-align: right;">
+            <img style="width: 16px;
+            height: 16px;" src="assets/imgs/down-arrow.svg">
+          </ion-col> -->
+        </ion-row>
+
+        <!-- <div [hidden]="whatyoudoShow" style="height: 100px;
+        overflow: auto;">
+
+          <h6 (click)="whatyoudoArrClick(nat)" *ngFor="let nat of whatyoudoArr">{{nat.name}}</h6>
+
+        </div> -->
+
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="eduStatus">Education Level *</ion-text> <br>
+
+        <ion-row (click)="showedu()">
+          <ion-col size="10">
+            <ion-text style="font-size: 9pt; color: #ffffff;">{{edu}}</ion-text>
+          </ion-col>
+
+          <ion-col size="2" style="text-align: right;">
+            <img style="width: 16px;
+            height: 16px;" src="assets/imgs/down-arrow.svg">
+          </ion-col>
+        </ion-row>
+
+        <div [hidden]="eduStatusShow" style="height: 85px;
+        overflow: auto;">
+
+          <h6 (click)="eduArrClick(nat)" *ngFor="let nat of eduArr">{{nat.name}}</h6>
+
+        </div>
+
+
+      </div>
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+
+
+
+      <!-- //// -->
+      <!-- <div class="inp" style="
+          height: 120px;
+          padding-top: 10px;
+          padding-left: 10px;
+          padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="schoolStatus">School *</ion-text> <br>
+
+        <div style="max-height: 50px; overflow: scroll;">
+
+          <ion-chip style="max-width: 99%;
+            overflow: auto;" *ngFor="let school of schoolsArray; let i = index">
+            <ion-label style="max-width: 90%;">{{school.name}}</ion-label>
+            <ion-icon (click)="deleteSchool(i)" style="color: white;" name="close-circle"></ion-icon>
+          </ion-chip>
+
+        </div>
+
+        <div style="height: 50px;
+        overflow: scroll;">
+
+          <ion-textarea style="height: 170px;
+                              font-size: 9pt;" placeholder="Enter Here" [(ngModel)]="school"
+            (keyup.enter)="schoolAded($event)" (ionChange)="onInput($event)"></ion-textarea>
+
+        </div>
+      </div> -->
+      <!-- /// -->
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="schoolStatus">School *</ion-text> <br>
+        <!-- <ion-input autocapitalize=words style="height: 26px;
+        font-size: 9pt;" placeholder="Enter Here" [(ngModel)]="school"></ion-input> -->
+        <div style="    max-height: 68px;
+        overflow: scroll;">
+
+          <ion-chip style="max-width: 99%;
+        overflow: auto;" *ngFor="let school of schoolsArray; let i = index">
+            <ion-label style="max-width: 90%;">{{school.name}}</ion-label>
+            <ion-icon (click)="deleteSchool(i)" style="color: white;" name="close-circle"></ion-icon>
+          </ion-chip>
+        </div>
+        <ion-input style="
+       font-size: 9pt;" placeholder="Enter Here" [(ngModel)]="school" (keyup.enter)="schoolAded()"
+          (ionChange)="onInput($event)" (ionChange)="changeFunction4($event)"></ion-input>
+
+
+      </div>
+
+
+
+      <!-- ///// -->
+
+
+      <ion-list style="    max-height: 210px;
+      overflow: scroll;" [hidden]="listishidden">
+        <ion-item *ngFor="let item of autocompleteItems" tappable (click)="selectSearchResult(item)" style="    --background: black;
+        color: white;">
+          {{item.name}}
+        </ion-item>
+      </ion-list>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+      <!-- //// -->
+      <!-- <div class="inp-bottom-radius" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="careerStatus">Career Goals + Life Goals (50 words) *
+        </ion-text>
+        <ion-textarea style="height: 170px;
+                   font-size: 9pt;" placeholder="Enter Here" [(ngModel)]="career"></ion-textarea>
+
+      </div> -->
+      <!-- //// -->
+
+
+      <div class="inp-bottom-radius" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="careerStatus">Career Goals + Life Goals (50 words) *
+        </ion-text> <br>
+
+        <ion-textarea style="height: 150px;
+       font-size: 9pt;" placeholder="Enter Here" [(ngModel)]="career" (ionChange)="changeFunction3($event)">
+        </ion-textarea>
+
+
+      </div>
+
+
+      <!-- //// -->
+
+
+    </div>
+
+
+    <ion-row style="margin-top: 6px;">
+      <ion-col>
+        <ion-label style="font-size: 9pt;">More Survey Questions *</ion-label>
+      </ion-col>
+    </ion-row>
+
+
+
+    <div style="border: 2px solid #707070; border-radius: 10px; margin-top: 6px;">
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="religionStatus">Religion *</ion-text> <br>
+
+        <ion-row (click)="goToReligion()">
+          <ion-col size="10">
+            <ion-text style="font-size: 9pt; color: #ffffff;">{{religion}}</ion-text>
+          </ion-col>
+
+          <ion-col size="2" style="text-align: right;">
+            <img style="width: 16px;
+            height: 16px;" src="assets/imgs/down-arrow.svg">
+          </ion-col>
+        </ion-row>
+
+
+
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="kosherStatus">Kosher *</ion-text> <br>
+
+        <ion-row (click)="goToMyKosher()">
+          <ion-col size="10">
+            <ion-text style="font-size: 9pt; color: #ffffff;">{{kosher}}</ion-text>
+          </ion-col>
+
+          <ion-col size="2" style="text-align: right;">
+            <img style="width: 16px;
+            height: 16px;" src="assets/imgs/down-arrow.svg">
+          </ion-col>
+        </ion-row>
+
+
+
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="affiliationStatus">Affiliation *</ion-text> <br>
+
+        <ion-row (click)="showaffiliation()">
+          <ion-col size="10">
+            <ion-text style="font-size: 9pt;color: #ffffff; ">{{affiliation}}</ion-text>
+          </ion-col>
+
+          <ion-col size="2" style="text-align: right;">
+            <img style="width: 16px;
+            height: 16px;" src="assets/imgs/down-arrow.svg">
+          </ion-col>
+        </ion-row>
+
+        <div [hidden]="affiliationshow" style="height: 100px;
+        overflow: auto;">
+
+          <h6 (click)="affiliationshowClick(nat)" *ngFor="let nat of affiliationArr">{{nat.name}}</h6>
+
+        </div>
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="meritalStatusStatus">Marital Status *</ion-text> <br>
+
+        <ion-row (click)="goTomaritalstatus()">
+          <ion-col size="10">
+            <ion-text style="font-size: 9pt ; color: #ffffff; ">{{meritalStatus}}</ion-text>
+          </ion-col>
+
+          <ion-col size="2" style="text-align: right;">
+            <img style="width: 16px;
+            height: 16px;" src="assets/imgs/down-arrow.svg">
+          </ion-col>
+        </ion-row>
+
+
+
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+
+      <div class="inp" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="relocateStatus">Willing to Relocate? *</ion-text> <br>
+
+        <ion-row (click)="showRelocete()">
+          <ion-col size="10">
+            <ion-text style="font-size: 9pt; color: #ffffff; ">{{relocate}}</ion-text>
+          </ion-col>
+
+          <ion-col size="2" style="text-align: right;">
+            <img style="width: 16px;
+            height: 16px;" src="assets/imgs/down-arrow.svg">
+          </ion-col>
+        </ion-row>
+
+        <div [hidden]="relocateshow" style="height: 50px;
+        overflow: auto;">
+
+          <h6 (click)="relocateshowClick(nat)" *ngFor="let nat of YesNoArr">{{nat.name}}</h6>
+
+        </div>
+
+      </div>
+
+      <hr style="border-bottom: 2px solid #707070; width: 100%;">
+
+      <div class="inp-bottom-radius" style="padding-top:10px; padding-left: 10px; padding-right: 10px;">
+
+        <ion-text style="font-size: 9pt;" [class.redclass]="personalityTypeStatus">Personality Type *</ion-text> <br>
+
+        <ion-row (click)="showpersonalityType()">
+          <ion-col size="10">
+            <ion-text style="font-size: 9pt;  color: #ffffff;">{{personalityType}}</ion-text>
+          </ion-col>
+
+          <ion-col size="2" style="text-align: right;">
+            <img style="width: 16px;
+            height: 16px;" src="assets/imgs/down-arrow.svg">
+          </ion-col>
+        </ion-row>
+
+        <div [hidden]="personalityTypeshow" style="height: 60px;
+        overflow: auto;">
+
+          <h6 (click)="personalityTypeshowClick(nat)" *ngFor="let nat of personalityTypeArr">{{nat.name}}</h6>
+
+        </div>
+
+
+      </div>
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <ion-row style="margin-top: 30px;">
+      <ion-col style="text-align: center;">
+        <button (click)="Continue()" style="margin-bottom: 12px;" class="btn">Continue</button>
+      </ion-col>
+    </ion-row>
+
+  </div>
+
+
+
+
+</ion-content>
+
+
+
+
+
+
+
+
+
+
+<div [hidden]="popupHidden" style="    height: 100%;
+width: 100%;
+background-color: rgb(0 0 0 / 68%);
+position: absolute;">
+
+  <div style="left: 10%;
+  position: absolute;
+  top: 40%;
+  width: 80%;
+  height: 147px;
+  background-color: rgb(255, 255, 255);
+  border-radius: 20px;">
+
+    <ion-row>
+      <ion-col style="padding-top: 10 px; padding-right: 10px;
+  text-align: right;">
+        <img style="    height: 10px;
+        width: 10px;
+        margin-right: 4px;
+        margin-top: 8px;" src="assets/imgs/closeblack.svg" (click)="hidePopup()">
+      </ion-col>
+    </ion-row>
+
+
+    <ion-row style="margin-top: -4px;">
+      <ion-col (click)="CameraSelected()" style="
+    text-align: center;">
+        <img style="height: 50px;
+      width: 50px;" src="assets/imgs/camera.svg">
+        <p style="color: black;">Camera</p>
+
+      </ion-col>
+      <ion-col (click)="GalerySelected()" style="
+    text-align: center;">
+        <img style="height: 50px;
+      width: 50px;" src="assets/imgs/galleryblack.svg">
+        <p style="color: black;">Gallery</p>
+
+      </ion-col>
+    </ion-row>
+
+  </div>
+
+</div>

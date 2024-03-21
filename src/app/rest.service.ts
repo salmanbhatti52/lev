@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -269,7 +268,6 @@ export class RestService {
   baseURL = 'https://thelevapp.co/backoffice/webservices/'
 
   baseUrlForImg = 'https://thelevapp.co/backoffice/uploads/users_customers/'
-
 
   newarr: any;
 
@@ -661,11 +659,20 @@ export class RestService {
       'Content-Type': 'application/json',
     };
 
-  
+
     return this.http.post(this.baseURL + 'get_faqs', { headers });
-    
+
   }
 
+  sendnotification(data) {
+    let headers = {
+      'Content-Type': 'application/json',
+    };
+
+
+    return this.http.post(this.baseURL + 'send_one_signal_notification', data, { headers });
+
+  }
 
 
 

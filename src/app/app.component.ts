@@ -1,16 +1,25 @@
 import { Component } from '@angular/core';
 import { NavController, Platform } from '@ionic/angular';
-import { OneSignal } from '@ionic-native/onesignal/ngx';
+// import { OneSignal } from '@ionic-native/onesignal/ngx';
+// import { OneSignal } from '@awesome-cordova-plugins/onesignal/ngx';
 import { WorkService } from './work.service';
 import { RestService } from './rest.service';
+// import OneSignal from 'onesignal-cordova-plugin';
+// declare var OneSignal: any;
+// declare var window: any;
 
 
+import OneSignal from 'onesignal-cordova-plugin';
+// import { OneSignalPlugin } from 'onesignal-cordova-plugin';
+declare var window: any
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })
+
 export class AppComponent {
+  uid: any;
 
 
   // oneSignalAppId = '3d7fddea-62ec-4b88-9b2f-1b15e2ba3138'
@@ -24,9 +33,10 @@ export class AppComponent {
 
   constructor(public platform: Platform,
     public navCtrl: NavController,
-    public oneSignal: OneSignal,
+    // public oneSignal: OneSignal,
     public workService: WorkService,
-    public restService: RestService
+    public restService: RestService,
+    // public oneSignal: OneSignalPlugin
   ) {
 
 
@@ -43,11 +53,16 @@ export class AppComponent {
         console.log('usr packageee--->>>>>', this.userData.packages_id);
         // var sbID = this.userData.packages_id
         var sbID = localStorage.getItem('packages_id')
-        if (sbID == '0' || sbID == 'null' || sbID == null) {
-          this.navCtrl.navigateRoot(['apply'], { replaceUrl: true })
-        } else {
-          this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
-        }
+        // if (sbID == '0' || sbID == 'null' || sbID == null) {
+        //   this.navCtrl.navigateRoot(['apply'], { replaceUrl: true })
+        // } else {
+        //   this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
+        // } // old code comment on 2-3-24
+        // if (sbID == 'null' || sbID == null) {
+        //   this.navCtrl.navigateRoot(['apply'], { replaceUrl: true })
+        // } else {
+        this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
+        // }
       } else {
         this.navCtrl.navigateRoot('/apply')
       }
@@ -121,8 +136,15 @@ export class AppComponent {
         })
       })
       // For onesignal push notification
+
+
       this.onesignalNotification();
 
+      const closedUserIdsString = localStorage.getItem('closematches');
+
+      const closedUserIds = closedUserIdsString ? JSON.parse(closedUserIdsString) : [];
+      console.log('closedUserIdsString', closedUserIds);
+      this.workService.closedUserIds = closedUserIds
     });
   }
 
@@ -130,37 +152,74 @@ export class AppComponent {
 
   onesignalNotification() {
     console.log("app noti checkind started");
+
+    // this.oneSignal.setAppId(this.oneSignalAppId);
+
+    // let onesignalID = this.oneSignal.setExternalUserId(localStorage.getItem('loggedinUserID'));
+    // console.log('onesignalIDss----', onesignalID);
+
+
+    // this.oneSignal.setNotificationWillShowInForegroundHandler(event => {
+    //   console.log('setNotificationWillShowInForegroundHandler', JSON.stringify(event));
+    // });
+
+    // this.oneSignal.setNotificationOpenedHandler(event => {
+    //   console.log('setNotificationOpenedHandler', JSON.stringify(event));
+    // })
+
+
+
+    OneSignal.setAppId(this.oneSignalAppId);
+
+    OneSignal.setNotificationOpenedHandler((jsonData) => {
+      console.log('setNotificationOpenedHandler: ' + JSON.stringify(jsonData));
+    });
+
+    OneSignal.promptForPushNotificationsWithUserResponse((accepted) => {
+      console.log('promptForPushNotificationsWithUserResponse: ' + accepted);
+    });
+
+    OneSignal.getDeviceState((resp: any) => {
+      const osUser: any = resp;
+      this.uid = osUser.userId;
+      console.log('userID==========>', osUser);
+      console.log('userID==========>', this.uid);
+      localStorage.setItem("oneSignaldeviceID", this.uid);
+      alert('id' + this.uid)
+    });
+
     // For onesignal push notification
-    this.oneSignal.setLogLevel({ logLevel: 6, visualLevel: 2 });
-    this.oneSignal.startInit(this.oneSignalAppId, this.oneSignalFirebaseId);
-    this.oneSignal.endInit();
-    this.oneSignal.getIds().then(
-      (identity) => {
-        this.identy = identity;
-        localStorage.setItem("oneSignaldeviceID", this.identy.userId);
-        console.log('userID==========>', this.identy.userId);
+    // this.oneSignal.setLogLevel({ logLevel: 6, visualLevel: 2 });
+    // this.oneSignal.startInit(this.oneSignalAppId, this.oneSignalFirebaseId);
+    // this.oneSignal.endInit();
+    // this.oneSignal.getIds().then(
+    //   (identity) => {
+    //     this.identy = identity;
+    //     localStorage.setItem("oneSignaldeviceID", this.identy.userId);
+    //     console.log('userID==========>', this.identy.userId);
 
-        // alert('id--->' + this.identy.userId)
+    //     // alert('id--->' + this.identy.userId)
 
-        this.pushNotification();
-      },
-      (err) => {
-        console.log("Error");
-        console.log(err);
-        return;
-      }
-    );
+    //     this.pushNotification();
+    //   },
+    //   (err) => {
+    //     console.log("Error");
+    //     console.log(err);
+    //     return;
+    //   }
+    // );
     // For onesignal push notification
   }
 
 
+
   pushNotification() {
-    this.oneSignal.startInit(this.oneSignalAppId, this.oneSignalFirebaseId);
+    // this.oneSignal.startInit(this.oneSignalAppId, this.oneSignalFirebaseId);
 
-    this.oneSignal.inFocusDisplaying(
-      this.oneSignal.OSInFocusDisplayOption.Notification
-    );
+    // this.oneSignal.inFocusDisplaying(
+    //   this.oneSignal.OSInFocusDisplayOption.Notification
+    // );
 
-    this.oneSignal.endInit();
+    // this.oneSignal.endInit();
   }
 }

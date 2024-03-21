@@ -10,8 +10,8 @@ import { WorkService } from '../work.service';
 
 import { InAppPurchase } from '@ionic-native/in-app-purchase/ngx';
 import { NavController, Platform, ToastController } from '@ionic/angular';
-import { InAppPurchase2 } from '@ionic-native/in-app-purchase-2/ngx';
-
+// import { InAppPurchase2 } from '@ionic-native/in-app-purchase-2/ngx';
+// import { InAppPurchase2 } from '@awesome-cordova-plugins/in-app-purchase-2/ngx';
 
 
 
@@ -281,22 +281,40 @@ export class SubscriptionPage implements OnInit {
 
   successSubscri() {
 
+    if (this.amount == 0) {
+      var subData = JSON.stringify({
+        "users_customers_id": localStorage.getItem('loggedinUserID'),
+        "transaction_id": 0,
+        "device_id": "NotAvaiable",
+        "packages_id": this.packages_id,
+        "product_id": 0,
+        "amount": this.amount,
+        "duration": this.duration,
+        "duration_type": this.duration_type,
+        "product_name": this.name,
+        "platform": this.platformSUB,
+        "coupon_codes_id": "0",
+        "codes": "0",
+        "coupon_amount": "0"
+      })
+    } else {
+      var subData = JSON.stringify({
+        "users_customers_id": localStorage.getItem('loggedinUserID'),
+        "transaction_id": this.userSubscriptionRes.transactionId,
+        "device_id": "NotAvaiable",
+        "packages_id": this.packages_id,
+        "product_id": this.subscriptionIdToSend,
+        "amount": this.amount,
+        "duration": this.duration,
+        "duration_type": this.duration_type,
+        "product_name": this.name,
+        "platform": this.platformSUB,
+        "coupon_codes_id": "0",
+        "codes": "0",
+        "coupon_amount": "0"
+      })
+    }
 
-    var subData = JSON.stringify({
-      "users_customers_id": localStorage.getItem('loggedinUserID'),
-      "transaction_id": this.userSubscriptionRes.transactionId,
-      "device_id": "NotAvaiable",
-      "packages_id": this.packages_id,
-      "product_id": this.subscriptionIdToSend,
-      "amount": this.amount,
-      "duration": this.duration,
-      "duration_type": this.duration_type,
-      "product_name": this.name,
-      "platform": this.platformSUB,
-      "coupon_codes_id": "0",
-      "codes": "0",
-      "coupon_amount": "0"
-    })
 
 
 
@@ -419,7 +437,7 @@ export class SubscriptionPage implements OnInit {
     this.status = sub.status
 
     if (this.amount == 0) {
-      this.router.navigate(['tabs/match'], { replaceUrl: true })
+      this.successSubscri()
     } else {
 
 

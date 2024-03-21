@@ -1,0 +1,208 @@
+<ion-content>
+
+  <ion-row class="top-margin-head-40">
+    <ion-col size="2" style="text-align: center;">
+      <img (click)="goBack()" style="height: 20px; width:20px;" src="assets/imgs/left.svg">
+    </ion-col>
+    <ion-col size="6" style="text-align: center; padding-top: 0px;">
+
+    </ion-col>
+    <ion-col size="4" style="text-align: center;">
+      <p (click)="goToEditProfile()" style="font-size: 14pt;">Edit Profile</p>
+    </ion-col>
+  </ion-row>
+
+
+
+  <ion-row class="margin-top-fixed">
+    <ion-col style="text-align: left;">
+      <p style="margin-left: 14px;
+      font-size: 14pt;">{{userData.first_name}} {{userData.last_name}}</p>
+    </ion-col>
+  </ion-row>
+
+
+  <ion-row style="margin-top: 10px;">
+    <ion-col style="text-align: center;">
+      <img (error)="handleImgError($event, item)" style="    width: 70%;
+      height: 250px;" src="{{restService.baseUrlForImg}}{{userData.profile_pic_1}}">
+    </ion-col>
+  </ion-row>
+
+
+  <div style="padding: 25px;">
+    <p style="font-size:14pt;">Prompt</p>
+
+    <div style="margin-top: 18px;
+    border-radius: 5px;
+    border: 2px solid #707070;
+    padding: 15px;">
+
+      <ion-text style="font-size: 10pt;">
+        {{prompt1Head}}
+      </ion-text>
+      <br>
+      <ion-text style="font-size: 10pt;">
+        {{prompt1Data}}
+      </ion-text>
+
+
+      <!-- <img style="position: absolute;
+          height: 25px;
+          width: 25px;
+          padding: 2px;
+          border: 1px solid white;
+          right: 36px;" src="assets/imgs/share.svg"> -->
+    </div>
+
+
+
+    <ion-row style="margin-top: 20px;">
+      <ion-col style="text-align: center;">
+        <img (error)="handleImgError($event, item)" style=" width: 70%;
+        height: 250px;" src="{{restService.baseUrlForImg}}{{userData.profile_pic_2}}">
+      </ion-col>
+    </ion-row>
+
+
+    <div style="padding: 0px;">
+      <p style="font-size:14pt;">Prompt</p>
+
+      <div style="margin-top: 18px;
+    border-radius: 5px;
+    border: 2px solid #707070;
+    padding: 15px;">
+
+        <ion-text style="font-size: 10pt;">
+          {{prompt2Head}}
+        </ion-text>
+        <br>
+        <ion-text style="font-size: 10pt;">
+          {{prompt2Data}}
+        </ion-text>
+
+        <!-- <img style="position: absolute;
+          height: 25px;
+          width: 25px;
+          padding: 2px;
+          border: 1px solid white;
+          right: 36px;" src="assets/imgs/share.svg"> -->
+      </div>
+
+    </div>
+
+
+
+
+
+    <ion-row style="margin-top: 30px;">
+      <ion-col>
+
+        <ion-text style="font-size: 10pt;">Height</ion-text>
+        <br>
+        <ion-text style="font-size: 10pt; color: #ffffff;">{{height1}}'{{height2}} feet</ion-text>
+
+      </ion-col>
+
+      <ion-col>
+
+        <ion-text style="font-size: 10pt;">Location</ion-text>
+        <br>
+        <ion-text style="font-size: 10pt; color: #ffffff;">{{userData.lives}}</ion-text>
+
+      </ion-col>
+    </ion-row>
+
+    <hr style="border-bottom: 1px solid white; width: 100%;">
+
+
+
+
+    <ion-row style="margin-top: 10px;">
+      <ion-col>
+
+        <ion-text style="font-size: 10pt;">Status</ion-text>
+        <br>
+        <ion-text style="font-size: 10pt; color: #ffffff;">{{userData.system_maritalstatus_name}}</ion-text>
+
+      </ion-col>
+
+
+    </ion-row>
+
+    <hr style="border-bottom: 1px solid white; width: 100%;">
+
+
+
+
+
+    <ion-row style="margin-top: 10px;">
+      <ion-col>
+
+        <ion-text style="font-size: 10pt;">Religion</ion-text>
+        <br>
+        <ion-text style="font-size: 10pt; color: #ffffff;">{{userData.system_religions_name}}</ion-text>
+
+      </ion-col>
+
+
+    </ion-row>
+
+    <hr style="border-bottom: 1px solid white; width: 100%;">
+
+
+
+
+    <div style="margin-top: 10px;">
+      <ion-text style="font-size: 10pt;">Schools</ion-text>
+      <br>
+      <ion-chip style="background: #4f4f4f; max-width: 99%;
+        overflow: auto;" *ngFor="let school of userSchool; let i = index">
+        <ion-label>{{school.name}}</ion-label>
+      </ion-chip>
+
+
+    </div>
+
+    <hr style="border-bottom: 1px solid white; width: 100%;">
+
+
+
+    <ion-row style="margin-top: 10px;">
+      <ion-col>
+
+        <ion-text style="font-size: 10pt;">Short Bio</ion-text>
+        <br>
+        <ion-text style="font-size: 10pt; color: #ffffff;">{{userData.short_bio}}</ion-text>
+
+      </ion-col>
+
+
+    </ion-row>
+    <p style="font-size:14pt;">Prompt</p>
+
+    <div style="margin-top: 18px;
+    border-radius: 5px;
+    border: 2px solid #707070;
+    padding: 15px;">
+
+      <ion-text style="font-size: 10pt;">
+        {{prompt3Head}}
+      </ion-text>
+      <br>
+      <ion-text style="font-size: 10pt;">
+        {{prompt3Data}}
+      </ion-text>
+      <!-- 
+      <img style="position: absolute;
+          height: 25px;
+          width: 25px;
+          padding: 2px;
+          border: 1px solid white;
+          right: 36px;" src="assets/imgs/share.svg"> -->
+    </div>
+
+  </div>
+
+
+</ion-content>

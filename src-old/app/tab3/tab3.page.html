@@ -1,0 +1,87 @@
+<ion-content>
+
+  <ion-row class="top-margin-head-40">
+    <ion-col style="text-align: right;">
+      <p (click)="goToViewProfile()" style="font-size:14pt;     padding-right: 10px;">View Profile</p>
+    </ion-col>
+  </ion-row>
+
+
+
+  <ion-row class="margin-top-fixed">
+    <ion-col style="text-align: center;">
+      <img (error)="handleImgError($event, item)" style="    height: 135px;
+      width: 135px;
+      border-radius: 50%;
+      object-fit: cover;" src="{{restService.baseUrlForImg}}{{userData.profile_pic_1}}">
+    </ion-col>
+  </ion-row>
+
+  <ion-row>
+    <ion-col style="text-align: center;">
+      <p style="font-size:11pt;">{{userData.first_name}} {{userData.last_name}}</p>
+    </ion-col>
+  </ion-row>
+
+  <div style="padding: 20px;">
+
+
+    <ion-row (click)="goToprefrence()">
+      <ion-col size="8">
+        <p style="font-size:10pt;">Preference</p>
+      </ion-col>
+
+      <ion-col size="4" style="text-align: right;">
+        <img style="height: 15px;
+                  width: 15px;" src="assets/imgs/right.svg">
+      </ion-col>
+
+    </ion-row>
+
+    <hr style="    margin-bottom: 14px; margin-top: 12px;
+    width: 100%;
+    border-bottom: 1px solid white;">
+
+
+
+
+
+    <ion-row (click)="goToAccountsetting()">
+      <ion-col size="8">
+        <p style="font-size:10pt;">Account Settings</p>
+      </ion-col>
+
+      <ion-col size="4" style="text-align: right;">
+        <img style="height: 15px;
+              width: 15px;" src="assets/imgs/right.svg">
+      </ion-col>
+
+    </ion-row>
+
+    <hr style=" margin-top: 12px;
+width: 100%;
+border-bottom: 1px solid white;">
+
+
+
+
+
+    <ion-row (click)="goToContactUs()">
+      <ion-col size="8">
+        <p style="font-size:10pt;">Contact Us</p>
+      </ion-col>
+
+      <ion-col size="4" style="text-align: right;">
+        <img style="height: 15px;
+              width: 15px;" src="assets/imgs/right.svg">
+      </ion-col>
+
+    </ion-row>
+
+
+
+
+  </div>
+
+
+</ion-content>

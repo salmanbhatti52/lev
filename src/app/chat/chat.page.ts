@@ -256,10 +256,36 @@ export class ChatPage implements OnInit {
         this.sendMessage(parseInt(this.senderUserID), msgToSend, "text");
       }
     } else {
+      this.presentAlert();
       this.workService.presentToast('Message limit exceeded.')
     }
 
 
+  }
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      cssClass: 'custom-alertclass',
+      header: 'Limit Exceeded',
+      message: 'Your message limit exceeded. Buy package to send more messages.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        }, {
+          text: 'Buy',
+          handler: () => {
+            console.log('Confirm Buy');
+            this.router.navigate(['subscription'])
+            // Here you can add the code to redirect the user to a page where they can buy the package
+          },
+        },
+      ],
+    });
+
+    await alert.present();
   }
   scrollDown() {
     this.content.scrollToBottom();
@@ -493,7 +519,7 @@ export class ChatPage implements OnInit {
   }
 
 
-  
+
 
 
 
@@ -513,7 +539,7 @@ export class ChatPage implements OnInit {
         this.userData = this.workService.myUserData.data.user_data
         localStorage.setItem('userNotiStatus', this.workService.myUserData.data.user_data.notification_switch)
 
-        this.router.navigate(['viewprofileother'])  
+        this.router.navigate(['viewprofileother'])
       }
     }, err => {
       this.workService.hideLoading()

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { NavController, Platform } from '@ionic/angular';
+import { AlertController, NavController, Platform } from '@ionic/angular';
 import { RestService } from '../rest.service';
 import { UserserviceService } from '../userservice.service';
 import { WorkService } from '../work.service';
@@ -16,6 +16,7 @@ export class Tab2Page {
   skeletonArray = [1, 2, 3, 4, 5, 6];
   noChatlistFlag = false;
   allChats = [];
+  remainingSMS: any;
 
   constructor(
     private navCtrl: NavController,
@@ -23,7 +24,8 @@ export class Tab2Page {
     public userService: UserserviceService,
     public workService: WorkService,
     public platform: Platform,
-    public router: Router
+    public router: Router,
+    public alertController: AlertController
   ) {
 
 
@@ -36,7 +38,7 @@ export class Tab2Page {
     this.authToken = localStorage.getItem("token");
 
     // geting all chats list
-    this.getChatList();
+
   }
 
   ngOnInit() { }
@@ -50,6 +52,7 @@ export class Tab2Page {
     this.restService.get_user_dataAPI(data).subscribe((res: any) => {
       console.log('incomming data === ', res);
       if (res.status == "success") {
+        this.remainingSMS = res.data.user_data.allowed_sms;
         localStorage.setItem('remainingSMS', res.data.user_data.allowed_sms)
         console.log('smssssss-------------------', res.data.user_data.allowed_sms);
         localStorage.setItem('userNotiStatus', this.workService.myUserData.data.user_data.notification_switch)
@@ -58,6 +61,7 @@ export class Tab2Page {
       this.workService.hideLoading()
       this.workService.presentToast('Network error occured')
     })
+    this.getChatList();
   }
 
   getChatList(event?) {
@@ -85,12 +89,20 @@ export class Tab2Page {
         console.log("response-----------------", res);
         if (res.status == "success") {
           this.allChats = res.data.chat_list_details;
+          let userIds = this.workService.closedUserIds
+          this.allChats = this.allChats.filter(chat => !userIds.includes(chat.user_id));
+
           // this.allChats = this.allChats.map((val) => ({
           //   ...val,
           //   msg_time: this.extras.formatAMPM(new Date(val.msg_time)),
           // }));
           console.log("receving All chats", this.allChats);
-          this.noChatlistFlag = false;
+          if (this.allChats.length == 0) {
+            this.noChatlistFlag = true;
+          } else {
+            this.noChatlistFlag = false;
+          }
+
         } else {
           this.noChatlistFlag = true;
         }
@@ -106,8 +118,12 @@ export class Tab2Page {
     this.userService.userId = userDetails.user_id
     this.userService.userName = userDetails.name
     this.userService.userIMG = userDetails.profileImage
+    if (this.remainingSMS > 0) {
+      this.navCtrl.navigateForward("/chat");
+    } else {
+      this.presentAlert()
+    }
 
-    this.navCtrl.navigateForward("/chat");
   }
 
 
@@ -116,5 +132,32 @@ export class Tab2Page {
     let imgSrc = `assets/imgs/placeholder.jpg`;
 
     source.src = imgSrc;
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      // cssClass: 'my-custom-alert',
+      cssClass: 'custom-alertclass',
+      header: 'Limit Exceeded',
+      message: 'Your message limit exceeded. Buy package to send more messages.',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          },
+        }, {
+          text: 'Buy',
+          handler: () => {
+            console.log('Confirm Buy');
+            this.router.navigate(['subscription'])
+            // Here you can add the code to redirect the user to a page where they can buy the package
+          },
+        },
+      ],
+    });
+
+    await alert.present();
   }
 }

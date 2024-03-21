@@ -1,0 +1,47 @@
+ion-col {
+    padding: 0px;
+}
+
+.btn {
+    background: #172A36 0% 0% no-repeat padding-box;
+    // color: black;
+    font-size: 14pt;
+    box-shadow: 0px 4px 10px #0000001f;
+    border-radius: 10px;
+    opacity: 1;
+    width: 100%;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    color: #ffffff;
+}
+
+.btn_disable {
+    background: #172A36 0% 0% no-repeat padding-box;
+    color: #ffffff;
+    font-size: 14pt;
+    box-shadow: 0px 4px 10px #0000001f;
+    border-radius: 10px;
+    opacity: 1;
+    width: 100%;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+.cimg{
+    margin-right: 5%;
+}
+.block{
+    margin-right: 10%;
+}
+.uimage{
+    height: 330pt;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+.blurimage{
+    height: 330pt;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    filter: blur(30px) !important;
+}
