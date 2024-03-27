@@ -117,7 +117,7 @@ ion-content {
 }
 
 .my-custom-alert .alert-button {
-  color:#314f40 !important; /* Example: Change button text color */
+  color:#13322D !important; /* Example: Change button text color */
 }
 .my-custom-alert .alert-message.sc-ion-alert-ios{
   padding-top: 5px !important;
@@ -126,7 +126,7 @@ ion-content {
 
 //alert csss for match page///
 .custom-alertclass .alert-wrapper.sc-ion-alert-md {
-  background:#314f40 !important;
+  background:#13322D !important;
   font-family: "Poppin-reg" !important;
   border-radius: 10px !important;
 }
@@ -184,7 +184,7 @@ button.alert-button.alert-button-confirm {
 }
 .custom-alert button.alert-button.alert-button-confirm {
   // background-color: #314f40;
-  color: #314f40 !important;
+  color: #13322D !important;
 }
 .md button.alert-button.alert-button-confirm {
   border-radius: 4px;
@@ -194,7 +194,7 @@ button.alert-button.alert-button-confirm {
   -webkit-box-shadow: none;
   box-shadow: none;
   overflow: hidden;
-  background-color: #314f40;
+  background-color: #13322D;
 }
 .ios .custom-alert button.alert-button {
   border: 0.55px solid rgba(var(--ion-text-color-rgb, 0, 0, 0), 0.2)
@@ -713,5 +713,5 @@ a {
   --height: 518px;
   --border-radius: 0px;
   padding: 20px;
-  background-color: #314f40a3;
+  background-color: #13322D;
 }
