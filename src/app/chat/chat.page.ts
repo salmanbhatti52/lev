@@ -234,31 +234,31 @@ export class ChatPage implements OnInit {
 
     console.log('remainong smssss---', this.remainingSMS)
 
-    if (this.remainingSMS > 0) {
-      var time = new Date();
-      this.currentTime = time.toLocaleString("en-US", {
-        hour: "numeric",
-        minute: "numeric",
-        hour12: true,
+    // if (this.remainingSMS > 0) {
+    var time = new Date();
+    this.currentTime = time.toLocaleString("en-US", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    });
+    console.log(this.currentTime, "curent");
+    if (this.user_input !== "") {
+      this.allMessages.push({
+        userId: this.currentUser,
+        time: this.currentTime,
+        message: this.user_input,
+        msgType: "text",
       });
-      console.log(this.currentTime, "curent");
-      if (this.user_input !== "") {
-        this.allMessages.push({
-          userId: this.currentUser,
-          time: this.currentTime,
-          message: this.user_input,
-          msgType: "text",
-        });
 
-        let msgToSend = this.user_input;
-        this.user_input = "";
-        this.scrollDown();
-        this.sendMessage(parseInt(this.senderUserID), msgToSend, "text");
-      }
-    } else {
-      this.presentAlert();
-      this.workService.presentToast('Message limit exceeded.')
+      let msgToSend = this.user_input;
+      this.user_input = "";
+      this.scrollDown();
+      this.sendMessage(parseInt(this.senderUserID), msgToSend, "text");
     }
+    // } else {
+    //   // this.presentAlert();
+    //   this.workService.presentToast('Message limit exceeded.')
+    // }
 
 
   }

@@ -560,11 +560,13 @@ export class GettingstartPage implements OnInit {
 
           localStorage.setItem('packages_id', sbID)
 
-          if (sbID.toString() == '0') {
-            this.navCtrl.navigateRoot(['subscriptionlogin'], { replaceUrl: true })
-          } else {
-            this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
-          }
+          this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
+
+          // if (sbID.toString() == '0') {
+          //   this.navCtrl.navigateRoot(['subscriptionlogin'], { replaceUrl: true })
+          // } else {
+          //   this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
+          // }
           ////is ko 1 karna ha after testing///
 
           ///latest comment code 27-1-24

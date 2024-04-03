@@ -118,11 +118,13 @@ export class Tab2Page {
     this.userService.userId = userDetails.user_id
     this.userService.userName = userDetails.name
     this.userService.userIMG = userDetails.profileImage
-    if (this.remainingSMS > 0) {
-      this.navCtrl.navigateForward("/chat");
-    } else {
-      this.presentAlert()
-    }
+    this.navCtrl.navigateForward("/chat");
+
+    // if (this.remainingSMS > 0) {
+    //   this.navCtrl.navigateForward("/chat");
+    // } else {
+    //   this.presentAlert()
+    // }
 
   }
 
