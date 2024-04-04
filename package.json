@@ -35,7 +35,6 @@
     "@ionic/angular": "^5.8.5",
     "@ionic/storage": "^2.3.1",
     "cordova-browser": "6.0.0",
-    "cordova-ios": "6.2.0",
     "cordova-plugin-detect-screenshot": "1.0.8",
     "cordova-plugin-device": "2.0.2",
     "cordova-plugin-file-transfer-latest": "^2.0.2-dev",
@@ -135,7 +134,6 @@
     },
     "platforms": [
       "browser",
-      "ios",
       "android"
     ]
   }

@@ -7,7 +7,7 @@ import { WorkService } from '../work.service';
 
 // import { InAppBrowser } from '@awesome-cordova-plugins/in-app-browser/ngx';
 import { UserpreferencesmodalPage } from '../userpreferencesmodal/userpreferencesmodal.page';
-import { UserpreferencesmodalPageModule } from '../userpreferencesmodal/userpreferencesmodal.module';
+
 
 @Component({
   selector: 'app-tab1',
