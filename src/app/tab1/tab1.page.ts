@@ -1,4 +1,4 @@
-import { SubscriptionChange } from './../../../plugins/onesignal-cordova-plugin/www/Subscription';
+
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController, ModalController, Platform } from '@ionic/angular';
