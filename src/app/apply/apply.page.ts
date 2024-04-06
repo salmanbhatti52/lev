@@ -37,8 +37,8 @@ export class ApplyPage implements OnInit {
 
   ngOnInit() {
     var dateTime = new Date();
-    console.log('dateee timeeee',dateTime);
-    
+    console.log('dateee timeeee', dateTime);
+
   }
 
   goTogettingstart() {
@@ -49,7 +49,8 @@ export class ApplyPage implements OnInit {
 
   goToLogin() {
     this.workService.comingForm = 'login'
-    this.router.navigate(['gettingstart'])
+    this.router.navigate(['gettingstart']);
+    localStorage.setItem('isUserDetailsModalShown', 'false');
   }
 
 }

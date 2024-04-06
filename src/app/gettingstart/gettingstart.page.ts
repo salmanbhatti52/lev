@@ -29,6 +29,7 @@ import { createTextMaskInputElement } from 'text-mask-core';
 // import OneSignal from 'onesignal-cordova-plugin';
 firebase.initializeApp(firebaseConfig);
 
+import OneSignal from 'onesignal-cordova-plugin';
 @Component({
   selector: 'app-gettingstart',
   templateUrl: './gettingstart.page.html',
@@ -69,7 +70,7 @@ export class GettingstartPage implements OnInit {
 
   userData: any = ''
   uid: any;
-
+  oneSignalAppId = 'db3264f6-fcb1-49e5-b3df-888a40925111'
   constructor(public router: Router,
     public restService: RestService,
     public workService: WorkService,
@@ -108,6 +109,7 @@ export class GettingstartPage implements OnInit {
     myprompts[prompt3HeadIDVal] = prompt3Val;
 
     console.log('my array ---->>>', myprompts)
+
 
 
   }

@@ -47,25 +47,25 @@ export class AppComponent {
 
       // Login code start here
 
-      // if (localStorage.getItem('login') == 'isLogin') {
-      //   this.checkSubscription()
-      //   this.userData = JSON.parse(localStorage.getItem('loggedinUserData'))
-      //   console.log('usr packageee--->>>>>', this.userData.packages_id);
-      //   // var sbID = this.userData.packages_id
-      //   var sbID = localStorage.getItem('packages_id')
-      //   // if (sbID == '0' || sbID == 'null' || sbID == null) {
-      //   //   this.navCtrl.navigateRoot(['apply'], { replaceUrl: true })
-      //   // } else {
-      //   //   this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
-      //   // } // old code comment on 2-3-24
-      //   // if (sbID == 'null' || sbID == null) {
-      //   //   this.navCtrl.navigateRoot(['apply'], { replaceUrl: true })
-      //   // } else {
-      //   this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
-      //   // }
-      // } else {
-      //   this.navCtrl.navigateRoot('/apply')
-      // }
+      if (localStorage.getItem('login') == 'isLogin') {
+        this.checkSubscription()
+        this.userData = JSON.parse(localStorage.getItem('loggedinUserData'))
+        console.log('usr packageee--->>>>>', this.userData.packages_id);
+        // var sbID = this.userData.packages_id
+        var sbID = localStorage.getItem('packages_id')
+        // if (sbID == '0' || sbID == 'null' || sbID == null) {
+        //   this.navCtrl.navigateRoot(['apply'], { replaceUrl: true })
+        // } else {
+        //   this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
+        // } // old code comment on 2-3-24
+        // if (sbID == 'null' || sbID == null) {
+        //   this.navCtrl.navigateRoot(['apply'], { replaceUrl: true })
+        // } else {
+        this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
+        // }
+      } else {
+        this.navCtrl.navigateRoot('/apply')
+      }
 
       //   // Login code end here
 
@@ -179,13 +179,14 @@ export class AppComponent {
       console.log('promptForPushNotificationsWithUserResponse: ' + accepted);
     });
 
-    OneSignal.getDeviceState((resp: any) => {
-      const osUser: any = resp;
-      this.uid = osUser.userId;
-      console.log('userID==========>', osUser);
-      console.log('userID==========>', this.uid);
-      localStorage.setItem("oneSignaldeviceID", this.uid);
-    });
+    this.setupDeviceStateListener();
+    // OneSignal.getDeviceState((resp: any) => {
+    //   const osUser: any = resp;
+    //   this.uid = osUser.userId;
+    //   console.log('userID==========>', osUser);
+    //   console.log('userID1223222==========>', this.uid);
+    //   localStorage.setItem("oneSignaldeviceID", this.uid);
+    // });
 
     // For onesignal push notification
     // this.oneSignal.setLogLevel({ logLevel: 6, visualLevel: 2 });
@@ -208,6 +209,18 @@ export class AppComponent {
     //   }
     // );
     // For onesignal push notification
+  }
+
+  setupDeviceStateListener(): void {
+    OneSignal.addSubscriptionObserver((state) => {
+      if (state.to.userId) {
+        console.log('OneSignal User ID:', state.to.userId);
+        localStorage.setItem("oneSignaldeviceID", state.to.userId);
+
+      }
+    });
+
+
   }
 
 
