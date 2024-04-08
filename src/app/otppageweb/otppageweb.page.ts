@@ -150,11 +150,11 @@ export class OtppagewebPage implements OnInit {
           //packages_id will be 1 or 0//////
           // 0 for not active package
           // 1 for when pacakge is active
-          if (res.data.packages_id.toString() == '0') {
-            this.navCtrl.navigateRoot(['subscriptionlogin'], { replaceUrl: true })
-          } else {
-            this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
-          }
+          // if (res.data.packages_id.toString() == '0') {
+          //   this.navCtrl.navigateRoot(['subscriptionlogin'], { replaceUrl: true })
+          // } else {
+          this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
+          // }
 
         } else if (res.data.status == "Pending") {
           this.workService.presentToast('Your application is under review by the admin.')
@@ -204,11 +204,11 @@ export class OtppagewebPage implements OnInit {
       console.log('usr packageee--->>>>>', this.userData.packages_id);
       var sbID = this.userData.packages_id
 
-      if (sbID.toString() == '0') {
-        this.navCtrl.navigateRoot(['subscription'], { replaceUrl: true })
-      } else {
-        this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
-      }
+      // if (sbID.toString() == '0') {
+      //   this.navCtrl.navigateRoot(['subscription'], { replaceUrl: true })
+      // } else {
+      this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
+      // }
     }
 
 
