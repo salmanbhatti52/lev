@@ -70,6 +70,19 @@ export class GettingstartPage implements OnInit {
 
   userData: any = ''
   uid: any;
+  subArray: any = '';
+  sbID: any = '';
+
+  amount: any = ''
+  android_product_id: any = ''
+  duration: any = ''
+  duration_type: any = ''
+  ios_product_id: any = ''
+  name: any = ''
+  packages_id: any = ''
+  status: any = ''
+  platformSUB: any = ''
+
   oneSignalAppId = 'db3264f6-fcb1-49e5-b3df-888a40925111'
   constructor(public router: Router,
     public restService: RestService,
@@ -88,9 +101,58 @@ export class GettingstartPage implements OnInit {
 
   }
 
+  ionViewWillEnter() {
 
+    console.log('login or signup ----', this.workService.comingForm);
+
+    var imgArr = [{ "id": 0, "img": "data:image/p" }, { "id": 0, "img": "data:image/p" }]
+
+
+    console.log('my tessssstttttttZ---------', imgArr[0].img);
+
+    var stringy = JSON.stringify({
+
+    })
+
+    this.restService.getSubScriptionDetailsAPI(stringy).subscribe((res: any) => {
+      this.workService.hideLoading()
+      console.log('incomming data----', res)
+
+      if (res.status == "success") {
+        console.log(res.data)
+        console.log('user dataaaa', res);
+        this.subArray = res.data
+
+
+
+        this.userData = JSON.parse(localStorage.getItem('loggedinUserData'))
+
+
+
+        console.log('usr packageee--->>>>>', localStorage.getItem('packages_id'));
+
+        this.sbID = localStorage.getItem('packages_id')
+
+        if (this.platform.is('ios')) {
+          this.platformSUB = "IOS"
+        } else if (this.platform.is('android')) {
+          this.platformSUB = "Android"
+
+
+        }
+
+      }
+
+    }, err => {
+      this.workService.hideLoading()
+      this.workService.presentToast('Network error occured')
+    })
+
+  }
 
   ngOnInit() {
+
+
 
 
     var prompt1HeadIDVal = 1
@@ -378,16 +440,7 @@ export class GettingstartPage implements OnInit {
   }
 
 
-  ionViewWillEnter() {
 
-    console.log('login or signup ----', this.workService.comingForm);
-
-    var imgArr = [{ "id": 0, "img": "data:image/p" }, { "id": 0, "img": "data:image/p" }]
-
-
-    console.log('my tessssstttttttZ---------', imgArr[0].img);
-
-  }
 
 
 
@@ -577,6 +630,8 @@ export class GettingstartPage implements OnInit {
           // } else {
           //   this.navCtrl.navigateRoot(['/tabs/tab1'], { replaceUrl: true })
           // }
+
+          this.autoFreesubcription()
         }
 
 
@@ -591,6 +646,54 @@ export class GettingstartPage implements OnInit {
 
 
 
+  }
+
+  autoFreesubcription() {
+
+    this.amount = this.subArray[0].amount
+    this.android_product_id = this.subArray[0].android_product_id
+    this.duration = this.subArray[0].duration
+    this.duration_type = this.subArray[0].duration_type
+    this.ios_product_id = this.subArray[0].ios_product_id
+    this.name = this.subArray[0].name
+    this.packages_id = this.subArray[0].packages_id
+    this.status = this.subArray[0].status
+
+
+    var subData = JSON.stringify({
+      "users_customers_id": localStorage.getItem('loggedinUserID'),
+      "transaction_id": 0,
+      "device_id": "NotAvaiable",
+      "packages_id": this.packages_id,
+      "product_id": 0,
+      "amount": this.amount,
+      "duration": this.duration,
+      "duration_type": this.duration_type,
+      "product_name": this.name,
+      "platform": this.platformSUB,
+      "coupon_codes_id": "0",
+      "codes": "0",
+      "coupon_amount": "0"
+    })
+
+    console.log('subData to send---->>>', subData);
+
+    this.restService.saveSubscriptiondataAPI(subData)
+      .subscribe((data: any) => {
+        console.log(data)
+
+
+        if (data.status == 'success') {
+          localStorage.setItem('packages_id', this.packages_id)
+          this.router.navigate(['tabs/tab1'], { replaceUrl: true })
+        } else {
+          this.workService.presentToast('Some Error Occuresd.')
+        }
+
+      }, err => {
+        this.workService.hideLoading()
+        this.workService.presentToast('Network error occured')
+      });
   }
 
 

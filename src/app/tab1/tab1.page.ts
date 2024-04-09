@@ -124,7 +124,9 @@ export class Tab1Page {
 
   async openPreferences(userdata) {
     const isModalShown = localStorage.getItem('isUserDetailsModalShown');
-    if (!isModalShown) {
+    console.log('modal show value=====', isModalShown);
+
+    if (isModalShown == 'false' || isModalShown == null) {
       const modal = await this.modalController.create({
         component: UserpreferencesmodalPage,
         componentProps: { data: userdata }

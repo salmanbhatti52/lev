@@ -316,7 +316,7 @@ export class MatchPage implements OnInit {
     // if (this.matches.length > 1) {
 
     // }
-    // this.matches.splice(0, 1);
+    // this.matches.splice(0, 1)
 
     // console.log(this.matches);
     // this.totalMatches = this.matches.length
@@ -455,8 +455,8 @@ export class MatchPage implements OnInit {
       console.log('data-----', res);
 
       if (res.status == 'success') {
-        this.matches = res.data
-        this.totalMatches = this.matches.length
+        this.matches = res.data.match_list
+        this.totalMatches = res.data.match_list_total
       } else {
         this.workService.presentToast('No Match Found')
       }

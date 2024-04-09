@@ -24,7 +24,9 @@ export class AppComponent {
 
   // oneSignalAppId = '3d7fddea-62ec-4b88-9b2f-1b15e2ba3138'
   // oneSignalFirebaseId = '257224415793'
-  oneSignalAppId = 'db3264f6-fcb1-49e5-b3df-888a40925111'
+
+  // oneSignalAppId = 'db3264f6-fcb1-49e5-b3df-888a40925111'
+  oneSignalAppId = 'b7f6d9f4-d9a3-4f5d-a046-35d15c040927'
   oneSignalFirebaseId = '150920249203'
   identy: any = ''
   userData: any = ''

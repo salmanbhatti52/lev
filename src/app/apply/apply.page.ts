@@ -43,14 +43,16 @@ export class ApplyPage implements OnInit {
 
   goTogettingstart() {
     this.workService.comingForm = 'sigup'
-    this.router.navigate(['gettingstart'])
+    this.router.navigate(['gettingstart']);
+    localStorage.setItem('isUserDetailsModalShown', 'false');
   }
 
 
   goToLogin() {
     this.workService.comingForm = 'login'
-    this.router.navigate(['gettingstart']);
     localStorage.setItem('isUserDetailsModalShown', 'false');
+    this.router.navigate(['gettingstart']);
+
   }
 
 }
